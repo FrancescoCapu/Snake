@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Snake
 {
-    public partial class Form1 : Form
+    public partial class frmSnake : Form
     {
-        public Form1()
+
+
+        public frmSnake()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
