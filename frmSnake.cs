@@ -12,7 +12,8 @@ namespace Snake
 {
     public partial class frmSnake : Form
     {
-
+        private Color[,] campoGioco;
+        public int sizeStampa;
 
         public frmSnake()
         {
