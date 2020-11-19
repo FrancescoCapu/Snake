@@ -9,5 +9,6 @@ namespace Snake
     class Serpente
     {
         public int dim;
+        int loner;
     }
 }
