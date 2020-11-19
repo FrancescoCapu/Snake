@@ -8,5 +8,6 @@ namespace Snake
 {
     class Serpente
     {
+        public int dim;
     }
 }
