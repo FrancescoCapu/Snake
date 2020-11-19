@@ -40,6 +40,7 @@ namespace Snake
             this.pnlCampoGioco.Name = "pnlCampoGioco";
             this.pnlCampoGioco.Size = new System.Drawing.Size(800, 450);
             this.pnlCampoGioco.TabIndex = 0;
+            this.pnlCampoGioco.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCampoGioco_Paint);
             // 
             // frmSnake
             // 

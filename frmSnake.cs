@@ -24,5 +24,10 @@ namespace Snake
         {
 
         }
+
+        private void pnlCampoGioco_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
