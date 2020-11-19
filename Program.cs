@@ -16,7 +16,7 @@ namespace Snake
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSnake());
+            Application.Run(new frmMenu());
         }
     }
 }

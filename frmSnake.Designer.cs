@@ -34,13 +34,13 @@ namespace Snake
             // 
             // pnlCampoGioco
             // 
+            this.pnlCampoGioco.AutoSize = true;
             this.pnlCampoGioco.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlCampoGioco.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCampoGioco.Location = new System.Drawing.Point(0, 0);
             this.pnlCampoGioco.Name = "pnlCampoGioco";
             this.pnlCampoGioco.Size = new System.Drawing.Size(800, 450);
             this.pnlCampoGioco.TabIndex = 0;
-            this.pnlCampoGioco.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlCampoGioco_Paint);
             // 
             // frmSnake
             // 
@@ -50,8 +50,10 @@ namespace Snake
             this.Controls.Add(this.pnlCampoGioco);
             this.Name = "frmSnake";
             this.Text = "Snake";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSnake_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
