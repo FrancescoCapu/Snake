@@ -12,12 +12,19 @@ namespace Snake
 {
     public partial class frmMenu : Form
     {
-        private int HeightCampoGioco, WidthCampoGioco;
+        private int HeightCampoGioco, WidthCampoGioco, timerInterval;
         enum DimensioniCampoGioco
         {
             Piccolo,
             Medio,
             Grande
+        }
+
+        enum Velocita
+        {
+            Lento,
+            Normale,
+            Veloce
         }
 
         public frmMenu()
@@ -30,29 +37,58 @@ namespace Snake
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
+            cmbDimensioneCampo.SelectedItem = DimensioniCampoGioco.Medio;
+            cmbVelocita.Items.Add(Velocita.Lento);
+            cmbVelocita.Items.Add(Velocita.Normale);
+            cmbVelocita.Items.Add(Velocita.Veloce);
+            cmbVelocita.SelectedItem = Velocita.Normale;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //da cambiare la grandezza
-            switch ((DimensioniCampoGioco)cmbDimensioneCampo.SelectedIndex)
+            if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
             {
-                case DimensioniCampoGioco.Piccolo:
-                    HeightCampoGioco = 12;
-                    WidthCampoGioco = 17;
-                    break;
-                case DimensioniCampoGioco.Medio:
-                    HeightCampoGioco = 17;
-                    WidthCampoGioco = 25;
-                    break;
-                case DimensioniCampoGioco.Grande:
-                    HeightCampoGioco = 25;
-                    WidthCampoGioco = 37;
-                    break;
+                switch (cmbDimensioneCampo.SelectedItem)
+                {
+                    case DimensioniCampoGioco.Piccolo:
+                        HeightCampoGioco = 12;
+                        WidthCampoGioco = 17;
+                        break;
+                    case DimensioniCampoGioco.Medio:
+                        HeightCampoGioco = 17;
+                        WidthCampoGioco = 25;
+                        break;
+                    case DimensioniCampoGioco.Grande:
+                        HeightCampoGioco = 25;
+                        WidthCampoGioco = 37;
+                        break;
+                    default:
+                        //non verrà mai eseguito
+                        goto case DimensioniCampoGioco.Medio;
+                }
+                switch (cmbVelocita.SelectedItem)
+                {
+                    case Velocita.Lento:
+                        timerInterval = 450;
+                        break;
+                    case Velocita.Normale:
+                        timerInterval = 300;
+                        break;
+                    case Velocita.Veloce:
+                        timerInterval = 150;
+                        break;
+                    default:
+                        //non verrà mai eseguito
+                        goto case Velocita.Normale;
+                }
+                frmSnake frmSnake = new frmSnake(this, HeightCampoGioco, WidthCampoGioco, timerInterval);
+                frmSnake.Show();
+                this.Hide();
             }
-            frmSnake frmSnake = new frmSnake(this, HeightCampoGioco, WidthCampoGioco);
-            frmSnake.Show();
-            this.Hide();
+            else    //non verrà mai eseguito
+            {
+                MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore");
+            }
         }
     }
 }

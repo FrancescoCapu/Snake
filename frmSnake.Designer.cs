@@ -29,7 +29,9 @@ namespace Snake
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlCampoGioco = new System.Windows.Forms.Panel();
+            this.tmr = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // pnlCampoGioco
@@ -39,14 +41,20 @@ namespace Snake
             this.pnlCampoGioco.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCampoGioco.Location = new System.Drawing.Point(0, 0);
             this.pnlCampoGioco.Name = "pnlCampoGioco";
-            this.pnlCampoGioco.Size = new System.Drawing.Size(800, 450);
+            this.pnlCampoGioco.Size = new System.Drawing.Size(1053, 599);
             this.pnlCampoGioco.TabIndex = 0;
+            // 
+            // tmr
+            // 
+            this.tmr.Interval = 300;
+            this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
             // 
             // frmSnake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1053, 599);
             this.Controls.Add(this.pnlCampoGioco);
             this.Name = "frmSnake";
             this.Text = "Snake";
@@ -60,6 +68,7 @@ namespace Snake
         #endregion
 
         private System.Windows.Forms.Panel pnlCampoGioco;
+        private System.Windows.Forms.Timer tmr;
     }
 }
 
