@@ -51,7 +51,7 @@ namespace Snake
                 switch (cmbDimensioneCampo.SelectedItem)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        HeightCampoGioco = 12;
+                        HeightCampoGioco = 13;
                         WidthCampoGioco = 17;
                         break;
                     case DimensioniCampoGioco.Medio:

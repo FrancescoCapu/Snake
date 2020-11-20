@@ -64,7 +64,10 @@ namespace Snake
                 }
             }
             pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
         }
+
+        #region Funzioni stampa
 
         /// <summary>
         /// stampa il campo gioco
@@ -81,6 +84,16 @@ namespace Snake
                     {
                         Panel panel = new Panel();
                         panel.BackColor = Color.Black;
+                        panel.BorderStyle = BorderStyle.FixedSingle;
+                        panel.Location = new Point(i * sizeStampa, j * sizeStampa);
+                        panel.Size = new Size(sizeStampa, sizeStampa);
+                        panel.Visible = true;
+                        pnlCampoGioco.Controls.Add(panel);
+                    }
+                    else
+                    {
+                        Panel panel = new Panel();
+                        panel.BackColor = Color.White;
                         panel.BorderStyle = BorderStyle.FixedSingle;
                         panel.Location = new Point(i * sizeStampa, j * sizeStampa);
                         panel.Size = new Size(sizeStampa, sizeStampa);
@@ -121,6 +134,8 @@ namespace Snake
         {
             MessageBox.Show("","");
         }
+
+        #endregion
 
         /// <summary>
         /// per ridimensionare la finestra se troppo grande per il campo gioco
