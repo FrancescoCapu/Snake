@@ -143,7 +143,7 @@ namespace Snake
         /// <returns></returns>
         private void RegolazioniVisualizzazione()
         {
-
+            //non credo serva veramente...
         }
 
         /// <summary>

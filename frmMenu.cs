@@ -87,7 +87,7 @@ namespace Snake
             }
             else    //non verrà mai eseguito
             {
-                MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore");
+                MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
