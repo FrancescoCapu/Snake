@@ -9,37 +9,44 @@ namespace Snake
 {
     class Serpente
     {
-        private List <Point> lstSerpente=new List<Point>(4); //color
-        public Serpente()
+        private List <Point> lstSerpente=new List<Point>(4);
+
+        public Serpente(int Width, int Height)
         {
-            PosHead=new Point();
-            PosHead.X = Height/2;
-            PosHead.Y = Width/3;
+            for(int i=0;i<4;i++)
+            {
+                    lstSerpente.Add(new Point((Width / 3)-i,(Height / 2)));
+            }
+
         }
 
         public int getLength()
         {
-            return Length;
+            return lstSerpente.Capacity;
         }
+        
         public void IncLength()
         {
-            lstSerpente.Add();    
+            lstSerpente.Add(new Point(3,3));    
         }
-        public void AggiornaSnakeX(int Inc)
-        {
-            lstSerpente[0].X +=Inc;
-            for(int i=1;i<lstSerpente.Count;i++)
+       
+       public void AggiornaSnake(int incx, int incy)
+       {
+            for (int i = lstSerpente.Count-1;i > 1;i --)
             {
-                lstSerpente[i].X=lstSerpente[i-1].X;
+                lstSerpente[i] = new Point(lstSerpente[i - 1].X,lstSerpente[i-1].Y);
             }
+            lstSerpente[0] = new Point(lstSerpente[0].X + incx, lstSerpente[0].Y + incy);
+       }
+
+        public int GetX(int num)
+        {
+            return lstSerpente[num].X;
         }
-        public void AggiornaSnakeY(int Inc)
+
+        public int GetY(int num)
         {
-            lstSerpente[0].Y +=Inc;
-            for(int i=1;i<lstSerpente.Count;i++)
-            {
-                lstSerpente[i].Y=lstSerpente[i-1].Y;
-            }
+            return lstSerpente[num].Y;
         }
     }
 

@@ -17,6 +17,7 @@ namespace Snake
         private int sizeStampa;
         private frmMenu nomeChiamante;
         private int HeightCampoGioco, WidthCampoGioco;
+        private Serpente serpente;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -41,8 +42,12 @@ namespace Snake
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
+            serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
             Inizializza(HeightCampoGioco, WidthCampoGioco);
+            trasferelloSnake(serpente);
             StampaCampoGioco();
+
+            //StampaSerpente(serpente);
         }
 
         /// <summary>
@@ -109,22 +114,23 @@ namespace Snake
         /// stampa il serpente in base alla propria posizione
         /// </summary>
         /// <param name="serpente"></param>
-        /*
+        
         
         private void StampaSerpente(Serpente serpente)
         {
-            for (int i = 0; i < serpente.GetLength(); i++)
+            for (int i = 0; i < serpente.getLength(); i++)
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(serpente.GetPosition.X, serpente.GetPosition.Y);
+                panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
                 panel.BorderStyle = BorderStyle.FixedSingle;
+                panel.BackColor = Color.Orange; 
                 panel.Visible = true;
                 pnlCampoGioco.Controls.Add(panel);
             }
         }
 
-        */
+        
 
         /// <summary>
         /// stampa l'istanza della classe cibo
@@ -174,6 +180,40 @@ namespace Snake
             StampaCampoGioco();
         }
 
+        /// <summary>
+        /// spostamento della serpe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void frmSnake_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    {
+                        serpente.AggiornaSnake(-1,0);
+                    }
+                    break;
+                case Keys.Right:
+                    {
+                        serpente.AggiornaSnake(1, 0);
+                    }
+                    break;
+                case Keys.Up:
+                    {
+                        serpente.AggiornaSnake(0,-1);
+                    }
+                    break;
+                case Keys.Down:
+                    {
+                        serpente.AggiornaSnake(0, 1);
+                    }
+                    break;
+            }
+            trasferelloSnake(serpente);
+            StampaCampoGioco();
+        }
+
 
         /// <summary>
         /// riapre il menu se si chiude il gioco
@@ -183,6 +223,17 @@ namespace Snake
         private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
         {
             nomeChiamante.Show();
+        }
+
+        private void trasferelloSnake(Serpente s)
+        {
+            //int xPrec = s.GetX(s.getLength() - 1);
+            //int yPrec = s.GetY(s.getLength() - 1);
+            for (int i = 0; i < s.getLength(); i++)
+            {
+                //campoGioco[s.GetX(i), s.GetY(i)] = 1;
+            }
+            //campoGioco[xPrec, yPrec] = 0;
         }
     }
 
