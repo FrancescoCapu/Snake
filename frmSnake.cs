@@ -18,6 +18,7 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int HeightCampoGioco, WidthCampoGioco;
         private Serpente serpente;
+        //private Root root;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -46,6 +47,23 @@ namespace Snake
             serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
             Inizializza(HeightCampoGioco, WidthCampoGioco);
             TrasferelloSnake(serpente);
+
+            /*
+            
+            root = new Root();
+            for (int i = 0; i < GetWidth(); i++)
+            {
+                for (int j = 0; j < GetHeigth(); j++)
+                {
+                    if (root.livelli[i].posMuri[i]._x == i && root.livelli[j].posMuri[j]._y == j)
+                    {
+                        campoGioco[i, j] = 1;
+                    }
+                }
+            }
+
+            */
+
             StampaCampoGioco();
         }
 
@@ -130,6 +148,7 @@ namespace Snake
         /// <param name="serpente"></param>
         
         /*
+        
         private void StampaSerpente(Serpente serpente)
         {
             for (int i = 0; i < serpente.getLength(); i++)
@@ -229,7 +248,6 @@ namespace Snake
                     }
                     break;
             }
-            
             ResetMatrice();
             TrasferelloSnake(serpente);
             StampaCampoGioco();
