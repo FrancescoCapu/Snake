@@ -229,11 +229,11 @@ namespace Snake
                     }
                     break;
             }
-            /*
+            
             ResetMatrice();
             TrasferelloSnake(serpente);
             StampaCampoGioco();
-            */
+            
         }
 
         /// <summary>
