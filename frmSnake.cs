@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Snake
 {
@@ -18,7 +20,8 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int HeightCampoGioco, WidthCampoGioco;
         private Serpente serpente;
-        //private Root root;
+        private Root root;
+        private int numLivello;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -27,12 +30,13 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int HeightCampoGioco, int WidthCampoGioco, int timerInterval)
+        public frmSnake(frmMenu frmChiamante, int HeightCampoGioco, int WidthCampoGioco, int timerInterval, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
             this.HeightCampoGioco = HeightCampoGioco;
             this.WidthCampoGioco = WidthCampoGioco;
+            this.numLivello = numLivello;
             tmr.Interval = timerInterval;
             //tmr.Enabled = true;
         }
@@ -45,12 +49,14 @@ namespace Snake
         private void Form1_Load(object sender, EventArgs e)
         {
             serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
+            root = new Root();
+            CaricamentoLivelli();
             Inizializza(HeightCampoGioco, WidthCampoGioco);
+            AggiornaMatrice(0);
             TrasferelloSnake(serpente);
 
             /*
-            
-            root = new Root();
+      
             for (int i = 0; i < GetWidth(); i++)
             {
                 for (int j = 0; j < GetHeigth(); j++)
@@ -248,7 +254,9 @@ namespace Snake
                     }
                     break;
             }
+            //Queste funzioni vanno messe altrove, credo nel timer
             ResetMatrice();
+            AggiornaMatrice(numLivello);
             TrasferelloSnake(serpente);
             StampaCampoGioco();
             
@@ -263,6 +271,36 @@ namespace Snake
             for (int i = 0; i < s.getLength(); i++)
             {
                 campoGioco[s.GetX(i), s.GetY(i)] = 1;
+            }
+        }
+
+        /// <summary>
+        /// deserializza il file json nella classe root
+        /// </summary>
+        private void CaricamentoLivelli()
+        {
+            StreamReader reader = new StreamReader("json1.json");
+            root = JsonConvert.DeserializeObject<Root>(reader.ReadToEnd());
+            reader.Close();
+        }
+
+        /// <summary>
+        /// aggiunge i muri alla matrice
+        /// </summary>
+        private void AggiornaMatrice(int indice)
+        {
+            for (int i = 0; i < GetWidth(); i++)
+            {
+                for (int j = 0; j < GetHeigth(); j++)
+                {
+                    for (int k = 0; k < root.livelli[indice].posMuri.Count; k++)
+                    {
+                        if (i == root.livelli[indice].posMuri[k]._x && j == root.livelli[indice].posMuri[k]._y)
+                        {
+                            campoGioco[i, j] = 1;
+                        }
+                    }
+                }
             }
         }
 
