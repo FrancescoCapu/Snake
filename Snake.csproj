@@ -62,9 +62,12 @@
     <Compile Include="frmSnake.Designer.cs">
       <DependentUpon>frmSnake.cs</DependentUpon>
     </Compile>
+    <Compile Include="Livello.cs" />
+    <Compile Include="Muro.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Root.cs" />
+    <Compile Include="RootNomiFile.cs" />
     <Compile Include="Serpente.cs" />
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>

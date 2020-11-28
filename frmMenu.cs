@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Snake
 {
     public partial class frmMenu : Form
     {
-        private int HeightCampoGioco, WidthCampoGioco, timerInterval;
+        private int HeightCampoGioco, WidthCampoGioco, timerInterval, numeroLivello;
+        private RootNomiFile rootNomiFileMenu;
         enum DimensioniCampoGioco
         {
             Piccolo,
@@ -38,10 +41,21 @@ namespace Snake
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
             cmbDimensioneCampo.SelectedItem = DimensioniCampoGioco.Medio;
+
             cmbVelocita.Items.Add(Velocita.Lento);
             cmbVelocita.Items.Add(Velocita.Normale);
             cmbVelocita.Items.Add(Velocita.Veloce);
             cmbVelocita.SelectedItem = Velocita.Normale;
+
+            rootNomiFileMenu = new RootNomiFile();
+            StreamReader reader = new StreamReader("levels/indice_livelli.json");
+            rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
+            reader.Close();
+            for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
+            {
+                cmbLivelli.Items.Add(i);
+            }
+            cmbLivelli.SelectedIndex = 0;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -81,7 +95,15 @@ namespace Snake
                         //non verrà mai eseguito
                         goto case Velocita.Normale;
                 }
-                frmSnake frmSnake = new frmSnake(this, HeightCampoGioco, WidthCampoGioco, timerInterval);
+                if (cmbLivelli.SelectedItem == null)
+                {
+                    numeroLivello = 0;
+                }
+                else
+                {
+                    numeroLivello = cmbLivelli.SelectedIndex;
+                }
+                frmSnake frmSnake = new frmSnake(this, HeightCampoGioco, WidthCampoGioco, timerInterval, numeroLivello);
                 frmSnake.Show();
                 this.Hide();
             }

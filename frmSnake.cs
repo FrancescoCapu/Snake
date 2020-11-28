@@ -20,7 +20,8 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int HeightCampoGioco, WidthCampoGioco;
         private Serpente serpente;
-        private Root root;
+        private RootNomiFile rootNomiFile;
+        private Livello livello;
         private int numLivello;
 
         /// <summary>
@@ -49,10 +50,11 @@ namespace Snake
         private void Form1_Load(object sender, EventArgs e)
         {
             serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
-            root = new Root();
-            CaricamentoLivelli();
+            livello = new Livello();
+            rootNomiFile = new RootNomiFile();
+            CaricamentoLivello();
             Inizializza(HeightCampoGioco, WidthCampoGioco);
-            AggiornaMatrice(0);
+            AggiornaMatrice(numLivello);
             TrasferelloSnake(serpente);
 
             /*
@@ -132,7 +134,8 @@ namespace Snake
                         panel.Visible = true;
                         pnlCampoGioco.Controls.Add(panel);
                     }
-                    else
+                    // --- O si usa lo sfondo nero oppure bisogna trovare il modo di cancellare solo il serpente e ristamparlo, senza dover ristampare ogni volta tutto il campo gioco
+                    /*else
                     {
                         Panel panel = new Panel();
                         panel.BackColor = Color.Black;
@@ -141,7 +144,7 @@ namespace Snake
                         panel.Size = new Size(sizeStampa, sizeStampa);
                         panel.Visible = true;
                         pnlCampoGioco.Controls.Add(panel);
-                    }
+                    }*/
                 }
             }
             DrawingControl.ResumeDrawing(pnlCampoGioco);
@@ -277,11 +280,14 @@ namespace Snake
         /// <summary>
         /// deserializza il file json nella classe root
         /// </summary>
-        private void CaricamentoLivelli()
+        private void CaricamentoLivello()
         {
-            StreamReader reader = new StreamReader("json1.json");
-            root = JsonConvert.DeserializeObject<Root>(reader.ReadToEnd());
-            reader.Close();
+            StreamReader reader1 = new StreamReader("levels/indice_livelli.json");
+            rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
+            reader1.Close();
+            StreamReader reader2 = new StreamReader("levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
+            livello = JsonConvert.DeserializeObject<Livello>(reader2.ReadToEnd());
+            reader2.Close();
         }
 
         /// <summary>
@@ -289,17 +295,18 @@ namespace Snake
         /// </summary>
         private void AggiornaMatrice(int indice)
         {
-            for (int i = 0; i < GetWidth(); i++)
+            for (int i = 0; i < GetHeigth(); i++)
             {
-                for (int j = 0; j < GetHeigth(); j++)
+                for (int j = 0; j < GetWidth(); j++)
                 {
-                    for (int k = 0; k < root.livelli[indice].posMuri.Count; k++)
+                    for (int k = 0; k < livello.posMuri.Count; k++)
                     {
-                        if (i == root.livelli[indice].posMuri[k]._x && j == root.livelli[indice].posMuri[k]._y)
+                        if (i == livello.posMuri[k]._x && j == livello.posMuri[k]._y)
                         {
                             campoGioco[i, j] = 1;
                         }
                     }
+                    
                 }
             }
         }
