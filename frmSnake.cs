@@ -18,7 +18,7 @@ namespace Snake
         private int[,] campoGioco;
         private int sizeStampa;
         private frmMenu nomeChiamante;
-        private int HeightCampoGioco, WidthCampoGioco;
+        private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
         private RootNomiFile rootNomiFile;
         private Livello livello;
@@ -31,12 +31,12 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int HeightCampoGioco, int WidthCampoGioco, int timerInterval, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
-            this.HeightCampoGioco = HeightCampoGioco;
-            this.WidthCampoGioco = WidthCampoGioco;
+            this.heightCampoGioco = heightCampoGioco;
+            this.widthCampoGioco = widthCampoGioco;
             this.numLivello = numLivello;
             tmr.Interval = timerInterval;
             //tmr.Enabled = true;
@@ -49,30 +49,13 @@ namespace Snake
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
+            serpente = new Serpente(widthCampoGioco, heightCampoGioco);
             livello = new Livello();
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
-            RegolazioniVisualizzazione();
-            Inizializza(HeightCampoGioco, WidthCampoGioco);
-            AggiornaMatrice(numLivello);
+            Inizializza(heightCampoGioco, widthCampoGioco);
+            AggiornaMatrice();
             TrasferelloSnake(serpente);
-
-            /*
-      
-            for (int i = 0; i < GetWidth(); i++)
-            {
-                for (int j = 0; j < GetHeigth(); j++)
-                {
-                    if (root.livelli[i].posMuri[i]._x == i && root.livelli[j].posMuri[j]._y == j)
-                    {
-                        campoGioco[i, j] = 1;
-                    }
-                }
-            }
-
-            */
-
             StampaCampoGioco();
         }
 
@@ -81,12 +64,12 @@ namespace Snake
         /// </summary>
         /// <param name="Height"></param>
         /// <param name="Width"></param>
-        private void Inizializza(int Height, int Width)
+        private void Inizializza(int height, int width)
         {
             //per il momento è 16, in seguito bisgona fare una funzione getGrandezza per impostarla di conseguenza ??
             sizeStampa = 16;
             //stesso ragionamento per la dimensione del campo gioco
-            campoGioco = new int[Width, Height];
+            campoGioco = new int[width, height];
             for (int i = 0; i < GetHeigth(); i++)
             {
                 for (int j = 0; j < GetWidth(); j++)
@@ -136,7 +119,9 @@ namespace Snake
                         pnlCampoGioco.Controls.Add(panel);
                     }
                     // --- O si usa lo sfondo nero oppure bisogna trovare il modo di cancellare solo il serpente e ristamparlo, senza dover ristampare ogni volta tutto il campo gioco
-                    /*else
+                    /*
+                    
+                    else
                     {
                         Panel panel = new Panel();
                         panel.BackColor = Color.Black;
@@ -145,7 +130,9 @@ namespace Snake
                         panel.Size = new Size(sizeStampa, sizeStampa);
                         panel.Visible = true;
                         pnlCampoGioco.Controls.Add(panel);
-                    }*/
+                    }
+
+                    */
                 }
             }
             DrawingControl.ResumeDrawing(pnlCampoGioco);
@@ -188,15 +175,6 @@ namespace Snake
         }
         */
         #endregion
-
-        /// <summary>
-        /// per ridimensionare la finestra se troppo grande per il campo gioco
-        /// </summary>
-        /// <returns></returns>
-        private void RegolazioniVisualizzazione()
-        {
-            pnlCampoGioco.Size = new Size(WidthCampoGioco * sizeStampa + sizeStampa, HeightCampoGioco * sizeStampa + sizeStampa);
-        }
 
         /// <summary>
         /// ritorna l'altezza del campo gioco
@@ -260,10 +238,9 @@ namespace Snake
             }
             //Queste funzioni vanno messe altrove, credo nel timer
             ResetMatrice();
-            AggiornaMatrice(numLivello);
+            AggiornaMatrice();
             TrasferelloSnake(serpente);
             StampaCampoGioco();
-            
         }
 
         /// <summary>
@@ -294,16 +271,16 @@ namespace Snake
                 switch (livello.dimensioneCampo)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        WidthCampoGioco = 17;
-                        HeightCampoGioco = 12;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        WidthCampoGioco = 25;
-                        HeightCampoGioco = 17;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        WidthCampoGioco = 37;
-                        HeightCampoGioco = 25;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
                         break;
                     default:
                         goto case DimensioniCampoGioco.Medio;
@@ -314,7 +291,7 @@ namespace Snake
         /// <summary>
         /// aggiunge i muri alla matrice
         /// </summary>
-        private void AggiornaMatrice(int indice)
+        private void AggiornaMatrice()
         {
             for (int i = 0; i < GetHeigth(); i++)
             {
@@ -327,7 +304,6 @@ namespace Snake
                             campoGioco[i, j] = 1;
                         }
                     }
-                    
                 }
             }
         }

@@ -21,7 +21,10 @@ namespace Snake
 
     public partial class frmMenu : Form
     {
-        private int HeightCampoGioco, WidthCampoGioco, timerInterval, numeroLivello;
+        public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
+        public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
+        public const int WIDTH_CAMPO_GRANDE = 37, HEIGHT_CAMPO_GRANDE = 25;
+        private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
 
         enum Velocita
@@ -66,16 +69,16 @@ namespace Snake
                 switch (cmbDimensioneCampo.SelectedItem)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        HeightCampoGioco = 13;
-                        WidthCampoGioco = 17;
+                        heightCampoGioco = HEIGHT_CAMPO_PICCOLO;
+                        widthCampoGioco = WIDTH_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        HeightCampoGioco = 17;
-                        WidthCampoGioco = 25;
+                        heightCampoGioco = HEIGHT_CAMPO_MEDIO;
+                        widthCampoGioco = WIDTH_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        HeightCampoGioco = 25;
-                        WidthCampoGioco = 37;
+                        heightCampoGioco = HEIGHT_CAMPO_GRANDE;
+                        widthCampoGioco = WIDTH_CAMPO_GRANDE;
                         break;
                     default:
                         //non verrà mai eseguito
@@ -104,7 +107,7 @@ namespace Snake
                 {
                     numeroLivello = cmbLivelli.SelectedIndex;
                 }
-                frmSnake frmSnake = new frmSnake(this, HeightCampoGioco, WidthCampoGioco, timerInterval, numeroLivello);
+                frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello);
                 frmSnake.Show();
                 this.Hide();
             }

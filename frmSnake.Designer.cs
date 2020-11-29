@@ -55,7 +55,7 @@ namespace Snake
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(936, 479);
             this.Controls.Add(this.pnlCampoGioco);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
