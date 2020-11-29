@@ -53,6 +53,7 @@ namespace Snake
             livello = new Livello();
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
+            RegolazioniVisualizzazione();
             Inizializza(HeightCampoGioco, WidthCampoGioco);
             AggiornaMatrice(numLivello);
             TrasferelloSnake(serpente);
@@ -194,7 +195,7 @@ namespace Snake
         /// <returns></returns>
         private void RegolazioniVisualizzazione()
         {
-            //non credo serva veramente...
+            pnlCampoGioco.Size = new Size(WidthCampoGioco * sizeStampa + sizeStampa, HeightCampoGioco * sizeStampa + sizeStampa);
         }
 
         /// <summary>
@@ -288,6 +289,26 @@ namespace Snake
             StreamReader reader2 = new StreamReader("levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
             livello = JsonConvert.DeserializeObject<Livello>(reader2.ReadToEnd());
             reader2.Close();
+            if (numLivello != 0)
+            {
+                switch (livello.dimensioneCampo)
+                {
+                    case DimensioniCampoGioco.Piccolo:
+                        WidthCampoGioco = 17;
+                        HeightCampoGioco = 12;
+                        break;
+                    case DimensioniCampoGioco.Medio:
+                        WidthCampoGioco = 25;
+                        HeightCampoGioco = 17;
+                        break;
+                    case DimensioniCampoGioco.Grande:
+                        WidthCampoGioco = 37;
+                        HeightCampoGioco = 25;
+                        break;
+                    default:
+                        goto case DimensioniCampoGioco.Medio;
+                }
+            }
         }
 
         /// <summary>

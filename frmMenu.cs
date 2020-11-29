@@ -12,16 +12,17 @@ using Newtonsoft.Json;
 
 namespace Snake
 {
+    public enum DimensioniCampoGioco
+    {
+        Piccolo,
+        Medio,
+        Grande
+    }
+
     public partial class frmMenu : Form
     {
         private int HeightCampoGioco, WidthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
-        enum DimensioniCampoGioco
-        {
-            Piccolo,
-            Medio,
-            Grande
-        }
 
         enum Velocita
         {

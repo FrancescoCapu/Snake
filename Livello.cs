@@ -10,6 +10,7 @@ namespace Snake
     {
         public int numLev;
         public IList<Muro> posMuri;
+        public DimensioniCampoGioco dimensioneCampo;
 
         public Livello()
         {
