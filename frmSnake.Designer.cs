@@ -31,34 +31,37 @@ namespace Snake
         {
             this.components = new System.ComponentModel.Container();
             this.pnlCampoGioco = new System.Windows.Forms.Panel();
+            this.pnlElementiDinamici = new System.Windows.Forms.Panel();
             this.tmr = new System.Windows.Forms.Timer(this.components);
-            this.pnl = new System.Windows.Forms.Panel();
             this.pnlCampoGioco.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCampoGioco
             // 
             this.pnlCampoGioco.AutoSize = true;
-            this.pnlCampoGioco.BackColor = System.Drawing.Color.Black;
+            this.pnlCampoGioco.BackColor = System.Drawing.Color.Transparent;
             this.pnlCampoGioco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCampoGioco.Controls.Add(this.pnl);
+            this.pnlCampoGioco.Controls.Add(this.pnlElementiDinamici);
+            this.pnlCampoGioco.ForeColor = System.Drawing.Color.Transparent;
             this.pnlCampoGioco.Location = new System.Drawing.Point(0, 0);
             this.pnlCampoGioco.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlCampoGioco.Name = "pnlCampoGioco";
             this.pnlCampoGioco.Size = new System.Drawing.Size(862, 423);
             this.pnlCampoGioco.TabIndex = 0;
             // 
+            // pnlElementiDinamici
+            // 
+            this.pnlElementiDinamici.BackColor = System.Drawing.Color.Transparent;
+            this.pnlElementiDinamici.ForeColor = System.Drawing.Color.Transparent;
+            this.pnlElementiDinamici.Location = new System.Drawing.Point(290, 88);
+            this.pnlElementiDinamici.Name = "pnlElementiDinamici";
+            this.pnlElementiDinamici.Size = new System.Drawing.Size(200, 100);
+            this.pnlElementiDinamici.TabIndex = 0;
+            // 
             // tmr
             // 
             this.tmr.Interval = 300;
             this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
-            // 
-            // pnl
-            // 
-            this.pnl.Location = new System.Drawing.Point(57, 33);
-            this.pnl.Name = "pnl";
-            this.pnl.Size = new System.Drawing.Size(200, 100);
-            this.pnl.TabIndex = 0;
             // 
             // frmSnake
             // 
@@ -84,7 +87,7 @@ namespace Snake
 
         private System.Windows.Forms.Panel pnlCampoGioco;
         private System.Windows.Forms.Timer tmr;
-        private System.Windows.Forms.Panel pnl;
+        private System.Windows.Forms.Panel pnlElementiDinamici;
     }
 }
 

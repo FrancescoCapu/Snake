@@ -8,7 +8,7 @@ namespace Snake
 {
     class RootNomiFile
     {
-        public IList<string> nomeFileDaLeggere;
+        public List<string> nomeFileDaLeggere;
 
         public RootNomiFile()
         {

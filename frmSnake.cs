@@ -79,6 +79,10 @@ namespace Snake
                 }
             }
             pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            pnlElementiDinamici.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            pnlElementiDinamici.Location = new Point(0, 0);
+            //pnlElementiDinamici.Visible = false;
+            //pnlElementiDinamici.Enabled = false;
             this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
             posPrec = new Point();
         }
@@ -138,41 +142,38 @@ namespace Snake
                 }
             }
             DrawingControl.ResumeDrawing(pnlCampoGioco);
+            pnlCampoGioco.Controls.Add(pnlElementiDinamici);
         }
 
         /// <summary>
         /// stampa il serpente in base alla propria posizione
         /// </summary>
         /// <param name="serpente"></param>
-        private void StampaSerpente(Serpente serpente, bool eaten)
+        private void StampaSerpente(Serpente serpente)
         {
+            DrawingControl.SuspendDrawing(pnlElementiDinamici);
+            pnlElementiDinamici.Controls.Clear();
             for (int i = 0; i < serpente.getLength(); i++)
             {
                 Panel panel = new Panel();
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = Color.Orange; 
+                panel.BackColor = Color.Orange;
                 panel.Visible = true;
-                pnlCampoGioco.Controls.Add(panel);
+                pnlElementiDinamici.Controls.Add(panel);
             }
-            if (eaten == false)
-            {
-            }
+            DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
         /// <summary>
         /// stampa l'istanza della classe cibo
-        /// --- Teoricamente neanche quesata funzinoe non dovrebbe servire a niente ---
         /// </summary>
         /// <param name="cibo"></param>
-        
-        /*
         private void StampaCibo(Cibo cibo)
         {
-            MessageBox.Show("","");
         }
-        */
+
         #endregion
 
         /// <summary>
@@ -239,18 +240,19 @@ namespace Snake
             ResetMatrice();
             AggiornaMatrice();
             TrasferelloSnake(serpente);
-            StampaCampoGioco();
+            StampaSerpente(serpente);
+            //StampaCampoGioco();
         }
 
         /// <summary>
         /// imposta a 1 i campi della matrice campoGioco occupati dal serpente
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="s"></param> 
         private void TrasferelloSnake(Serpente s)
         {
             for (int i = 0; i < s.getLength(); i++)
             {
-                campoGioco[s.GetX(i), s.GetY(i)] = 1;
+                campoGioco[s.GetX(i), s.GetY(i)] = 2;
             }
             posPrec.X = s.GetX(s.getLength() - 1);
             posPrec.Y = s.GetY(s.getLength() - 1);
