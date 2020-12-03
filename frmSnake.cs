@@ -23,6 +23,7 @@ namespace Snake
         private RootNomiFile rootNomiFile;
         private Livello livello;
         private int numLivello;
+        private Point posPrec;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -79,6 +80,7 @@ namespace Snake
             }
             pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
             this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            posPrec = new Point();
         }
 
         /// <summary>
@@ -140,13 +142,9 @@ namespace Snake
 
         /// <summary>
         /// stampa il serpente in base alla propria posizione
-        /// --- NON DOVREBBE SERVIRE A NIENTE QUESTA FUNZIONE ---
         /// </summary>
         /// <param name="serpente"></param>
-        
-        /*
-        
-        private void StampaSerpente(Serpente serpente)
+        private void StampaSerpente(Serpente serpente, bool eaten)
         {
             for (int i = 0; i < serpente.getLength(); i++)
             {
@@ -158,9 +156,10 @@ namespace Snake
                 panel.Visible = true;
                 pnlCampoGioco.Controls.Add(panel);
             }
+            if (eaten == false)
+            {
+            }
         }
-
-        */
 
         /// <summary>
         /// stampa l'istanza della classe cibo
@@ -253,6 +252,8 @@ namespace Snake
             {
                 campoGioco[s.GetX(i), s.GetY(i)] = 1;
             }
+            posPrec.X = s.GetX(s.getLength() - 1);
+            posPrec.Y = s.GetY(s.getLength() - 1);
         }
 
         /// <summary>
