@@ -130,16 +130,27 @@ namespace Snake
             }
         }
 
-        
+        private void PrintFood(Cibo cibo)
+        {
+            Panel panello = new Panel();
+            panello.BackColor = Color.Orange;
+            panello.BorderStyle = BorderStyle.FixedSingle;
+            panello.Location = new Point(cibo.GetFoodX(), cibo.GetFoodY());
+            panello.Size = new Size(sizeStampa, sizeStampa);
+            panello.Visible = true;
+            pnlCampoGioco.Controls.Add(panello);
+        }
+
+
 
         /// <summary>
         /// stampa l'istanza della classe cibo
         /// </summary>
         /// <param name="cibo"></param>
-        private void StampaCibo(Cibo cibo)
+        /*private void StampaCibo(Cibo cibo)
         {
             MessageBox.Show("","");
-        }
+        }*/
 
         #endregion
 
@@ -227,11 +238,11 @@ namespace Snake
 
         private void trasferelloSnake(Serpente s)
         {
-            //int xPrec = s.GetX(s.getLength() - 1);
-            //int yPrec = s.GetY(s.getLength() - 1);
+            //int xPrec = s.GetX(s.getLength());
+            //int yPrec = s.GetY(s.getLength()-1);
             for (int i = 0; i < s.getLength(); i++)
             {
-                //campoGioco[s.GetX(i), s.GetY(i)] = 1;
+                campoGioco[s.GetX(i), s.GetY(i)] = 1;
             }
             //campoGioco[xPrec, yPrec] = 0;
         }
