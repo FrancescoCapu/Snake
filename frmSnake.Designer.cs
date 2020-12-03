@@ -37,11 +37,12 @@ namespace Snake
             // pnlCampoGioco
             // 
             this.pnlCampoGioco.AutoSize = true;
-            this.pnlCampoGioco.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlCampoGioco.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCampoGioco.BackColor = System.Drawing.Color.Black;
+            this.pnlCampoGioco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCampoGioco.Location = new System.Drawing.Point(0, 0);
+            this.pnlCampoGioco.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlCampoGioco.Name = "pnlCampoGioco";
-            this.pnlCampoGioco.Size = new System.Drawing.Size(1053, 599);
+            this.pnlCampoGioco.Size = new System.Drawing.Size(862, 423);
             this.pnlCampoGioco.TabIndex = 0;
             // 
             // tmr
@@ -51,11 +52,13 @@ namespace Snake
             // 
             // frmSnake
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1053, 599);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(936, 479);
             this.Controls.Add(this.pnlCampoGioco);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmSnake";
             this.Text = "Snake";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSnake_FormClosing);

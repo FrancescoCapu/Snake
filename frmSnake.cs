@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Snake
 {
@@ -16,8 +18,11 @@ namespace Snake
         private int[,] campoGioco;
         private int sizeStampa;
         private frmMenu nomeChiamante;
-        private int HeightCampoGioco, WidthCampoGioco;
+        private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
+        private RootNomiFile rootNomiFile;
+        private Livello livello;
+        private int numLivello;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -26,13 +31,15 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int HeightCampoGioco, int WidthCampoGioco, int timerInterval)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
-            this.HeightCampoGioco = HeightCampoGioco;
-            this.WidthCampoGioco = WidthCampoGioco;
+            this.heightCampoGioco = heightCampoGioco;
+            this.widthCampoGioco = widthCampoGioco;
+            this.numLivello = numLivello;
             tmr.Interval = timerInterval;
+            //tmr.Enabled = true;
         }
 
         /// <summary>
@@ -42,12 +49,14 @@ namespace Snake
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            serpente = new Serpente(WidthCampoGioco, HeightCampoGioco);
-            Inizializza(HeightCampoGioco, WidthCampoGioco);
-            trasferelloSnake(serpente);
+            serpente = new Serpente(widthCampoGioco, heightCampoGioco);
+            livello = new Livello();
+            rootNomiFile = new RootNomiFile();
+            CaricamentoLivello();
+            Inizializza(heightCampoGioco, widthCampoGioco);
+            AggiornaMatrice();
+            TrasferelloSnake(serpente);
             StampaCampoGioco();
-
-            //StampaSerpente(serpente);
         }
 
         /// <summary>
@@ -55,12 +64,12 @@ namespace Snake
         /// </summary>
         /// <param name="Height"></param>
         /// <param name="Width"></param>
-        private void Inizializza(int Height, int Width)
+        private void Inizializza(int height, int width)
         {
             //per il momento è 16, in seguito bisgona fare una funzione getGrandezza per impostarla di conseguenza ??
             sizeStampa = 16;
             //stesso ragionamento per la dimensione del campo gioco
-            campoGioco = new int[Width, Height];
+            campoGioco = new int[width, height];
             for (int i = 0; i < GetHeigth(); i++)
             {
                 for (int j = 0; j < GetWidth(); j++)
@@ -70,6 +79,20 @@ namespace Snake
             }
             pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
             this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+        }
+
+        /// <summary>
+        /// riporta tutti i valori della matrice campoGioco a 0
+        /// </summary>
+        private void ResetMatrice()
+        {
+            for (int i = 0; i < GetHeigth(); i++)
+            {
+                for (int j = 0; j < GetWidth(); j++)
+                {
+                    campoGioco[i, j] = 0;
+                }
+            }
         }
 
         #region Funzioni stampa
@@ -85,17 +108,7 @@ namespace Snake
             {
                 for (int j = 0; j < GetWidth(); j++)
                 {
-                    if (campoGioco[i, j] == 0)
-                    {
-                        Panel panel = new Panel();
-                        panel.BackColor = Color.Black;
-                        panel.BorderStyle = BorderStyle.FixedSingle;
-                        panel.Location = new Point(i * sizeStampa, j * sizeStampa);
-                        panel.Size = new Size(sizeStampa, sizeStampa);
-                        panel.Visible = true;
-                        pnlCampoGioco.Controls.Add(panel);
-                    }
-                    else
+                    if (campoGioco[i, j] == 1)
                     {
                         Panel panel = new Panel();
                         panel.BackColor = Color.White;
@@ -105,6 +118,21 @@ namespace Snake
                         panel.Visible = true;
                         pnlCampoGioco.Controls.Add(panel);
                     }
+                    // --- O si usa lo sfondo nero oppure bisogna trovare il modo di cancellare solo il serpente e ristamparlo, senza dover ristampare ogni volta tutto il campo gioco
+                    /*
+                    
+                    else
+                    {
+                        Panel panel = new Panel();
+                        panel.BackColor = Color.Black;
+                        panel.BorderStyle = BorderStyle.FixedSingle;
+                        panel.Location = new Point(i * sizeStampa, j * sizeStampa);
+                        panel.Size = new Size(sizeStampa, sizeStampa);
+                        panel.Visible = true;
+                        pnlCampoGioco.Controls.Add(panel);
+                    }
+
+                    */
                 }
             }
             DrawingControl.ResumeDrawing(pnlCampoGioco);
@@ -112,9 +140,11 @@ namespace Snake
 
         /// <summary>
         /// stampa il serpente in base alla propria posizione
+        /// --- NON DOVREBBE SERVIRE A NIENTE QUESTA FUNZIONE ---
         /// </summary>
         /// <param name="serpente"></param>
         
+        /*
         
         private void StampaSerpente(Serpente serpente)
         {
@@ -130,38 +160,21 @@ namespace Snake
             }
         }
 
-        private void PrintFood(Cibo cibo)
-        {
-            Panel panello = new Panel();
-            panello.BackColor = Color.Orange;
-            panello.BorderStyle = BorderStyle.FixedSingle;
-            panello.Location = new Point(cibo.GetFoodX(), cibo.GetFoodY());
-            panello.Size = new Size(sizeStampa, sizeStampa);
-            panello.Visible = true;
-            pnlCampoGioco.Controls.Add(panello);
-        }
-
-
+        */
 
         /// <summary>
         /// stampa l'istanza della classe cibo
+        /// --- Teoricamente neanche quesata funzinoe non dovrebbe servire a niente ---
         /// </summary>
         /// <param name="cibo"></param>
-        /*private void StampaCibo(Cibo cibo)
+        
+        /*
+        private void StampaCibo(Cibo cibo)
         {
             MessageBox.Show("","");
-        }*/
-
-        #endregion
-
-        /// <summary>
-        /// per ridimensionare la finestra se troppo grande per il campo gioco
-        /// </summary>
-        /// <returns></returns>
-        private void RegolazioniVisualizzazione()
-        {
-            //non credo serva veramente...
         }
+        */
+        #endregion
 
         /// <summary>
         /// ritorna l'altezza del campo gioco
@@ -188,6 +201,8 @@ namespace Snake
         /// <param name="e"></param>
         private void tmr_Tick(object sender, EventArgs e)
         {
+            ResetMatrice();
+            TrasferelloSnake(serpente);
             StampaCampoGioco();
         }
 
@@ -221,10 +236,77 @@ namespace Snake
                     }
                     break;
             }
-            trasferelloSnake(serpente);
+            //Queste funzioni vanno messe altrove, credo nel timer
+            ResetMatrice();
+            AggiornaMatrice();
+            TrasferelloSnake(serpente);
             StampaCampoGioco();
         }
 
+        /// <summary>
+        /// imposta a 1 i campi della matrice campoGioco occupati dal serpente
+        /// </summary>
+        /// <param name="s"></param>
+        private void TrasferelloSnake(Serpente s)
+        {
+            for (int i = 0; i < s.getLength(); i++)
+            {
+                campoGioco[s.GetX(i), s.GetY(i)] = 1;
+            }
+        }
+
+        /// <summary>
+        /// deserializza il file json nella classe root
+        /// </summary>
+        private void CaricamentoLivello()
+        {
+            StreamReader reader1 = new StreamReader("levels/indice_livelli.json");
+            rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
+            reader1.Close();
+            StreamReader reader2 = new StreamReader("levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
+            livello = JsonConvert.DeserializeObject<Livello>(reader2.ReadToEnd());
+            reader2.Close();
+            if (numLivello != 0)
+            {
+                switch (livello.dimensioneCampo)
+                {
+                    case DimensioniCampoGioco.Piccolo:
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
+                        break;
+                    case DimensioniCampoGioco.Medio:
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
+                        break;
+                    case DimensioniCampoGioco.Grande:
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
+                        break;
+                    default:
+                        goto case DimensioniCampoGioco.Medio;
+                }
+            }
+        }
+
+        /// <summary>
+        /// aggiunge i muri alla matrice
+        /// </summary>
+        private void AggiornaMatrice()
+        {
+            for (int i = 0; i < GetHeigth(); i++)
+            {
+                for (int j = 0; j < GetWidth(); j++)
+                {
+                    for (int k = 0; k < livello.posMuri.Count; k++)
+                    {
+                        if (i == livello.posMuri[k]._x && j == livello.posMuri[k]._y)
+                        {
+                            campoGioco[i, j] = 1;
+                        }
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// riapre il menu se si chiude il gioco
@@ -234,17 +316,6 @@ namespace Snake
         private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
         {
             nomeChiamante.Show();
-        }
-
-        private void trasferelloSnake(Serpente s)
-        {
-            //int xPrec = s.GetX(s.getLength());
-            //int yPrec = s.GetY(s.getLength()-1);
-            for (int i = 0; i < s.getLength(); i++)
-            {
-                campoGioco[s.GetX(i), s.GetY(i)] = 1;
-            }
-            //campoGioco[xPrec, yPrec] = 0;
         }
     }
 
