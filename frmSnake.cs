@@ -82,6 +82,28 @@ namespace Snake
         }
 
         /// <summary>
+        /// creazione pannello per il cibo
+        /// </summary>
+        /// <param name="cibo"></param>
+        private void PrintFood(Cibo cibo)
+        {
+            Panel panello = new Panel();
+            panello.BackColor = Color.Orange;
+            panello.BorderStyle = BorderStyle.FixedSingle;
+            panello.Location = new Point(cibo.GetFoodX(), cibo.GetFoodY());
+            panello.Size = new Size(sizeStampa, sizeStampa);
+            panello.Visible = true;
+            pnlCampoGioco.Controls.Add(panello);
+        }
+
+        private void IncSnake(Cibo cibo,Serpente serpente)
+        {
+            if (cibo.GetFoodX() == serpente.GetX(0) && cibo.GetFoodY() == serpente.GetY(0))
+                serpente.IncLength();
+        }
+
+
+        /// <summary>
         /// riporta tutti i valori della matrice campoGioco a 0
         /// </summary>
         private void ResetMatrice()
