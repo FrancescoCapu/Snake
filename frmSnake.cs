@@ -243,8 +243,10 @@ namespace Snake
         private void tmr_Tick(object sender, EventArgs e)
         {
             ResetMatrice();
+            AggiornaMatrice();
             TrasferelloSnake(serpente);
-            StampaCampoGioco();
+            StampaSerpente(serpente);
+            //StampaCampoGioco();
             switch (tasto)
             {
                 case Tasto.sinistra:
@@ -260,7 +262,6 @@ namespace Snake
                     serpente.AggiornaSnake(0, 1);
                     break;
                 case Tasto.fermo:
-
                     break;
             }
 
@@ -305,7 +306,7 @@ namespace Snake
         }
 
         /// <summary>
-        /// imposta a 1 i campi della matrice campoGioco occupati dal serpente
+        /// imposta a 2 i campi della matrice campoGioco occupati dal serpente
         /// </summary>
         /// <param name="s"></param> 
         private void TrasferelloSnake(Serpente s)
@@ -319,7 +320,7 @@ namespace Snake
         }
 
         /// <summary>
-        /// deserializza il file json nella classe root
+        /// deserializza il file json nella classe Livello
         /// </summary>
         private void CaricamentoLivello()
         {
