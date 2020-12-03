@@ -9,31 +9,22 @@ namespace Snake
 {
     class Cibo
     {
-        Random x = new Random(17);
-        Random y = new Random(17);
-        public bool flag;
-        private Point cibo;
-        public Cibo()
+        private static Random r = new Random();
+        private Point food;
+
+        public Cibo(int x, int y)
         {
-            
-            flag=false;
+            food.X = r.Next(x);
+            food.Y = r.Next(y);
 
         }
-
-        public void AggiornaCibo()
+        public int GetFoodX()
         {
-           // if(flag==true)
-                //cibo(x,y);        
+            return food.X;
         }
-
-        /*public void AggiornaLengthSnake()
-        {
-             if(cibo()==lstSerpente[0])
-             {
-                lstSerpente.add;
-                AggiornaCibo();
-                flag=true;
-             }
-        }*/
+        public int GetFoodY()
+        { 
+            return food.Y;
+        }
     }
 }

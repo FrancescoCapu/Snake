@@ -27,7 +27,7 @@ namespace Snake
         
         public void IncLength()
         {
-            lstSerpente.Add(new Point(3,3));    
+            lstSerpente.Add(new Point(lstSerpente[lstSerpente.Count].X,lstSerpente[lstSerpente.Count].Y));    
         }
        
        public void AggiornaSnake(int incx, int incy)
