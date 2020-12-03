@@ -13,6 +13,14 @@ using Newtonsoft.Json;
 
 namespace Snake
 {
+    enum Tasto
+    {
+        sinistra,
+        destra,
+        su,
+        giu,
+        fermo
+    }
     public partial class frmSnake : Form
     {
         private int[,] campoGioco;
@@ -20,10 +28,12 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
+        private Cibo cibo;
         private RootNomiFile rootNomiFile;
         private Livello livello;
         private int numLivello;
         private Point posPrec;
+        private Tasto tasto = Tasto.fermo;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -40,7 +50,7 @@ namespace Snake
             this.widthCampoGioco = widthCampoGioco;
             this.numLivello = numLivello;
             tmr.Interval = timerInterval;
-            //tmr.Enabled = true;
+            tmr.Enabled = true;
         }
 
         /// <summary>
@@ -51,6 +61,7 @@ namespace Snake
         private void Form1_Load(object sender, EventArgs e)
         {
             serpente = new Serpente(widthCampoGioco, heightCampoGioco);
+            cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             livello = new Livello();
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
@@ -58,6 +69,8 @@ namespace Snake
             AggiornaMatrice();
             TrasferelloSnake(serpente);
             StampaCampoGioco();
+            PrintFood(cibo);
+            IncSnake(cibo, serpente);
         }
 
         /// <summary>
@@ -87,21 +100,27 @@ namespace Snake
         /// creazione pannello per il cibo
         /// </summary>
         /// <param name="cibo"></param>
-        private void PrintFood(Cibo cibo)
+        private void PrintFood(Cibo c)
         {
             Panel panello = new Panel();
             panello.BackColor = Color.Orange;
+            panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
             panello.BorderStyle = BorderStyle.FixedSingle;
-            panello.Location = new Point(cibo.GetFoodX(), cibo.GetFoodY());
+            panello.Location = new Point(c.GetFoodX()*sizeStampa, c.GetFoodY()*sizeStampa);
             panello.Size = new Size(sizeStampa, sizeStampa);
             panello.Visible = true;
             pnlCampoGioco.Controls.Add(panello);
         }
-
-        private void IncSnake(Cibo cibo,Serpente serpente)
+        /// <summary>
+        /// incremento della lunghezza del cibo
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="serpente"></param>
+        private void IncSnake(Cibo c,Serpente serpente)
         {
-            if (cibo.GetFoodX() == serpente.GetX(0) && cibo.GetFoodY() == serpente.GetY(0))
+            if (c.GetFoodX() == serpente.GetX(0) && c.GetFoodY() == serpente.GetY(0))
                 serpente.IncLength();
+            cibo = new Cibo(cibo.GetFoodX(),cibo.GetFoodY());
         }
 
 
@@ -225,6 +244,25 @@ namespace Snake
             ResetMatrice();
             TrasferelloSnake(serpente);
             StampaCampoGioco();
+            switch (tasto)
+            {
+                case Tasto.sinistra:
+                    serpente.AggiornaSnake(-1,0);
+                    break;
+                case Tasto.destra:
+                    serpente.AggiornaSnake(1, 0);
+                    break;
+                case Tasto.su:
+                    serpente.AggiornaSnake(0,-1);
+                    break;
+                case Tasto.giu:
+                    serpente.AggiornaSnake(0, 1);
+                    break;
+                case Tasto.fermo:
+
+                    break;
+            }
+
         }
 
         /// <summary>
@@ -238,22 +276,22 @@ namespace Snake
             {
                 case Keys.Left:
                     {
-                        serpente.AggiornaSnake(-1,0);
+                        tasto = Tasto.sinistra;
                     }
                     break;
                 case Keys.Right:
                     {
-                        serpente.AggiornaSnake(1, 0);
+                        tasto = Tasto.destra;
                     }
                     break;
                 case Keys.Up:
                     {
-                        serpente.AggiornaSnake(0,-1);
+                        tasto = Tasto.su;
                     }
                     break;
                 case Keys.Down:
                     {
-                        serpente.AggiornaSnake(0, 1);
+                        tasto = Tasto.giu;
                     }
                     break;
             }
@@ -329,6 +367,7 @@ namespace Snake
                     }
                 }
             }
+            campoGioco[cibo.GetFoodX(), cibo.GetFoodY()] = 2;
         }
 
         /// <summary>
