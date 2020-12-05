@@ -21,9 +21,18 @@ namespace Snake
         giu,
         fermo
     }
+
+    enum Elementi
+    {
+        libero = 0,
+        muro = 1,
+        serpente = 2,
+        cibo = 3
+    }
+
     public partial class frmSnake : Form
     {
-        private int[,] campoGioco;
+        private Elementi[,] campoGioco;
         private int sizeStampa;
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
@@ -32,7 +41,6 @@ namespace Snake
         private RootNomiFile rootNomiFile;
         private Livello livello;
         private int numLivello;
-        private Point posPrec;
         private Tasto tasto = Tasto.fermo;
 
         /// <summary>
@@ -68,8 +76,9 @@ namespace Snake
             Inizializza(heightCampoGioco, widthCampoGioco);
             AggiornaMatrice();
             TrasferelloSnake(serpente);
+            TrasferelloCibo(cibo);
             StampaCampoGioco();
-            PrintFood(cibo);
+            //PrintFood(cibo);
             IncSnake(cibo, serpente);
         }
 
@@ -83,38 +92,20 @@ namespace Snake
             //per il momento è 16, in seguito bisgona fare una funzione getGrandezza per impostarla di conseguenza ??
             sizeStampa = 16;
             //stesso ragionamento per la dimensione del campo gioco
-            campoGioco = new int[width, height];
+            campoGioco = new Elementi[width, height];
             for (int i = 0; i < GetHeigth(); i++)
             {
                 for (int j = 0; j < GetWidth(); j++)
                 {
-                    campoGioco[i, j] = 0;
+                    campoGioco[i, j] = Elementi.libero;
                 }
             }
             pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
             pnlElementiDinamici.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
             pnlElementiDinamici.Location = new Point(0, 0);
-            //pnlElementiDinamici.Visible = false;
-            //pnlElementiDinamici.Enabled = false;
             this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
-            posPrec = new Point();
         }
 
-        /// <summary>
-        /// creazione pannello per il cibo
-        /// </summary>
-        /// <param name="cibo"></param>
-        private void PrintFood(Cibo c)
-        {
-            Panel panello = new Panel();
-            panello.BackColor = Color.Orange;
-            panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
-            panello.BorderStyle = BorderStyle.FixedSingle;
-            panello.Location = new Point(c.GetFoodX()*sizeStampa, c.GetFoodY()*sizeStampa);
-            panello.Size = new Size(sizeStampa, sizeStampa);
-            panello.Visible = true;
-            pnlCampoGioco.Controls.Add(panello);
-        }
         /// <summary>
         /// incremento della lunghezza del cibo
         /// </summary>
@@ -137,7 +128,7 @@ namespace Snake
             {
                 for (int j = 0; j < GetWidth(); j++)
                 {
-                    campoGioco[i, j] = 0;
+                    campoGioco[i, j] = Elementi.libero;
                 }
             }
         }
@@ -155,7 +146,7 @@ namespace Snake
             {
                 for (int j = 0; j < GetWidth(); j++)
                 {
-                    if (campoGioco[i, j] == 1)
+                    if (campoGioco[i, j] == Elementi.muro)
                     {
                         Panel panel = new Panel();
                         panel.BackColor = Color.White;
@@ -208,11 +199,19 @@ namespace Snake
         }
 
         /// <summary>
-        /// stampa l'istanza della classe cibo
+        /// creazione pannello per il cibo
         /// </summary>
         /// <param name="cibo"></param>
-        private void StampaCibo(Cibo cibo)
+        private void PrintFood(Cibo c)
         {
+            Panel panello = new Panel();
+            panello.BackColor = Color.Orange;
+            panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
+            panello.BorderStyle = BorderStyle.FixedSingle;
+            panello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
+            panello.Size = new Size(sizeStampa, sizeStampa);
+            panello.Visible = true;
+            pnlElementiDinamici.Controls.Add(panello);
         }
 
         #endregion
@@ -245,7 +244,9 @@ namespace Snake
             ResetMatrice();
             AggiornaMatrice();
             TrasferelloSnake(serpente);
+            TrasferelloCibo(cibo);
             StampaSerpente(serpente);
+            PrintFood(cibo);
             //StampaCampoGioco();
             switch (tasto)
             {
@@ -298,10 +299,10 @@ namespace Snake
                     break;
             }
             //Queste funzioni vanno messe altrove, credo nel timer
-            ResetMatrice();
-            AggiornaMatrice();
-            TrasferelloSnake(serpente);
-            StampaSerpente(serpente);
+            //ResetMatrice();
+            //AggiornaMatrice();
+            //TrasferelloSnake(serpente);
+            //StampaSerpente(serpente);
             //StampaCampoGioco();
         }
 
@@ -313,10 +314,13 @@ namespace Snake
         {
             for (int i = 0; i < s.getLength(); i++)
             {
-                campoGioco[s.GetX(i), s.GetY(i)] = 2;
+                campoGioco[s.GetX(i), s.GetY(i)] = Elementi.serpente;
             }
-            posPrec.X = s.GetX(s.getLength() - 1);
-            posPrec.Y = s.GetY(s.getLength() - 1);
+        }
+
+        private void TrasferelloCibo(Cibo c)
+        {
+            campoGioco[c.GetFoodX(), c.GetFoodY()] = Elementi.cibo;
         }
 
         /// <summary>
@@ -365,12 +369,12 @@ namespace Snake
                     {
                         if (i == livello.posMuri[k]._x && j == livello.posMuri[k]._y)
                         {
-                            campoGioco[i, j] = 1;
+                            campoGioco[i, j] = Elementi.muro;
                         }
                     }
                 }
             }
-            campoGioco[cibo.GetFoodX(), cibo.GetFoodY()] = 2;
+            //campoGioco[cibo.GetFoodX(), cibo.GetFoodY()] = Elementi.cibo;
         }
 
         /// <summary>
