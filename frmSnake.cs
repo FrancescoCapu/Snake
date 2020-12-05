@@ -74,7 +74,7 @@ namespace Snake
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
             Inizializza(heightCampoGioco, widthCampoGioco);
-            AggiornaMatrice();
+            AddMuri();
             TrasferelloSnake(serpente);
             TrasferelloCibo(cibo);
             StampaCampoGioco();
@@ -205,7 +205,7 @@ namespace Snake
         private void PrintFood(Cibo c)
         {
             Panel panello = new Panel();
-            panello.BackColor = Color.Orange;
+            //panello.BackColor = Color.Orange;
             panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
             panello.BorderStyle = BorderStyle.FixedSingle;
             panello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
@@ -242,7 +242,7 @@ namespace Snake
         private void tmr_Tick(object sender, EventArgs e)
         {
             ResetMatrice();
-            AggiornaMatrice();
+            AddMuri();
             TrasferelloSnake(serpente);
             TrasferelloCibo(cibo);
             StampaSerpente(serpente);
@@ -359,7 +359,7 @@ namespace Snake
         /// <summary>
         /// aggiunge i muri alla matrice
         /// </summary>
-        private void AggiornaMatrice()
+        private void AddMuri()
         {
             for (int i = 0; i < GetHeigth(); i++)
             {
@@ -374,7 +374,6 @@ namespace Snake
                     }
                 }
             }
-            //campoGioco[cibo.GetFoodX(), cibo.GetFoodY()] = Elementi.cibo;
         }
 
         /// <summary>
