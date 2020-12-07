@@ -33,8 +33,9 @@ namespace Snake
     public partial class frmSnake : Form
     {
         private Elementi[,] campoGioco;
-        private Elementi[,] matSerpente;
-        private Elementi[,] matCibo;
+        // per debug
+        //private Elementi[,] matSerpente;
+        //private Elementi[,] matCibo;
         private int sizeStampa;
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
@@ -99,26 +100,26 @@ namespace Snake
             sizeStampa = 16;
             //stesso ragionamento per la dimensione del campo gioco
             campoGioco = new Elementi[width, height];
-            matSerpente = new Elementi[width, height];
-            matCibo = new Elementi[width, height];
-            for (int i = 0; i < GetHeigth(); i++)
+            //matSerpente = new Elementi[width, height];
+            //matCibo = new Elementi[width, height];
+            for (int i = 0; i < GetWidth(); i++)
             {
-                for (int j = 0; j < GetWidth(); j++)
+                for (int j = 0; j < GetHeigth(); j++)
                 {
                     campoGioco[i, j] = Elementi.libero;
-                    matSerpente[i, j] = Elementi.libero;
-                    matCibo[i, j] = Elementi.libero;
+                    //matSerpente[i, j] = Elementi.libero;
+                    //matCibo[i, j] = Elementi.libero;
                 }
             }
             for (int i = 0; i < serpente.getLength(); i++)
             {
-                matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
+                //matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
             }
             posLastPrec = new Point(serpente.GetX(serpente.getLength() - 1), serpente.GetY(serpente.getLength() - 1));
-            pnlCampoGioco.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
-            pnlElementiDinamici.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            pnlCampoGioco.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
+            pnlElementiDinamici.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Location = new Point(0, 0);
-            this.Size = new Size(GetHeigth() * sizeStampa, GetWidth() * sizeStampa);
+            this.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
         }
 
         /// <summary>
@@ -139,9 +140,9 @@ namespace Snake
         /// </summary>
         private void Reset()
         {
-            for (int i = 0; i < GetHeigth(); i++)
+            for (int i = 0; i < GetWidth(); i++)
             {
-                for (int j = 0; j < GetWidth(); j++)
+                for (int j = 0; j < GetHeigth(); j++)
                 {
                     campoGioco[i, j] = Elementi.libero;
                     matSerpente[i, j] = Elementi.libero;
@@ -159,9 +160,9 @@ namespace Snake
         {
             DrawingControl.SuspendDrawing(pnlCampoGioco);
             pnlCampoGioco.Controls.Clear();
-            for (int i = 0; i < GetHeigth(); i++)
+            for (int i = 0; i < GetWidth(); i++)
             {
-                for (int j = 0; j < GetWidth(); j++)
+                for (int j = 0; j < GetHeigth(); j++)
                 {
                     if (campoGioco[i, j] == Elementi.muro)
                     {
@@ -222,7 +223,7 @@ namespace Snake
         /// ritorna l'altezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        private int GetHeigth()
+        private int GetWidth()
         {
             return campoGioco.GetLength(0);
         }
@@ -231,7 +232,7 @@ namespace Snake
         /// ritorna la larghezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        private int GetWidth()
+        private int GetHeigth()
         {
             return campoGioco.GetLength(1);
         }
@@ -296,7 +297,7 @@ namespace Snake
                 case Tasto.fermo:
                     break;
             }
-            if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetHeigth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetWidth() - 1) || Collisioni(serpente))
+            if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(serpente))
                 GameOver();
             else
             {
@@ -362,25 +363,25 @@ namespace Snake
             if (tasto != Tasto.fermo)
             {
                 if (!manigato && !init)
-                    matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
+                    //matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
                 posLastPrec = new Point(s.GetX(s.getLength() - 1), s.GetY(s.getLength() - 1));
-                matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
+                //matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
             }
 
             Console.Write("\n------------------------------");
-            for (int j = 0; j < GetWidth(); j++)
+            for (int j = 0; j < GetHeigth(); j++)
             {
                 Console.Write("\n");
-                for (int i = 0; i < GetHeigth(); i++)
+                for (int i = 0; i < GetWidth(); i++)
                 {
-                    Console.Write((int)matSerpente[i, j] + " ");
+                    //Console.Write((int)matSerpente[i, j] + " ");
                 }
             }
         }
 
         private void TrasferelloCibo(Cibo c)
         {
-            matCibo[c.GetFoodX(), c.GetFoodY()] = Elementi.cibo;
+            //matCibo[c.GetFoodX(), c.GetFoodY()] = Elementi.cibo;
         }
 
         /// <summary>
@@ -450,9 +451,9 @@ namespace Snake
         /// </summary>
         private void AddMuri()
         {
-            for (int i = 0; i < GetHeigth(); i++)
+            for (int i = 0; i < GetWidth(); i++)
             {
-                for (int j = 0; j < GetWidth(); j++)
+                for (int j = 0; j < GetHeigth(); j++)
                 {
                     for (int k = 0; k < livello.posMuri.Count; k++)
                     {
@@ -467,8 +468,8 @@ namespace Snake
 
         private void GameOver()
         {
-            tmr.Enabled = false;
-            MessageBox.Show("GAME OVER\nPunteggio: " + serpente.getLength(), "GAME OVER");
+            tmr.Enabled = false; 
+            MessageBox.Show("GAME OVER\nPunteggio: " + serpente.getLength(), "GAME OVER ");
             this.Close();
         }
 
