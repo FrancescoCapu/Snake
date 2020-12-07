@@ -13,7 +13,7 @@ namespace Snake
 
         public Serpente(int width, int height)
         {
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < lstSerpente.Capacity; i++)
             {
                     lstSerpente.Add(new Point((width / 3) - i, (height / 2)));
             }
