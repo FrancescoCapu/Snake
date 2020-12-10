@@ -22,6 +22,7 @@ namespace Snake
         fermo
     }
 
+    //Non so se "serpente = 2" e "cibo = 3" servano realmente
     enum Elementi
     {
         libero = 0,
@@ -303,7 +304,7 @@ namespace Snake
             {
                 if (HasEaten(serpente, cibo))
                     IncSnake(cibo, serpente);
-                AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
+                //AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
                 StampaSerpente(serpente);
                 PrintFood(cibo);
             }
