@@ -49,6 +49,7 @@ namespace Snake
         private Tasto tastoPrec = Tasto.destra;
         private Point posLastPrec;
         private List<Panel> lstPanelSerpente = new List<Panel>();
+        private List<Panel> lstPanelCibo = new List<Panel>();
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -87,7 +88,6 @@ namespace Snake
             StampaCampoGioco();
             StampaSerpente(serpente);
             PrintFood(cibo);
-            //IncSnake(cibo, serpente);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Snake
         private void IncSnake(Cibo c, Serpente serpente)
         {
             //if (c.GetFoodX() == serpente.GetX(0) && c.GetFoodY() == serpente.GetY(0))
-            serpente.IncLength();
+            serpente.IncLength(posLastPrec);
             //cibo = new Cibo(cibo.GetFoodX(),cibo.GetFoodY());
         }
 
@@ -182,7 +182,7 @@ namespace Snake
         }
 
         /// <summary>
-        /// stampa il serpente in base alla propria posizione
+        /// stampa il serpente in base alla propria posizione. da usare solo per la prima stampa
         /// </summary>
         /// <param name="serpente"></param>
         private void StampaSerpente(Serpente serpente)
@@ -197,25 +197,86 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = Color.Orange;
                 panel.Visible = true;
+                lstPanelSerpente.Add(panel);
                 pnlElementiDinamici.Controls.Add(panel);
             }
             DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
         /// <summary>
-        /// creazione pannello per il cibo
+        /// aggiorna la posizione dei pannelli che compongono il serpente senza doverli cancellare e ristampare ogni volta
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="hasEaten"></param>
+        private void UpdateSnake(ref Serpente s, bool hasEaten = false)
+        {
+            if (hasEaten)
+            {
+                Panel panel = new Panel();
+                panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
+                panel.Size = new Size(sizeStampa, sizeStampa);
+                panel.BorderStyle = BorderStyle.FixedSingle;
+                panel.BackColor = Color.Orange;
+                panel.Visible = true;
+                lstPanelSerpente.Add(panel);
+                pnlElementiDinamici.Controls.Add(panel);
+                for (int i = s.getLength() - 2; i > 0; i--)
+                {
+                    lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
+                }
+            }
+            else
+            {
+                for (int i = s.getLength() - 1; i > 0; i--)
+                {
+                    lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
+                }
+            }
+            lstPanelSerpente[0].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+            /*
+            if (hasEaten == false)
+            {
+                lstPanelSerpente[lstPanelSerpente.Count - 1].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+            }
+            else
+            {
+                Panel panel = new Panel();
+                panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
+                panel.Size = new Size(sizeStampa, sizeStampa);
+                panel.BorderStyle = BorderStyle.FixedSingle;
+                panel.BackColor = Color.Orange;
+                panel.Visible = true;
+                lstPanelSerpente.Add(panel);
+                pnlElementiDinamici.Controls.Add(panel);
+            }
+            */
+        }
+
+        /// <summary>
+        /// creazione pannello per il cibo. da usare solo per la prima stampa
         /// </summary>
         /// <param name="cibo"></param>
         private void PrintFood(Cibo c)
         {
-            Panel panello = new Panel();
-            panello.BackColor = Color.Orange;
-            panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
-            panello.BorderStyle = BorderStyle.FixedSingle;
-            panello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
-            panello.Size = new Size(sizeStampa, sizeStampa);
-            panello.Visible = true;
-            pnlElementiDinamici.Controls.Add(panello);
+            Panel pannello = new Panel();
+            pannello.BackColor = Color.Aquamarine;
+            pannello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
+            pannello.BorderStyle = BorderStyle.FixedSingle;
+            pannello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
+            pannello.Size = new Size(sizeStampa, sizeStampa);
+            pannello.Visible = true;
+            pnlElementiDinamici.Controls.Add(pannello);
+            lstPanelCibo.Add(pannello);
+        }
+
+        /// <summary>
+        /// aggiorna la posizione del pannello del cibo
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="foodIndex"></param>
+        private void UpdateFood(ref Cibo c, int foodIndex = 0)
+        {
+            lstPanelCibo[foodIndex].Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
         }
 
         #endregion
@@ -298,15 +359,22 @@ namespace Snake
                 case Tasto.fermo:
                     break;
             }
+            posLastPrec = new Point(serpente.GetX(serpente.getLength() - 1), serpente.GetY(serpente.getLength() - 1));
             if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(serpente))
                 GameOver();
             else
             {
                 if (HasEaten(serpente, cibo))
+                {
                     IncSnake(cibo, serpente);
+                    UpdateSnake(ref serpente, true);
+                    NewCibo(ref cibo);
+                    UpdateFood(ref cibo);
+                }
                 //AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
-                StampaSerpente(serpente);
-                PrintFood(cibo);
+                //StampaSerpente(serpente);
+                if (tasto != Tasto.fermo)
+                    UpdateSnake(ref serpente, false);
             }
         }
 
@@ -352,7 +420,7 @@ namespace Snake
         /// imposta a 2 i campi della matrice campoGioco occupati dal serpente
         /// </summary>
         /// <param name="s"></param> 
-        private void AggiornaMatSnake(Serpente s, bool manigato, bool init = false)
+        private void AggiornaMatSnake(Serpente s, bool mangiato, bool init = false)
         {
             /*
             for (int i = 0; i < s.getLength(); i++)
@@ -363,7 +431,7 @@ namespace Snake
 
             if (tasto != Tasto.fermo)
             {
-                if (!manigato && !init)
+                if (!mangiato && !init)
                     //matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
                 posLastPrec = new Point(s.GetX(s.getLength() - 1), s.GetY(s.getLength() - 1));
                 //matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
@@ -380,6 +448,7 @@ namespace Snake
             }
         }
 
+        // --- Non serve a nienteeeeeeee ---
         private void TrasferelloCibo(Cibo c)
         {
             //matCibo[c.GetFoodX(), c.GetFoodY()] = Elementi.cibo;
@@ -405,8 +474,12 @@ namespace Snake
             }
         }
 
-
-        // --- Da finire ---
+        /// <summary>
+        /// controlla se il serpente ha mangiato o no. ritorna un booleano
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private bool HasEaten(Serpente s, Cibo c)
         {
             if (s.GetX(0) == c.GetFoodX() && s.GetY(0) == c.GetFoodY())
@@ -467,6 +540,9 @@ namespace Snake
             }
         }
 
+        /// <summary>
+        /// chiude il gioco
+        /// </summary>
         private void GameOver()
         {
             tmr.Enabled = false; 
@@ -482,6 +558,11 @@ namespace Snake
         private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
         {
             nomeChiamante.Show();
+        }
+
+        private void NewCibo(ref Cibo c)
+        {
+            c = new Cibo(GetWidth(), GetHeigth());
         }
     }
 
@@ -506,4 +587,5 @@ namespace Snake
             parent.Refresh();
         }
     }
+
 }

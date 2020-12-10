@@ -16,7 +16,6 @@ namespace Snake
         {
             food.X = r.Next(x);
             food.Y = r.Next(y);
-
         }
         public int GetFoodX()
         {
