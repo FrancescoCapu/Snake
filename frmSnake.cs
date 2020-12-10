@@ -86,7 +86,6 @@ namespace Snake
             StampaCampoGioco();
             StampaSerpente(serpente);
             PrintFood(cibo);
-            //IncSnake(cibo, serpente);
         }
 
         /// <summary>
@@ -208,7 +207,7 @@ namespace Snake
         private void PrintFood(Cibo c)
         {
             Panel panello = new Panel();
-            panello.BackColor = Color.Orange;
+            panello.BackColor = Color.Aquamarine;
             panello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
             panello.BorderStyle = BorderStyle.FixedSingle;
             panello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
@@ -302,8 +301,11 @@ namespace Snake
             else
             {
                 if (HasEaten(serpente, cibo))
+                {
                     IncSnake(cibo, serpente);
-                AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
+                    NewCibo(cibo);
+                }
+                //AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
                 StampaSerpente(serpente);
                 PrintFood(cibo);
             }
@@ -482,6 +484,11 @@ namespace Snake
         {
             nomeChiamante.Show();
         }
+
+        private void NewCibo(Cibo c)
+        {
+            c = new Cibo(GetWidth(),GetHeigth());
+        }
     }
 
     /// <summary>
@@ -505,4 +512,5 @@ namespace Snake
             parent.Refresh();
         }
     }
+
 }
