@@ -48,7 +48,8 @@ namespace Snake
         private Tasto tasto = Tasto.fermo;
         private Tasto tastoPrec = Tasto.destra;
         private Point posLastPrec;
-        private List<Panel> lstPanelSerpente = new List<Panel>();
+        //private List<Panel> lstPanelSerpente = new List<Panel>();
+        private Queue<Panel> queueSerpente = new Queue<Panel>();
         private List<Panel> lstPanelCibo = new List<Panel>();
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace Snake
         {
             DrawingControl.SuspendDrawing(pnlElementiDinamici);
             pnlElementiDinamici.Controls.Clear();
-            for (int i = 0; i < serpente.getLength(); i++)
+            for (int i = serpente.getLength()- 1 ; i > - 1; i--)
             {
                 Panel panel = new Panel();
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
@@ -197,12 +198,14 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = Color.Orange;
                 panel.Visible = true;
-                lstPanelSerpente.Add(panel);
+                //lstPanelSerpente.Add(panel);
+                queueSerpente.Enqueue(panel); //se funziona usare questo
                 pnlElementiDinamici.Controls.Add(panel);
             }
             DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
+        // --- Da ricontrollare come viene aggiunto l'ultimo pannello quando si mangia, perché viene visualizzato solo quando l'ultimo elemento del serpente passa sopra al cibo e non viene visualizzato quando la testa passa sopra al cibo, incrementando immediatamente la lunghezza
         /// <summary>
         /// aggiorna la posizione dei pannelli che compongono il serpente senza doverli cancellare e ristampare ogni volta
         /// </summary>
@@ -210,6 +213,7 @@ namespace Snake
         /// <param name="hasEaten"></param>
         private void UpdateSnake(ref Serpente s, bool hasEaten = false)
         {
+            Panel temp;
             if (hasEaten)
             {
                 Panel panel = new Panel();
@@ -218,21 +222,35 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = Color.Orange;
                 panel.Visible = true;
-                lstPanelSerpente.Add(panel);
+                //lstPanelSerpente.Add(panel);
+                queueSerpente.Enqueue(panel);
+                for (int i = 0; i < s.getLength() - 1; i++)
+                {
+                    temp = queueSerpente.Dequeue();
+                    queueSerpente.Enqueue(temp);
+                }
                 pnlElementiDinamici.Controls.Add(panel);
+                /*
                 for (int i = s.getLength() - 2; i > 0; i--)
                 {
                     lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
                 }
+                */
+                //queueSerpente.Enqueue(queueSerpente.Dequeue().Location = new Point(s.GetX(0), s.GetY(0));
             }
             else
             {
+                /*
                 for (int i = s.getLength() - 1; i > 0; i--)
                 {
                     lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
                 }
+                */
+                temp = queueSerpente.Dequeue();
+                temp.Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+                queueSerpente.Enqueue(temp);
             }
-            lstPanelSerpente[0].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+            //lstPanelSerpente[0].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
             /*
             if (hasEaten == false)
             {
@@ -368,7 +386,7 @@ namespace Snake
                 {
                     IncSnake(cibo, serpente);
                     UpdateSnake(ref serpente, true);
-                    NewCibo(ref cibo);
+                    NewCibo(ref cibo, serpente);
                     UpdateFood(ref cibo);
                 }
                 //AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
@@ -560,9 +578,39 @@ namespace Snake
             nomeChiamante.Show();
         }
 
-        private void NewCibo(ref Cibo c)
+        private void NewCibo(ref Cibo c, Serpente s)
         {
-            c = new Cibo(GetWidth(), GetHeigth());
+            bool flag;
+            if (livello.numLev == 0)
+            {
+                do
+                {
+                    flag = false;
+                    c = new Cibo(GetWidth(), GetHeigth());
+                    for (int i = 0; i < s.getLength(); i++)
+                    {
+                        if (c.GetFoodX() == s.GetX(i) && c.GetFoodY() == s.GetY(i))
+                        {
+                            flag = true;
+                        }
+                    }
+                } while (flag);
+            }
+            else
+            {
+                do
+                {
+                    flag = false;
+                    c = new Cibo(GetWidth(), GetHeigth());
+                    for (int i = 0; i < s.getLength(); i++)
+                    {
+                        if (c.GetFoodX() == s.GetX(i) && c.GetFoodY() == s.GetY(i) || campoGioco[c.GetFoodX(), c.GetFoodY()] == Elementi.muro)
+                        {
+                            flag = true;
+                        }
+                    }
+                } while (flag);
+            }
         }
     }
 
