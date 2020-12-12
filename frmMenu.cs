@@ -26,6 +26,7 @@ namespace Snake
         public const int WIDTH_CAMPO_GRANDE = 37, HEIGHT_CAMPO_GRANDE = 25;
         private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
+        private List<Image> lstPreviewLevels = new List<Image>();
 
         enum Velocita
         {
@@ -41,7 +42,6 @@ namespace Snake
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
-            InizializzaPic();
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
@@ -53,7 +53,7 @@ namespace Snake
             cmbVelocita.SelectedItem = Velocita.Normale;
 
             rootNomiFileMenu = new RootNomiFile();
-            StreamReader reader = new StreamReader("levels/indice_livelli.json");
+            StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
             reader.Close();
             for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
@@ -61,6 +61,9 @@ namespace Snake
                 cmbLivelli.Items.Add(i);
             }
             cmbLivelli.SelectedIndex = 0;
+            InizializzaPic();
+            InizializzaButtons();
+            GetPictures();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -88,13 +91,13 @@ namespace Snake
                 switch (cmbVelocita.SelectedItem)
                 {
                     case Velocita.Lento:
-                        timerInterval = 450;
-                        break;
-                    case Velocita.Normale:
                         timerInterval = 300;
                         break;
-                    case Velocita.Veloce:
+                    case Velocita.Normale:
                         timerInterval = 150;
+                        break;
+                    case Velocita.Veloce:
+                        timerInterval = 75;
                         break;
                     default:
                         //non verrà mai eseguito
@@ -132,7 +135,7 @@ namespace Snake
             pnlLivelli.Controls.Add(picCenter);
 
             picLeft1.Size = new Size(100, 68);
-            picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width), pnlLivelli.Height / 8 + picCenter.Height / 2 - picLeft1.Height / 2);
+            picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width + picLeft1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picLeft1.Height / 2);
             //picLeft1.Image = Image.FromStream();
             picLeft1.BackColor = Color.FromArgb(50, 0, 0, 0);
             picLeft1.Visible = true;
@@ -140,7 +143,7 @@ namespace Snake
             pnlLivelli.Controls.Add(picLeft1);
 
             picRight1.Size = new Size(100, 68);
-            picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2), pnlLivelli.Height / 8 + picCenter.Height / 2 - picRight1.Height / 2);
+            picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2 - picRight1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picRight1.Height / 2);
             //picRight1.Image = Image.FromStream();
             picRight1.BackColor = Color.FromArgb(50, 0, 0, 0);
             picRight1.Visible = true;
@@ -148,11 +151,74 @@ namespace Snake
             pnlLivelli.Controls.Add(picRight1);
         }
 
+        // --- da finire - così non funziona ---
+        private void GetPictures()
+        {
+            string aus;
+            try
+            {
+                for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
+                {
+                    aus = "Data/imgs/preview_level_" + i + ".PNG";
+                    lstPreviewLevels.Add(Image.FromFile(aus));
+                }
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                MessageBox.Show(e.Message + " file not found", "Errore");
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show(e.Message, "Errore");
+            }
+        }
+
         private void InizializzaButtons()
         {
-            btnRight.Size = new Size();
-            btnRight.Location = new Point(picCenter.Location , picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
+            btnRight.Size = new Size(30, 30);
+            btnRight.Location = new Point(picRight1.Location.X + picRight1.Width , picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
 
+            btnLeft.Size = new Size(30, 30);
+            btnLeft.Location = new Point(picLeft1.Location.X - btnLeft.Width, picCenter.Location.Y + picCenter.Height / 2 - btnLeft.Size.Height / 2);
+        }
+
+        private void UpdatePics(int index)
+        {
+            picCenter.Image = lstPreviewLevels[index];
+            if (index == 0)
+            {
+                picLeft1.Image = null;
+            }
+            else
+            {
+                picLeft1.Image = lstPreviewLevels[index - 1];
+            }
+            if (index == rootNomiFileMenu.nomeFileDaLeggere.Count)
+            {
+                picRight1.Image = null;
+            }
+            else
+            {
+                picRight1.Image = lstPreviewLevels[index + 1];
+            }
+        }
+
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            if (numeroLivello < rootNomiFileMenu.nomeFileDaLeggere.Count)
+            {
+                numeroLivello++;
+                UpdatePics(numeroLivello);
+            }
+        }
+
+        private void btnLeft_Click(object sender, EventArgs e)
+        {
+            if (numeroLivello > 0)
+            {
+                numeroLivello--;
+                UpdatePics(numeroLivello);
+            }
         }
     }
 }

@@ -510,10 +510,10 @@ namespace Snake
         /// </summary>
         private void CaricamentoLivello()
         {
-            StreamReader reader1 = new StreamReader("levels/indice_livelli.json");
+            StreamReader reader1 = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
             reader1.Close();
-            StreamReader reader2 = new StreamReader("levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
+            StreamReader reader2 = new StreamReader("Data/levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
             livello = JsonConvert.DeserializeObject<Livello>(reader2.ReadToEnd());
             reader2.Close();
             if (numLivello != 0)

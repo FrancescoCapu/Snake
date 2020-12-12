@@ -176,6 +176,7 @@ namespace Snake
             this.btnRight.TabIndex = 8;
             this.btnRight.Text = "button1";
             this.btnRight.UseVisualStyleBackColor = true;
+            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
             // 
             // btnLeft
             // 
@@ -185,6 +186,7 @@ namespace Snake
             this.btnLeft.TabIndex = 9;
             this.btnLeft.Text = "button2";
             this.btnLeft.UseVisualStyleBackColor = true;
+            this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
             // 
             // frmMenu
             // 
