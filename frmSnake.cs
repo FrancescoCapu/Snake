@@ -84,7 +84,7 @@ namespace Snake
             CaricamentoLivello();
             Inizializza(heightCampoGioco, widthCampoGioco);
             AddMuri();
-            AggiornaMatSnake(serpente, false, true);
+            //AggiornaMatSnake(serpente, false, true);
             TrasferelloCibo(cibo);
             StampaCampoGioco();
             StampaSerpente(serpente);
@@ -285,6 +285,7 @@ namespace Snake
             pannello.Visible = true;
             pnlElementiDinamici.Controls.Add(pannello);
             lstPanelCibo.Add(pannello);
+            Console.WriteLine(c.GetFoodX().ToString() + " " + c.GetFoodY().ToString());
         }
 
         /// <summary>
@@ -602,11 +603,13 @@ namespace Snake
                 {
                     flag = false;
                     c = new Cibo(GetWidth(), GetHeigth());
+                    Console.WriteLine(c.GetFoodX().ToString() + " " + c.GetFoodY().ToString());
                     for (int i = 0; i < s.getLength(); i++)
                     {
                         if (c.GetFoodX() == s.GetX(i) && c.GetFoodY() == s.GetY(i) || campoGioco[c.GetFoodX(), c.GetFoodY()] == Elementi.muro)
                         {
                             flag = true;
+                            break;
                         }
                     }
                 } while (flag);

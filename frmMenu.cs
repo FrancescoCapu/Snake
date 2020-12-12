@@ -61,9 +61,9 @@ namespace Snake
                 cmbLivelli.Items.Add(i);
             }
             cmbLivelli.SelectedIndex = 0;
+            GetPictures();
             InizializzaPic();
             InizializzaButtons();
-            GetPictures();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace Snake
                 }
                 else
                 {
-                    numeroLivello = cmbLivelli.SelectedIndex;
+                    //numeroLivello = cmbLivelli.SelectedIndex;
                 }
                 frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello);
                 frmSnake.Show();
@@ -128,26 +128,29 @@ namespace Snake
         {
             picCenter.Size = new Size(200, 136);    //200, 136 è esattamente la metà della grandezza in pixel del campo gioco medio
             picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, pnlLivelli.Height / 8);
-            //picCenter.Image = Image.FromFile();
-            picCenter.BackColor = Color.FromArgb(100, 0, 0, 0);
+            picCenter.Image = lstPreviewLevels[0];
+            picCenter.BackColor = Color.FromArgb(0, 0, 0, 0);
             picCenter.Visible = true;
             picCenter.Enabled = true;
+            picCenter.SizeMode = PictureBoxSizeMode.StretchImage;
             pnlLivelli.Controls.Add(picCenter);
 
             picLeft1.Size = new Size(100, 68);
             picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width + picLeft1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picLeft1.Height / 2);
-            //picLeft1.Image = Image.FromStream();
-            picLeft1.BackColor = Color.FromArgb(50, 0, 0, 0);
+            picLeft1.Image = null;
+            picLeft1.BackColor = Color.FromArgb(0, 0, 0, 0);
             picLeft1.Visible = true;
             picLeft1.Enabled = true;
+            picLeft1.SizeMode = PictureBoxSizeMode.StretchImage;
             pnlLivelli.Controls.Add(picLeft1);
 
             picRight1.Size = new Size(100, 68);
             picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2 - picRight1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picRight1.Height / 2);
-            //picRight1.Image = Image.FromStream();
-            picRight1.BackColor = Color.FromArgb(50, 0, 0, 0);
+            picRight1.Image = lstPreviewLevels[1];
+            picRight1.BackColor = Color.FromArgb(0, 0, 0, 0);
             picRight1.Visible = true;
             picRight1.Enabled = true;
+            picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
             pnlLivelli.Controls.Add(picRight1);
         }
 
@@ -160,12 +163,21 @@ namespace Snake
                 for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
                 {
                     aus = "Data/imgs/preview_level_" + i + ".PNG";
+                    Console.WriteLine(aus);
                     lstPreviewLevels.Add(Image.FromFile(aus));
                 }
             }
             catch (System.IO.FileNotFoundException e)
             {
                 MessageBox.Show(e.Message + " file not found", "Errore");
+            }
+            catch (System.OutOfMemoryException e)
+            {
+                MessageBox.Show(e.Message, "Errore");
+            }
+            catch (System.ArgumentException e)
+            {
+                MessageBox.Show(e.Message, "Errore");
             }
             catch (System.Exception e)
             {
@@ -180,6 +192,8 @@ namespace Snake
 
             btnLeft.Size = new Size(30, 30);
             btnLeft.Location = new Point(picLeft1.Location.X - btnLeft.Width, picCenter.Location.Y + picCenter.Height / 2 - btnLeft.Size.Height / 2);
+            btnLeft.Enabled = false;
+            btnLeft.Visible = false;
         }
 
         private void UpdatePics(int index)
@@ -188,18 +202,26 @@ namespace Snake
             if (index == 0)
             {
                 picLeft1.Image = null;
+                btnLeft.Enabled = false;
+                btnLeft.Visible = false;
             }
             else
             {
                 picLeft1.Image = lstPreviewLevels[index - 1];
+                btnLeft.Enabled = true;
+                btnLeft.Visible = true;
             }
-            if (index == rootNomiFileMenu.nomeFileDaLeggere.Count)
+            if (index == rootNomiFileMenu.nomeFileDaLeggere.Count - 1)
             {
                 picRight1.Image = null;
+                btnRight.Enabled = false;
+                btnRight.Visible = false;
             }
             else
             {
                 picRight1.Image = lstPreviewLevels[index + 1];
+                btnRight.Enabled = true;
+                btnRight.Visible = true;
             }
         }
 
