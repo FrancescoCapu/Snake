@@ -9,7 +9,7 @@ namespace Snake
 {
     class Serpente
     {
-        private List <Point> lstSerpente = new List<Point>(50);
+        private List <Point> lstSerpente = new List<Point>(4);
 
         public Serpente(int width, int height)
         {

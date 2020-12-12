@@ -36,10 +36,18 @@ namespace Snake
             this.lblDimensioneCampo = new System.Windows.Forms.Label();
             this.cmbDimensioneCampo = new System.Windows.Forms.ComboBox();
             this.pnlLivelli = new System.Windows.Forms.Panel();
-            this.lblLivelli = new System.Windows.Forms.Label();
             this.cmbLivelli = new System.Windows.Forms.ComboBox();
+            this.lblLivelli = new System.Windows.Forms.Label();
+            this.picCenter = new System.Windows.Forms.PictureBox();
+            this.picLeft1 = new System.Windows.Forms.PictureBox();
+            this.picRight1 = new System.Windows.Forms.PictureBox();
+            this.btnRight = new System.Windows.Forms.Button();
+            this.btnLeft = new System.Windows.Forms.Button();
             this.pnlDimensioneCampo.SuspendLayout();
             this.pnlLivelli.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCenter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRight1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnStart
@@ -60,11 +68,10 @@ namespace Snake
             this.pnlDimensioneCampo.Controls.Add(this.lblPropreta);
             this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
             this.pnlDimensioneCampo.Controls.Add(this.cmbDimensioneCampo);
-            this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 0);
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(501, 191);
             this.pnlDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
-            this.pnlDimensioneCampo.Size = new System.Drawing.Size(183, 294);
+            this.pnlDimensioneCampo.Size = new System.Drawing.Size(198, 103);
             this.pnlDimensioneCampo.TabIndex = 1;
             // 
             // cmbVelocita
@@ -105,31 +112,79 @@ namespace Snake
             // 
             // pnlLivelli
             // 
+            this.pnlLivelli.Controls.Add(this.btnLeft);
+            this.pnlLivelli.Controls.Add(this.btnRight);
+            this.pnlLivelli.Controls.Add(this.picRight1);
+            this.pnlLivelli.Controls.Add(this.picLeft1);
+            this.pnlLivelli.Controls.Add(this.picCenter);
+            this.pnlLivelli.Controls.Add(this.pnlDimensioneCampo);
             this.pnlLivelli.Controls.Add(this.cmbLivelli);
             this.pnlLivelli.Controls.Add(this.lblLivelli);
-            this.pnlLivelli.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlLivelli.Location = new System.Drawing.Point(183, 0);
+            this.pnlLivelli.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLivelli.Location = new System.Drawing.Point(0, 0);
             this.pnlLivelli.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLivelli.Name = "pnlLivelli";
-            this.pnlLivelli.Size = new System.Drawing.Size(178, 294);
+            this.pnlLivelli.Size = new System.Drawing.Size(711, 294);
             this.pnlLivelli.TabIndex = 2;
+            // 
+            // cmbLivelli
+            // 
+            this.cmbLivelli.FormattingEnabled = true;
+            this.cmbLivelli.Location = new System.Drawing.Point(9, 258);
+            this.cmbLivelli.Name = "cmbLivelli";
+            this.cmbLivelli.Size = new System.Drawing.Size(121, 24);
+            this.cmbLivelli.TabIndex = 4;
             // 
             // lblLivelli
             // 
             this.lblLivelli.AutoSize = true;
-            this.lblLivelli.Location = new System.Drawing.Point(5, 7);
+            this.lblLivelli.Location = new System.Drawing.Point(6, 241);
             this.lblLivelli.Name = "lblLivelli";
             this.lblLivelli.Size = new System.Drawing.Size(109, 17);
             this.lblLivelli.TabIndex = 3;
             this.lblLivelli.Text = "Selezione livello";
             // 
-            // cmbLivelli
+            // picCenter
             // 
-            this.cmbLivelli.FormattingEnabled = true;
-            this.cmbLivelli.Location = new System.Drawing.Point(8, 24);
-            this.cmbLivelli.Name = "cmbLivelli";
-            this.cmbLivelli.Size = new System.Drawing.Size(121, 24);
-            this.cmbLivelli.TabIndex = 4;
+            this.picCenter.Location = new System.Drawing.Point(308, 72);
+            this.picCenter.Name = "picCenter";
+            this.picCenter.Size = new System.Drawing.Size(100, 50);
+            this.picCenter.TabIndex = 5;
+            this.picCenter.TabStop = false;
+            // 
+            // picLeft1
+            // 
+            this.picLeft1.Location = new System.Drawing.Point(202, 72);
+            this.picLeft1.Name = "picLeft1";
+            this.picLeft1.Size = new System.Drawing.Size(100, 50);
+            this.picLeft1.TabIndex = 6;
+            this.picLeft1.TabStop = false;
+            // 
+            // picRight1
+            // 
+            this.picRight1.Location = new System.Drawing.Point(414, 72);
+            this.picRight1.Name = "picRight1";
+            this.picRight1.Size = new System.Drawing.Size(100, 50);
+            this.picRight1.TabIndex = 7;
+            this.picRight1.TabStop = false;
+            // 
+            // btnRight
+            // 
+            this.btnRight.Location = new System.Drawing.Point(610, 81);
+            this.btnRight.Name = "btnRight";
+            this.btnRight.Size = new System.Drawing.Size(75, 23);
+            this.btnRight.TabIndex = 8;
+            this.btnRight.Text = "button1";
+            this.btnRight.UseVisualStyleBackColor = true;
+            // 
+            // btnLeft
+            // 
+            this.btnLeft.Location = new System.Drawing.Point(35, 80);
+            this.btnLeft.Name = "btnLeft";
+            this.btnLeft.Size = new System.Drawing.Size(75, 23);
+            this.btnLeft.TabIndex = 9;
+            this.btnLeft.Text = "button2";
+            this.btnLeft.UseVisualStyleBackColor = true;
             // 
             // frmMenu
             // 
@@ -137,7 +192,6 @@ namespace Snake
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
             this.Controls.Add(this.pnlLivelli);
-            this.Controls.Add(this.pnlDimensioneCampo);
             this.Controls.Add(this.btnStart);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmMenu";
@@ -147,6 +201,9 @@ namespace Snake
             this.pnlDimensioneCampo.PerformLayout();
             this.pnlLivelli.ResumeLayout(false);
             this.pnlLivelli.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCenter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRight1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -162,5 +219,10 @@ namespace Snake
         private System.Windows.Forms.ComboBox cmbVelocita;
         private System.Windows.Forms.Label lblPropreta;
         private System.Windows.Forms.ComboBox cmbLivelli;
+        private System.Windows.Forms.PictureBox picRight1;
+        private System.Windows.Forms.PictureBox picLeft1;
+        private System.Windows.Forms.PictureBox picCenter;
+        private System.Windows.Forms.Button btnLeft;
+        private System.Windows.Forms.Button btnRight;
     }
 }

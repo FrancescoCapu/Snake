@@ -41,6 +41,7 @@ namespace Snake
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
+            InizializzaPic();
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
@@ -115,6 +116,43 @@ namespace Snake
             {
                 MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        /// <summary>
+        /// ridimensiona la grandezza delle picturebox
+        /// </summary>
+        private void InizializzaPic()
+        {
+            picCenter.Size = new Size(200, 136);    //200, 136 è esattamente la metà della grandezza in pixel del campo gioco medio
+            picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, pnlLivelli.Height / 8);
+            //picCenter.Image = Image.FromFile();
+            picCenter.BackColor = Color.FromArgb(100, 0, 0, 0);
+            picCenter.Visible = true;
+            picCenter.Enabled = true;
+            pnlLivelli.Controls.Add(picCenter);
+
+            picLeft1.Size = new Size(100, 68);
+            picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width), pnlLivelli.Height / 8 + picCenter.Height / 2 - picLeft1.Height / 2);
+            //picLeft1.Image = Image.FromStream();
+            picLeft1.BackColor = Color.FromArgb(50, 0, 0, 0);
+            picLeft1.Visible = true;
+            picLeft1.Enabled = true;
+            pnlLivelli.Controls.Add(picLeft1);
+
+            picRight1.Size = new Size(100, 68);
+            picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2), pnlLivelli.Height / 8 + picCenter.Height / 2 - picRight1.Height / 2);
+            //picRight1.Image = Image.FromStream();
+            picRight1.BackColor = Color.FromArgb(50, 0, 0, 0);
+            picRight1.Visible = true;
+            picRight1.Enabled = true;
+            pnlLivelli.Controls.Add(picRight1);
+        }
+
+        private void InizializzaButtons()
+        {
+            btnRight.Size = new Size();
+            btnRight.Location = new Point(picCenter.Location , picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
+
         }
     }
 }
