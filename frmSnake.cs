@@ -216,6 +216,7 @@ namespace Snake
             Panel temp;
             if (hasEaten)
             {
+                
                 Panel panel = new Panel();
                 panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
@@ -224,6 +225,9 @@ namespace Snake
                 panel.Visible = true;
                 //lstPanelSerpente.Add(panel);
                 queueSerpente.Enqueue(panel);
+
+                //Se si può evitare il for è meglio...
+
                 for (int i = 0; i < s.getLength() - 1; i++)
                 {
                     temp = queueSerpente.Dequeue();
