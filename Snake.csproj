@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cibo.cs" />
-    <Compile Include="CLassifica.cs" />
+    <Compile Include="Classifica.cs" />
     <Compile Include="frmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +71,7 @@
     <Compile Include="Muro.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordUtente.cs" />
     <Compile Include="RootNomiFile.cs" />
     <Compile Include="Serpente.cs" />
     <EmbeddedResource Include="frmMenu.resx">
@@ -122,6 +123,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Data\imgs\mela.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\imgs\preview_level_0.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

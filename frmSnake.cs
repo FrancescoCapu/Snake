@@ -52,6 +52,8 @@ namespace Snake
         //private List<Panel> lstPanelSerpente = new List<Panel>();
         private Queue<Panel> queueSerpente = new Queue<Panel>();
         private List<Panel> lstPanelCibo = new List<Panel>();
+        private Classifica classifica;
+        private RecordUtente recordutente =new RecordUtente();
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -60,13 +62,14 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
             this.heightCampoGioco = heightCampoGioco;
             this.widthCampoGioco = widthCampoGioco;
             this.numLivello = numLivello;
+            recordutente.NomePlayer = nome;
             tmr.Interval = timerInterval;
             tmr.Enabled = true;
         }
@@ -89,7 +92,9 @@ namespace Snake
             TrasferelloCibo(cibo);
             StampaCampoGioco();
             StampaSerpente(serpente);
+            NewCibo(ref cibo, serpente);
             PrintFood(cibo);
+            classifica = new Classifica();
         }
 
         /// <summary>
@@ -283,10 +288,17 @@ namespace Snake
         private void PrintFood(Cibo c)
         {
             Panel pannello = new Panel();
-            pannello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
-            pannello.BorderStyle = BorderStyle.FixedSingle;
+            PictureBox mela = new PictureBox();
+            mela.Visible = true;
+            mela.Enabled = true;
+            mela.SizeMode = PictureBoxSizeMode.StretchImage;
+            mela.Image = Image.FromFile("Data/imgs/mela.png");
+            pannello.Controls.Add(mela);
+            //pannello.BackgroundImage =Image.FromFile("Data/imgs/ezgif-1-b94c4881a805.png");
+            pannello.BorderStyle = BorderStyle.None;
             pannello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
             pannello.Size = new Size(sizeStampa, sizeStampa);
+            mela.Size = pannello.Size;
             pannello.Visible = true;
             pnlElementiDinamici.Controls.Add(pannello);
             lstPanelCibo.Add(pannello);
@@ -429,6 +441,23 @@ namespace Snake
                 case Keys.Down:
                     {
                         tasto = Tasto.giu;
+                    }
+                    break;
+                case Keys.A:
+                    {
+                        goto case Keys.Left;
+                    }
+                case Keys.D:
+                    {
+                        goto case Keys.Right;
+                    }
+                case Keys.W:
+                    {
+                        goto case Keys.Up;
+                    }
+                case Keys.S:
+                    {
+                        goto case Keys.Down;
                     }
                     break;
             }
@@ -574,12 +603,19 @@ namespace Snake
             this.Close();
         }
 
-        public void Classifica()
+        private void SaveClassifica(Classifica classifica,int index)
         {
-            string json = JsonConvert.SerializeObject(serpente.getLength());
-            System.IO.File.WriteAllText("Data/Classifica.json", json);
+            string json = JsonConvert.SerializeObject(classifica);
+            string nome = "Data/Classifica/classifica" + index + ".json";
+            System.IO.File.WriteAllText(@nome, json);
         }
 
+        private void ReadClassifica(ref Classifica c,int index)
+        {
+            StreamReader reader = new StreamReader("Data/CLassifica/classifica" + index + ".json");
+            c = JsonConvert.DeserializeObject <Classifica>(reader.ReadToEnd());
+            reader.Close();
+        }
         /// <summary>
         /// riapre il menu se si chiude il gioco
         /// </summary>
@@ -587,7 +623,19 @@ namespace Snake
         /// <param name="e"></param>
         private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ReadClassifica(ref classifica, numLivello);
+            recordutente.PunteggioPlayer = serpente.getLength();
             nomeChiamante.Show();
+            classifica.ClassificaPunteggi.Add(recordutente);
+            classifica.ClassificaPunteggi.Sort((s1, s2) => s2.PunteggioPlayer.CompareTo(s1.PunteggioPlayer));
+            if(classifica.ClassificaPunteggi.Count>10)
+            {
+                for (int i = classifica.ClassificaPunteggi.Count-1;i > 9;i --)
+                {
+                    classifica.ClassificaPunteggi.Remove(classifica.ClassificaPunteggi[i]);
+                }
+            }
+            SaveClassifica(classifica, numLivello);
         }
 
         private void NewCibo(ref Cibo c, Serpente s)
@@ -648,5 +696,6 @@ namespace Snake
             SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
             parent.Refresh();
         }
+        
     }
 }

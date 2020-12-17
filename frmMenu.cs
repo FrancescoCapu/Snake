@@ -56,11 +56,11 @@ namespace Snake
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
             reader.Close();
-            for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
+            /*for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
             {
                 cmbLivelli.Items.Add(i);
             }
-            cmbLivelli.SelectedIndex = 0;
+            cmbLivelli.SelectedIndex = 0;*/
             GetPictures();
             InizializzaPic();
             InizializzaButtons();
@@ -103,15 +103,16 @@ namespace Snake
                         //non verrà mai eseguito
                         goto case Velocita.Normale;
                 }
-                if (cmbLivelli.SelectedItem == null)
+                /*if (cmbLivelli.SelectedItem == null)
                 {
                     numeroLivello = 0;
                 }
                 else
                 {
                     //numeroLivello = cmbLivelli.SelectedIndex;
-                }
-                frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello);
+                }*/
+                string nome = txtNome.Text;
+                frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, numeroLivello);
                 frmSnake.Show();
                 this.Hide();
             }

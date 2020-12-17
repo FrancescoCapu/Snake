@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class Classifica
+    class RecordUtente
     {
-        public List<RecordUtente> ClassificaPunteggi;
-
-        public Classifica()
+        public string NomePlayer;
+        public int PunteggioPlayer;
+        public RecordUtente()
         {
-            ClassificaPunteggi = new List<RecordUtente>();
+
         }
     }
 }
