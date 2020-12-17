@@ -442,6 +442,23 @@ namespace Snake
                         tasto = Tasto.giu;
                     }
                     break;
+                case Keys.A:
+                    {
+                        goto case Keys.Left;
+                    }
+                case Keys.D:
+                    {
+                        goto case Keys.Right;
+                    }
+                case Keys.W:
+                    {
+                        goto case Keys.Up;
+                    }
+                case Keys.S:
+                    {
+                        goto case Keys.Down;
+                    }
+                    break;
             }
             //Queste funzioni vanno messe altrove, credo nel timer
             //ResetMatrice();
