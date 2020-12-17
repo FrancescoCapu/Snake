@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using Newtonsoft.Json;
 
+
 namespace Snake
 {
     enum Tasto
@@ -281,7 +282,6 @@ namespace Snake
         private void PrintFood(Cibo c)
         {
             Panel pannello = new Panel();
-            pannello.BackColor = Color.Aquamarine;
             pannello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
             pannello.BorderStyle = BorderStyle.FixedSingle;
             pannello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
@@ -573,6 +573,12 @@ namespace Snake
             this.Close();
         }
 
+        public void Classifica()
+        {
+            string json = JsonConvert.SerializeObject(serpente.getLength());
+            System.IO.File.WriteAllText("Data/Classifica.json", json);
+        }
+
         /// <summary>
         /// riapre il menu se si chiude il gioco
         /// </summary>
@@ -642,5 +648,4 @@ namespace Snake
             parent.Refresh();
         }
     }
-
 }
