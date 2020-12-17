@@ -42,7 +42,7 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
-        private Cibo cibo;
+        private Cibo cibo;  
         private RootNomiFile rootNomiFile;
         private Livello livello;
         private int numLivello;
@@ -122,6 +122,7 @@ namespace Snake
             pnlCampoGioco.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Location = new Point(0, 0);
+            pnlElementiDinamici.BorderStyle = BorderStyle.None;
             this.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
         }
 
@@ -513,7 +514,7 @@ namespace Snake
         /// <summary>
         /// deserializza il file json nella classe Livello
         /// </summary>
-        private void CaricamentoLivello()
+        private void CaricamentoLivello() 
         {
             StreamReader reader1 = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
