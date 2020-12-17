@@ -52,6 +52,7 @@ namespace Snake
         //private List<Panel> lstPanelSerpente = new List<Panel>();
         private Queue<Panel> queueSerpente = new Queue<Panel>();
         private List<Panel> lstPanelCibo = new List<Panel>();
+        private Classifica classifica;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -90,6 +91,7 @@ namespace Snake
             StampaCampoGioco();
             StampaSerpente(serpente);
             PrintFood(cibo);
+            classifica = new Classifica();
         }
 
         /// <summary>
@@ -282,10 +284,17 @@ namespace Snake
         private void PrintFood(Cibo c)
         {
             Panel pannello = new Panel();
-            pannello.BackgroundImage = (Snake.Properties.Resources.cibo_snake);
-            pannello.BorderStyle = BorderStyle.FixedSingle;
+            PictureBox mela = new PictureBox();
+            mela.Visible = true;
+            mela.Enabled = true;
+            mela.SizeMode = PictureBoxSizeMode.StretchImage;
+            mela.Image = Image.FromFile("Data/imgs/mela.png");
+            pannello.Controls.Add(mela);
+            //pannello.BackgroundImage =Image.FromFile("Data/imgs/ezgif-1-b94c4881a805.png");
+            pannello.BorderStyle = BorderStyle.None;
             pannello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
             pannello.Size = new Size(sizeStampa, sizeStampa);
+            mela.Size = pannello.Size;
             pannello.Visible = true;
             pnlElementiDinamici.Controls.Add(pannello);
             lstPanelCibo.Add(pannello);
@@ -573,10 +582,11 @@ namespace Snake
             this.Close();
         }
 
-        public void Classifica()
+        private void Classifica(Classifica classifica,int index)
         {
-            string json = JsonConvert.SerializeObject(serpente.getLength());
-            System.IO.File.WriteAllText("Data/Classifica.json", json);
+            string json = JsonConvert.SerializeObject(classifica);
+            string nome = "Data/Classifica" + index + ".json";
+            System.IO.File.WriteAllText(@nome, json);
         }
 
         /// <summary>

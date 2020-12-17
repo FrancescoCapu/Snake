@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class CLassifica
+    class Classifica
     {
         public List<int> ClassificaPunteggi = new List<int>();
     }
