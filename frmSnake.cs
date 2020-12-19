@@ -610,11 +610,22 @@ namespace Snake
             System.IO.File.WriteAllText(@nome, json);
         }
 
-        private void ReadClassifica(ref Classifica c,int index)
+        private void ReadClassifica(ref Classifica c, int index)
         {
-            StreamReader reader = new StreamReader("Data/CLassifica/classifica" + index + ".json");
-            c = JsonConvert.DeserializeObject <Classifica>(reader.ReadToEnd());
-            reader.Close();
+            try
+            {
+                StreamReader reader = new StreamReader("Data/CLassifica/classifica" + index + ".json");
+                c = JsonConvert.DeserializeObject<Classifica>(reader.ReadToEnd());
+                reader.Close();
+            }
+            catch (FileNotFoundException e)
+            {
+
+            }
+            catch (System.Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         /// <summary>
         /// riapre il menu se si chiude il gioco
