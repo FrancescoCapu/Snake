@@ -223,7 +223,6 @@ namespace Snake
             Panel temp;
             if (hasEaten)
             {
-                
                 Panel panel = new Panel();
                 panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
@@ -603,6 +602,7 @@ namespace Snake
             this.Close();
         }
 
+        //rivedere cartella Classifica
         private void SaveClassifica(Classifica classifica,int index)
         {
             string json = JsonConvert.SerializeObject(classifica);
@@ -622,7 +622,7 @@ namespace Snake
             {
 
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
