@@ -119,11 +119,11 @@ namespace Snake
                     //matCibo[i, j] = Elementi.libero;
                 }
             }
-            for (int i = 0; i < serpente.getLength(); i++)
+            for (int i = 0; i < serpente.GetLength(); i++)
             {
                 //matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
             }
-            posLastPrec = new Point(serpente.GetX(serpente.getLength() - 1), serpente.GetY(serpente.getLength() - 1));
+            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
             pnlCampoGioco.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Location = new Point(0, 0);
@@ -197,7 +197,7 @@ namespace Snake
         {
             DrawingControl.SuspendDrawing(pnlElementiDinamici);
             pnlElementiDinamici.Controls.Clear();
-            for (int i = serpente.getLength()- 1 ; i > - 1; i--)
+            for (int i = serpente.GetLength()- 1 ; i > - 1; i--)
             {
                 Panel panel = new Panel();
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
@@ -234,7 +234,7 @@ namespace Snake
 
                 //Se si può evitare il for è meglio...
 
-                for (int i = 0; i < s.getLength() - 1; i++)
+                for (int i = 0; i < s.GetLength() - 1; i++)
                 {
                     temp = queueSerpente.Dequeue();
                     queueSerpente.Enqueue(temp);
@@ -394,7 +394,7 @@ namespace Snake
                 case Tasto.fermo:
                     break;
             }
-            posLastPrec = new Point(serpente.GetX(serpente.getLength() - 1), serpente.GetY(serpente.getLength() - 1));
+            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
             if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(serpente))
                 GameOver();
             else
@@ -484,7 +484,7 @@ namespace Snake
             {
                 if (!mangiato && !init)
                     //matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
-                posLastPrec = new Point(s.GetX(s.getLength() - 1), s.GetY(s.getLength() - 1));
+                posLastPrec = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
                 //matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
             }
 
@@ -516,7 +516,7 @@ namespace Snake
                 return true;
             else
             {
-                for (int i = 1; i < s.getLength(); i++)
+                for (int i = 1; i < s.GetLength(); i++)
                 {
                     if (s.GetX(0) == s.GetX(i) && s.GetY(0) == s.GetY(i))
                         return true;
@@ -597,7 +597,7 @@ namespace Snake
         private void GameOver()
         {
             tmr.Enabled = false; 
-            MessageBox.Show("GAME OVER\nPunteggio: " + serpente.getLength(), "GAME OVER ");
+            MessageBox.Show("GAME OVER\nPunteggio: " + serpente.GetLength(), "GAME OVER ");
             this.Close();
         }
 
@@ -634,7 +634,7 @@ namespace Snake
         private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
         {
             ReadClassifica(ref classifica, numLivello);
-            recordutente.PunteggioPlayer = serpente.getLength();
+            recordutente.PunteggioPlayer = serpente.GetLength();
             nomeChiamante.Show();
             classifica.ClassificaPunteggi.Add(recordutente);
             classifica.ClassificaPunteggi.Sort((s1, s2) => s2.PunteggioPlayer.CompareTo(s1.PunteggioPlayer));
@@ -657,7 +657,7 @@ namespace Snake
                 {
                     flag = false;
                     c = new Cibo(GetWidth(), GetHeigth());
-                    for (int i = 0; i < s.getLength(); i++)
+                    for (int i = 0; i < s.GetLength(); i++)
                     {
                         if (c.GetFoodX() == s.GetX(i) && c.GetFoodY() == s.GetY(i))
                         {
@@ -673,7 +673,7 @@ namespace Snake
                     flag = false;
                     c = new Cibo(GetWidth(), GetHeigth());
                     Console.WriteLine(c.GetFoodX().ToString() + " " + c.GetFoodY().ToString());
-                    for (int i = 0; i < s.getLength(); i++)
+                    for (int i = 0; i < s.GetLength(); i++)
                     {
                         if (c.GetFoodX() == s.GetX(i) && c.GetFoodY() == s.GetY(i) || campoGioco[c.GetFoodX(), c.GetFoodY()] == Elementi.muro)
                         {
