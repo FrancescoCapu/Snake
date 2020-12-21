@@ -458,7 +458,6 @@ namespace Snake
                     {
                         goto case Keys.Down;
                     }
-                    break;
             }
             //Queste funzioni vanno messe altrove, credo nel timer
             //ResetMatrice();
