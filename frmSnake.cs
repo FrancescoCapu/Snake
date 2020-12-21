@@ -81,15 +81,16 @@ namespace Snake
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            serpente = new Serpente(widthCampoGioco, heightCampoGioco);
-            cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             livello = new Livello();
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
             Inizializza(heightCampoGioco, widthCampoGioco);
+            serpente = new Serpente(livello.head.X, livello.head.Y);
+            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
+            cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             AddMuri();
             //AggiornaMatSnake(serpente, false, true);
-            TrasferelloCibo(cibo);
+            //TrasferelloCibo(cibo);
             StampaCampoGioco();
             StampaSerpente(serpente);
             NewCibo(ref cibo, serpente);
@@ -98,7 +99,7 @@ namespace Snake
         }
 
         /// <summary>
-        /// inizializza le matrici e la dimensione dei pannelli/form
+        /// inizializza la matrice e la dimensione dei pannelli/form
         /// </summary>
         /// <param name="Height"></param>
         /// <param name="Width"></param>
@@ -119,11 +120,12 @@ namespace Snake
                     //matCibo[i, j] = Elementi.libero;
                 }
             }
+            /*
             for (int i = 0; i < serpente.GetLength(); i++)
             {
                 //matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
             }
-            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
+            */
             pnlCampoGioco.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
             pnlElementiDinamici.Location = new Point(0, 0);
