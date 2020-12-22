@@ -54,6 +54,7 @@ namespace Snake
         private List<Panel> lstPanelCibo = new List<Panel>();
         private Classifica classifica;
         private RecordUtente recordutente =new RecordUtente();
+        private Color color;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -62,12 +63,13 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
             this.heightCampoGioco = heightCampoGioco;
             this.widthCampoGioco = widthCampoGioco;
+            this.color = color;
             this.numLivello = numLivello;
             recordutente.NomePlayer = nome;
             tmr.Interval = timerInterval;
@@ -205,7 +207,7 @@ namespace Snake
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = Color.Orange;
+                panel.BackColor = color;
                 panel.Visible = true;
                 //lstPanelSerpente.Add(panel);
                 queueSerpente.Enqueue(panel); //se funziona usare questo
@@ -229,7 +231,7 @@ namespace Snake
                 panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = Color.Orange;
+                panel.BackColor = color;
                 panel.Visible = true;
                 //lstPanelSerpente.Add(panel);
                 queueSerpente.Enqueue(panel);

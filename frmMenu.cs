@@ -27,6 +27,8 @@ namespace Snake
         private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
         private List<Image> lstPreviewLevels = new List<Image>();
+        private List<Color> lstColor = new List<Color>();
+        private Color color = Color.Orange;
 
         enum Velocita
         {
@@ -63,6 +65,7 @@ namespace Snake
             cmbLivelli.SelectedIndex = 0;*/
             GetPictures();
             InizializzaPic();
+            CreatePicColors();
             InizializzaButtons();
         }
 
@@ -114,7 +117,7 @@ namespace Snake
                         //numeroLivello = cmbLivelli.SelectedIndex;
                     }*/
                     string nome = txtNome.Text;
-                    frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, numeroLivello);
+                    frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
                     frmSnake.Show();
                     this.Hide();
                 }
@@ -150,7 +153,7 @@ namespace Snake
             picLeft1.Visible = true;
             picLeft1.Enabled = true;
             picLeft1.SizeMode = PictureBoxSizeMode.StretchImage;
-            //picLeft1.Click += ???
+            //picLeft1.Click += btnLeft.Click(btnLeft, btnLeft.Click);
             pnlLivelli.Controls.Add(picLeft1);
 
             picRight1.Size = new Size(100, 68);
@@ -162,6 +165,39 @@ namespace Snake
             picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
             //picRight1.Click = ???
             pnlLivelli.Controls.Add(picRight1);
+        }
+
+        private void CreatePicColors()
+        {
+            lstColor.Add(Color.Pink);
+            lstColor.Add(Color.Red);
+            lstColor.Add(Color.Orange);
+            lstColor.Add(Color.Yellow);
+            lstColor.Add(Color.LightGreen);
+            lstColor.Add(Color.DarkGreen);
+            lstColor.Add(Color.Cyan);
+            lstColor.Add(Color.Blue);
+            lstColor.Add(Color.Purple);
+            lstColor.Add(Color.White);
+
+            for (int i = 0; i < lstColor.Count; i++)
+            {
+                PictureBox pic = new PictureBox();
+                pic.Enabled = true;
+                pic.Visible = true;
+                pic.BackColor = lstColor[i];
+                pic.BorderStyle = BorderStyle.FixedSingle;
+                pic.Size = new Size(40, 40);
+                pic.Location = new Point(i * 40, 5);
+                pic.Click += delegate
+                {
+                    color = pic.BackColor;
+                    Console.WriteLine(color);
+                };
+                pnlColors.Controls.Add(pic);
+            }
+            pnlColors.Size = new Size(this.Size.Width, 50);
+            pnlColors.Location = new Point((this.Size.Width - 400) / 2, 300);
         }
 
         // --- da finire - così non funziona ---

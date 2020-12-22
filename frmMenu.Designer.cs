@@ -43,20 +43,23 @@ namespace Snake
             this.picRight1 = new System.Windows.Forms.PictureBox();
             this.picLeft1 = new System.Windows.Forms.PictureBox();
             this.picCenter = new System.Windows.Forms.PictureBox();
+            this.pnlNickname = new System.Windows.Forms.Panel();
+            this.pnlColors = new System.Windows.Forms.Panel();
             this.pnlDimensioneCampo.SuspendLayout();
             this.pnlLivelli.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRight1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).BeginInit();
+            this.pnlNickname.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnStart.Location = new System.Drawing.Point(0, 294);
+            this.btnStart.Location = new System.Drawing.Point(0, 761);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(711, 66);
+            this.btnStart.Size = new System.Drawing.Size(829, 66);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -68,16 +71,17 @@ namespace Snake
             this.pnlDimensioneCampo.Controls.Add(this.lblVelocita);
             this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
             this.pnlDimensioneCampo.Controls.Add(this.cmbDimensioneCampo);
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(501, 191);
+            this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 633);
             this.pnlDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
-            this.pnlDimensioneCampo.Size = new System.Drawing.Size(198, 103);
+            this.pnlDimensioneCampo.Size = new System.Drawing.Size(829, 128);
             this.pnlDimensioneCampo.TabIndex = 1;
             // 
             // cmbVelocita
             // 
             this.cmbVelocita.FormattingEnabled = true;
-            this.cmbVelocita.Location = new System.Drawing.Point(14, 77);
+            this.cmbVelocita.Location = new System.Drawing.Point(23, 77);
             this.cmbVelocita.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbVelocita.Name = "cmbVelocita";
             this.cmbVelocita.Size = new System.Drawing.Size(129, 24);
@@ -86,7 +90,7 @@ namespace Snake
             // lblVelocita
             // 
             this.lblVelocita.AutoSize = true;
-            this.lblVelocita.Location = new System.Drawing.Point(11, 58);
+            this.lblVelocita.Location = new System.Drawing.Point(20, 58);
             this.lblVelocita.Name = "lblVelocita";
             this.lblVelocita.Size = new System.Drawing.Size(58, 17);
             this.lblVelocita.TabIndex = 3;
@@ -95,7 +99,7 @@ namespace Snake
             // lblDimensioneCampo
             // 
             this.lblDimensioneCampo.AutoSize = true;
-            this.lblDimensioneCampo.Location = new System.Drawing.Point(11, 7);
+            this.lblDimensioneCampo.Location = new System.Drawing.Point(329, 58);
             this.lblDimensioneCampo.Name = "lblDimensioneCampo";
             this.lblDimensioneCampo.Size = new System.Drawing.Size(128, 17);
             this.lblDimensioneCampo.TabIndex = 2;
@@ -104,7 +108,7 @@ namespace Snake
             // cmbDimensioneCampo
             // 
             this.cmbDimensioneCampo.FormattingEnabled = true;
-            this.cmbDimensioneCampo.Location = new System.Drawing.Point(14, 26);
+            this.cmbDimensioneCampo.Location = new System.Drawing.Point(332, 77);
             this.cmbDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cmbDimensioneCampo.Name = "cmbDimensioneCampo";
             this.cmbDimensioneCampo.Size = new System.Drawing.Size(129, 24);
@@ -112,8 +116,8 @@ namespace Snake
             // 
             // pnlLivelli
             // 
-            this.pnlLivelli.Controls.Add(this.txtNome);
-            this.pnlLivelli.Controls.Add(this.lblNome);
+            this.pnlLivelli.Controls.Add(this.pnlColors);
+            this.pnlLivelli.Controls.Add(this.pnlNickname);
             this.pnlLivelli.Controls.Add(this.btnLeft);
             this.pnlLivelli.Controls.Add(this.btnRight);
             this.pnlLivelli.Controls.Add(this.picRight1);
@@ -124,12 +128,12 @@ namespace Snake
             this.pnlLivelli.Location = new System.Drawing.Point(0, 0);
             this.pnlLivelli.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLivelli.Name = "pnlLivelli";
-            this.pnlLivelli.Size = new System.Drawing.Size(711, 294);
+            this.pnlLivelli.Size = new System.Drawing.Size(829, 761);
             this.pnlLivelli.TabIndex = 2;
             // 
             // txtNome
             // 
-            this.txtNome.Location = new System.Drawing.Point(15, 255);
+            this.txtNome.Location = new System.Drawing.Point(190, 32);
             this.txtNome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(152, 22);
@@ -138,11 +142,11 @@ namespace Snake
             // lblNome
             // 
             this.lblNome.AutoSize = true;
-            this.lblNome.Location = new System.Drawing.Point(12, 236);
+            this.lblNome.Location = new System.Drawing.Point(23, 32);
             this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(157, 17);
+            this.lblNome.Size = new System.Drawing.Size(161, 17);
             this.lblNome.TabIndex = 10;
-            this.lblNome.Text = "inserisci il tuo nickname";
+            this.lblNome.Text = "Inserisci il tuo nickname:";
             // 
             // btnLeft
             // 
@@ -188,11 +192,28 @@ namespace Snake
             this.picCenter.TabIndex = 5;
             this.picCenter.TabStop = false;
             // 
+            // pnlNickname
+            // 
+            this.pnlNickname.Controls.Add(this.lblNome);
+            this.pnlNickname.Controls.Add(this.txtNome);
+            this.pnlNickname.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNickname.Location = new System.Drawing.Point(0, 533);
+            this.pnlNickname.Name = "pnlNickname";
+            this.pnlNickname.Size = new System.Drawing.Size(829, 100);
+            this.pnlNickname.TabIndex = 12;
+            // 
+            // pnlColors
+            // 
+            this.pnlColors.Location = new System.Drawing.Point(208, 293);
+            this.pnlColors.Name = "pnlColors";
+            this.pnlColors.Size = new System.Drawing.Size(200, 240);
+            this.pnlColors.TabIndex = 13;
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(711, 360);
+            this.ClientSize = new System.Drawing.Size(829, 827);
             this.Controls.Add(this.pnlLivelli);
             this.Controls.Add(this.btnStart);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -207,10 +228,11 @@ namespace Snake
             this.pnlDimensioneCampo.ResumeLayout(false);
             this.pnlDimensioneCampo.PerformLayout();
             this.pnlLivelli.ResumeLayout(false);
-            this.pnlLivelli.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRight1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).EndInit();
+            this.pnlNickname.ResumeLayout(false);
+            this.pnlNickname.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -231,5 +253,7 @@ namespace Snake
         private System.Windows.Forms.Button btnRight;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label lblNome;
+        private System.Windows.Forms.Panel pnlNickname;
+        private System.Windows.Forms.Panel pnlColors;
     }
 }
