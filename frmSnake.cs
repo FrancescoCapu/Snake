@@ -194,9 +194,9 @@ namespace Snake
         /// <param name="serpente"></param>
         private void StampaSerpente(Serpente serpente)
         {
-            DrawingControl.SuspendDrawing(pnlElementiDinamici);
-            pnlElementiDinamici.Controls.Clear();
-            for (int i = serpente.getLength()- 1 ; i > - 1; i--)
+        DrawingControl.SuspendDrawing(pnlElementiDinamici);
+        pnlElementiDinamici.Controls.Clear();
+            for (int i = serpente.getLength() - 1; i > -1; i--)
             {
                 Panel panel = new Panel();
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
@@ -208,7 +208,7 @@ namespace Snake
                 queueSerpente.Enqueue(panel); //se funziona usare questo
                 pnlElementiDinamici.Controls.Add(panel);
             }
-            DrawingControl.ResumeDrawing(pnlElementiDinamici);
+        DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
         // --- Da ricontrollare come viene aggiunto l'ultimo pannello quando si mangia, perché viene visualizzato solo quando l'ultimo elemento del serpente passa sopra al cibo e non viene visualizzato quando la testa passa sopra al cibo, incrementando immediatamente la lunghezza
