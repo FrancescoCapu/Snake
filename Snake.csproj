@@ -67,6 +67,7 @@
     <Compile Include="frmSnake.Designer.cs">
       <DependentUpon>frmSnake.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lingua.cs" />
     <Compile Include="Livello.cs" />
     <Compile Include="Muro.cs" />
     <Compile Include="Program.cs" />

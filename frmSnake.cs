@@ -42,18 +42,20 @@ namespace Snake
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
-        private Cibo cibo;  
+        private Cibo cibo;
         private RootNomiFile rootNomiFile;
         private Livello livello;
         private int numLivello;
         private Tasto tasto = Tasto.fermo;
         private Tasto tastoPrec = Tasto.destra;
         private Point posLastPrec;
-        //private List<Panel> lstPanelSerpente = new List<Panel>();
         private Queue<Panel> queueSerpente = new Queue<Panel>();
         private List<Panel> lstPanelCibo = new List<Panel>();
+        private Panel panelLingua;
+        private bool useTongue;
+        private int contIntervalTongue = 0;
         private Classifica classifica;
-        private RecordUtente recordutente =new RecordUtente();
+        private RecordUtente recordutente = new RecordUtente();
         private Color color;
 
         /// <summary>
@@ -95,6 +97,7 @@ namespace Snake
             //TrasferelloCibo(cibo);
             StampaCampoGioco();
             StampaSerpente(serpente);
+            PrintTongue();
             NewCibo(ref cibo, serpente);
             PrintFood(cibo);
             classifica = new Classifica();
@@ -145,6 +148,46 @@ namespace Snake
             //if (c.GetFoodX() == serpente.GetX(0) && c.GetFoodY() == serpente.GetY(0))
             serpente.IncLength(posLastPrec);
             //cibo = new Cibo(cibo.GetFoodX(),cibo.GetFoodY());
+        }
+
+        /// <summary>
+        /// resetta le variabili relative all'utilizzo della lingua
+        /// </summary>
+        /// <param name="s"></param>
+        private void ResetTongue(ref Serpente s)
+        {
+            useTongue = false;
+            panelLingua.Visible = false;
+            s.SetTonguePosition(s.GetX(0), s.GetY(0));
+        }
+
+        /// <summary>
+        /// controlla se l'utilizzo della lingua è stato richiesto
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="incX"></param>
+        /// <param name="incY"></param>
+        private void CheckUseTongue(ref Serpente s, int incX, int incY)
+        {
+            if (useTongue)
+                UseTongue(ref s, incX, incY);
+            else
+            {
+                serpente.SetTonguePosition(serpente.GetX(0), serpente.GetY(0));
+            }
+        }
+
+        /// <summary>
+        /// rende visibile la lingua e aggiorna la posizione della stessa
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="incX"></param>
+        /// <param name="incY"></param>
+        private void UseTongue(ref Serpente s, int incX, int incY)
+        {
+            panelLingua.Visible = true;
+            s.SetTonguePosition(serpente.GetX(0) + incX, serpente.GetY(0) + incY);
+
         }
 
         /*
@@ -318,6 +361,39 @@ namespace Snake
             lstPanelCibo[foodIndex].Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
         }
 
+        /// <summary>
+        /// Inizializza il pannello della lingua e lo aggiunge a pnlElementiDinamici
+        /// </summary>
+        private void PrintTongue()
+        {
+            panelLingua = new Panel();
+            panelLingua.Visible = false;
+            panelLingua.Enabled = true;
+            panelLingua.BackColor = Color.Red;
+            panelLingua.Size = new Size(sizeStampa, sizeStampa / 3);
+            panelLingua.Location = new Point((serpente.GetX(0)) * sizeStampa, (serpente.GetY(0) * sizeStampa) + sizeStampa / 3);
+            pnlElementiDinamici.Controls.Add(panelLingua);
+        }
+
+        /// <summary>
+        /// aggriorna la posizione e l'orientamento della lingua in base alla direzione corrente
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void UpdateTongue(int x, int y)
+        {
+            if (tasto == Tasto.su || tasto == Tasto.giu)
+            {
+                panelLingua.Location = new Point(x * sizeStampa + sizeStampa / 3, y * sizeStampa);
+                panelLingua.Size = new Size(sizeStampa / 3, sizeStampa);
+            }
+            else
+            {
+                panelLingua.Location = new Point(x * sizeStampa, y * sizeStampa + sizeStampa / 3);
+                panelLingua.Size = new Size(sizeStampa, sizeStampa / 3);
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -339,7 +415,7 @@ namespace Snake
         }
 
         /// <summary>
-        /// stampa
+        /// gestisce la logica del gioco ad ogni tick
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -356,6 +432,7 @@ namespace Snake
                     {
                         serpente.AggiornaSnake(-1, 0);
                         tastoPrec = Tasto.sinistra;
+                        CheckUseTongue(ref serpente, -1, 0);
                     }
                     else
                     {
@@ -367,6 +444,7 @@ namespace Snake
                     {
                         serpente.AggiornaSnake(1, 0);
                         tastoPrec = Tasto.destra;
+                        CheckUseTongue(ref serpente, 1, 0);
                     }
                     else
                     {
@@ -378,6 +456,7 @@ namespace Snake
                     {
                         serpente.AggiornaSnake(0, -1);
                         tastoPrec = Tasto.su;
+                        CheckUseTongue(ref serpente, 0, -1);
                     }
                     else
                     {
@@ -389,6 +468,7 @@ namespace Snake
                     {
                         serpente.AggiornaSnake(0, 1);
                         tastoPrec = Tasto.giu;
+                        CheckUseTongue(ref serpente, 0, 1);
                     }
                     else
                     {
@@ -399,11 +479,12 @@ namespace Snake
                     break;
             }
             posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
+            UpdateTongue(serpente.GetTongueX(), serpente.GetTongueY());
             if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(serpente))
                 GameOver();
             else
             {
-                if (HasEaten(serpente, cibo))
+                if (HasEaten(ref serpente, cibo))
                 {
                     IncSnake(cibo, serpente);
                     UpdateSnake(ref serpente, true);
@@ -415,10 +496,17 @@ namespace Snake
                 if (tasto != Tasto.fermo)
                     UpdateSnake(ref serpente, false);
             }
+            if (contIntervalTongue != 3)
+                contIntervalTongue++;
+            else
+            {
+                ResetTongue(ref serpente);
+                contIntervalTongue = 0;
+            }
         }
 
         /// <summary>
-        /// spostamento della serpe
+        /// spostamento della serpe e utilizzo della lingua
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -463,12 +551,10 @@ namespace Snake
                         goto case Keys.Down;
                     }
             }
-            //Queste funzioni vanno messe altrove, credo nel timer
-            //ResetMatrice();
-            //AggiornaMatrice();
-            //TrasferelloSnake(serpente);
-            //StampaSerpente(serpente);
-            //StampaCampoGioco();
+            if (e.KeyCode == Keys.Space)
+            {
+                useTongue = true;
+            }
         }
 
         /// <summary>
@@ -535,9 +621,9 @@ namespace Snake
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        private bool HasEaten(Serpente s, Cibo c)
+        private bool HasEaten(ref Serpente s, Cibo c)
         {
-            if (s.GetX(0) == c.GetFoodX() && s.GetY(0) == c.GetFoodY())
+            if (s.GetX(0) == c.GetFoodX() && s.GetY(0) == c.GetFoodY() || s.GetTongueX() == c.GetFoodX() && s.GetTongueY() == c.GetFoodY())
                 return true;
             return false;
         }
@@ -652,6 +738,11 @@ namespace Snake
             SaveClassifica(classifica, numLivello);
         }
 
+        /// <summary>
+        /// istanzia un nuovo cibo e controlla se la sua posizione è valida
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="s"></param>
         private void NewCibo(ref Cibo c, Serpente s)
         {
             bool flag;

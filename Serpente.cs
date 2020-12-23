@@ -7,11 +7,11 @@ using System.Drawing;
 
 namespace Snake
 {
-    class Serpente
+    class Serpente : Lingua
     {
         private List <Point> lstSerpente = new List<Point>(4);
 
-        public Serpente(int width, int height)
+        public Serpente(int width, int height) : base (width, height) 
         {
             for(int i = 0; i < lstSerpente.Capacity; i++)
             {
@@ -37,6 +37,7 @@ namespace Snake
                 lstSerpente[i] = new Point(lstSerpente[i - 1].X, lstSerpente[i-1].Y);
             }
             lstSerpente[0] = new Point(lstSerpente[0].X + incx, lstSerpente[0].Y + incy);
+            UpdateTonguePosition(lstSerpente[0].X, lstSerpente[0].Y);
        }
 
         public int GetX(int num)
