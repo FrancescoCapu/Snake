@@ -17,7 +17,6 @@ namespace Snake
             {
                     lstSerpente.Add(new Point((width / 3) - i, (height / 2)));
             }
-
         }
 
         public int GetLength()

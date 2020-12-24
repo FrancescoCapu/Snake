@@ -44,6 +44,8 @@ namespace Snake
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
+            Config.DefaultSettings();
+
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
@@ -165,6 +167,12 @@ namespace Snake
             picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
             //picRight1.Click = ???
             pnlLivelli.Controls.Add(picRight1);
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {  
+            Settings frmSettings = new Settings();
+            frmSettings.ShowDialog();
         }
 
         private void CreatePicColors()

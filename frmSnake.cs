@@ -56,7 +56,7 @@ namespace Snake
         private int contIntervalTongue = 0;
         private Classifica classifica;
         private RecordUtente recordutente = new RecordUtente();
-        private Color color;
+        private readonly Color color;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -187,7 +187,6 @@ namespace Snake
         {
             panelLingua.Visible = true;
             s.SetTonguePosition(serpente.GetX(0) + incX, serpente.GetY(0) + incY);
-
         }
 
         /*
@@ -496,7 +495,7 @@ namespace Snake
                 if (tasto != Tasto.fermo)
                     UpdateSnake(ref serpente, false);
             }
-            if (contIntervalTongue != 3)
+            if (contIntervalTongue != 3 && useTongue)
                 contIntervalTongue++;
             else
             {
@@ -550,11 +549,25 @@ namespace Snake
                     {
                         goto case Keys.Down;
                     }
+                default:
+                    if (e.KeyCode == Config.up)
+                        goto case Keys.Up;
+                    else if (e.KeyCode == Config.left)
+                        goto case Keys.Left;
+                    else if (e.KeyCode == Config.down)
+                        goto case Keys.Down;
+                    else if (e.KeyCode == Config.right)
+                        goto case Keys.Right;
+                    else if (e.KeyCode == Config.tongue)
+                        useTongue = true;
+                    break;
             }
-            if (e.KeyCode == Keys.Space)
+            /*
+            if (e.KeyCode == Config.tongue)
             {
                 useTongue = true;
             }
+            */
         }
 
         /// <summary>
@@ -707,7 +720,7 @@ namespace Snake
                 c = JsonConvert.DeserializeObject<Classifica>(reader.ReadToEnd());
                 reader.Close();
             }
-            catch (FileNotFoundException e)
+            catch (FileNotFoundException)
             {
 
             }
