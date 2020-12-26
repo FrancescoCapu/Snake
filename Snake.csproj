@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Cibo.cs" />
     <Compile Include="Classifica.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="frmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +68,7 @@
     <Compile Include="frmSnake.Designer.cs">
       <DependentUpon>frmSnake.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lingua.cs" />
     <Compile Include="Livello.cs" />
     <Compile Include="Muro.cs" />
     <Compile Include="Program.cs" />
@@ -74,6 +76,12 @@
     <Compile Include="RecordUtente.cs" />
     <Compile Include="RootNomiFile.cs" />
     <Compile Include="Serpente.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +98,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Data\levels\indice_livelli.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
