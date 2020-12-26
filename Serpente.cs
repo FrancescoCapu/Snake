@@ -20,7 +20,7 @@ namespace Snake
 
         }
 
-        public int getLength()
+        public int GetLength()
         {
             return lstSerpente.Count;
         }

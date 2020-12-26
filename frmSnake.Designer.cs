@@ -42,6 +42,7 @@ namespace Snake
             this.pnlCampoGioco.BackColor = System.Drawing.Color.Transparent;
             this.pnlCampoGioco.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCampoGioco.Controls.Add(this.pnlElementiDinamici);
+            this.pnlCampoGioco.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCampoGioco.ForeColor = System.Drawing.Color.Transparent;
             this.pnlCampoGioco.Location = new System.Drawing.Point(0, 0);
             this.pnlCampoGioco.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

@@ -68,57 +68,64 @@ namespace Snake
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
+            if (txtNome.Text != "")
             {
-                switch (cmbDimensioneCampo.SelectedItem)
+                if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
                 {
-                    case DimensioniCampoGioco.Piccolo:
-                        heightCampoGioco = HEIGHT_CAMPO_PICCOLO;
-                        widthCampoGioco = WIDTH_CAMPO_PICCOLO;
-                        break;
-                    case DimensioniCampoGioco.Medio:
-                        heightCampoGioco = HEIGHT_CAMPO_MEDIO;
-                        widthCampoGioco = WIDTH_CAMPO_MEDIO;
-                        break;
-                    case DimensioniCampoGioco.Grande:
-                        heightCampoGioco = HEIGHT_CAMPO_GRANDE;
-                        widthCampoGioco = WIDTH_CAMPO_GRANDE;
-                        break;
-                    default:
-                        //non verrà mai eseguito
-                        goto case DimensioniCampoGioco.Medio;
+                    switch (cmbDimensioneCampo.SelectedItem)
+                    {
+                        case DimensioniCampoGioco.Piccolo:
+                            heightCampoGioco = HEIGHT_CAMPO_PICCOLO;
+                            widthCampoGioco = WIDTH_CAMPO_PICCOLO;
+                            break;
+                        case DimensioniCampoGioco.Medio:
+                            heightCampoGioco = HEIGHT_CAMPO_MEDIO;
+                            widthCampoGioco = WIDTH_CAMPO_MEDIO;
+                            break;
+                        case DimensioniCampoGioco.Grande:
+                            heightCampoGioco = HEIGHT_CAMPO_GRANDE;
+                            widthCampoGioco = WIDTH_CAMPO_GRANDE;
+                            break;
+                        default:
+                            //non verrà mai eseguito
+                            goto case DimensioniCampoGioco.Medio;
+                    }
+                    switch (cmbVelocita.SelectedItem)
+                    {
+                        case Velocita.Lento:
+                            timerInterval = 300;
+                            break;
+                        case Velocita.Normale:
+                            timerInterval = 150;
+                            break;
+                        case Velocita.Veloce:
+                            timerInterval = 75;
+                            break;
+                        default:
+                            //non verrà mai eseguito
+                            goto case Velocita.Normale;
+                    }
+                    /*if (cmbLivelli.SelectedItem == null)
+                    {
+                        numeroLivello = 0;
+                    }
+                    else
+                    {
+                        //numeroLivello = cmbLivelli.SelectedIndex;
+                    }*/
+                    string nome = txtNome.Text;
+                    frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, numeroLivello);
+                    frmSnake.Show();
+                    this.Hide();
                 }
-                switch (cmbVelocita.SelectedItem)
+                else    //non verrà mai eseguito
                 {
-                    case Velocita.Lento:
-                        timerInterval = 300;
-                        break;
-                    case Velocita.Normale:
-                        timerInterval = 150;
-                        break;
-                    case Velocita.Veloce:
-                        timerInterval = 75;
-                        break;
-                    default:
-                        //non verrà mai eseguito
-                        goto case Velocita.Normale;
+                    MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                /*if (cmbLivelli.SelectedItem == null)
-                {
-                    numeroLivello = 0;
-                }
-                else
-                {
-                    //numeroLivello = cmbLivelli.SelectedIndex;
-                }*/
-                string nome = txtNome.Text;
-                frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, numeroLivello);
-                frmSnake.Show();
-                this.Hide();
             }
-            else    //non verrà mai eseguito
+            else
             {
-                MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -137,21 +144,23 @@ namespace Snake
             pnlLivelli.Controls.Add(picCenter);
 
             picLeft1.Size = new Size(100, 68);
-            picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width + picLeft1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picLeft1.Height / 2);
+            picLeft1.Location = new Point((int)(pnlLivelli.Width / 2 - picCenter.Width + picLeft1.Width / 3), picCenter.Location.Y + picCenter.Height / 2 - picLeft1.Height / 2);
             picLeft1.Image = null;
             picLeft1.BackColor = Color.FromArgb(0, 0, 0, 0);
             picLeft1.Visible = true;
             picLeft1.Enabled = true;
             picLeft1.SizeMode = PictureBoxSizeMode.StretchImage;
+            //picLeft1.Click += ???
             pnlLivelli.Controls.Add(picLeft1);
 
             picRight1.Size = new Size(100, 68);
-            picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2 - picRight1.Width / 3), pnlLivelli.Height / 8 + picCenter.Height / 2 - picRight1.Height / 2);
+            picRight1.Location = new Point((int)(pnlLivelli.Width / 2 + picCenter.Width / 2 - picRight1.Width / 3), picCenter.Location.Y + picCenter.Height / 2 - picRight1.Height / 2);
             picRight1.Image = lstPreviewLevels[1];
             picRight1.BackColor = Color.FromArgb(0, 0, 0, 0);
             picRight1.Visible = true;
             picRight1.Enabled = true;
             picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
+            //picRight1.Click = ???
             pnlLivelli.Controls.Add(picRight1);
         }
 
@@ -233,6 +242,13 @@ namespace Snake
                 numeroLivello++;
                 UpdatePics(numeroLivello);
             }
+            if (numeroLivello == 1)
+            {
+                lblDimensioneCampo.Enabled = false;
+                lblDimensioneCampo.Visible = false;
+                cmbDimensioneCampo.Enabled = false;
+                cmbDimensioneCampo.Visible = false;
+            }
         }
 
         private void btnLeft_Click(object sender, EventArgs e)
@@ -241,6 +257,13 @@ namespace Snake
             {
                 numeroLivello--;
                 UpdatePics(numeroLivello);
+            }
+            if (numeroLivello == 0)
+            {
+                lblDimensioneCampo.Enabled = true;
+                lblDimensioneCampo.Visible = true;
+                cmbDimensioneCampo.Enabled = true;
+                cmbDimensioneCampo.Visible = true;
             }
         }
     }
