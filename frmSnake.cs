@@ -39,7 +39,7 @@ namespace Snake
         //private Elementi[,] matSerpente;
         //private Elementi[,] matCibo;
         private int sizeStampa;
-        private frmMenu nomeChiamante;
+        private Menu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
         private Cibo cibo;  
@@ -62,7 +62,7 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, int numLivello = 0)
+        public frmSnake(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
@@ -199,7 +199,7 @@ namespace Snake
         {
         DrawingControl.SuspendDrawing(pnlElementiDinamici);
         pnlElementiDinamici.Controls.Clear();
-            for (int i = serpente.getLength() - 1; i > -1; i--)
+            for (int i = serpente.GetLength() - 1; i > -1; i--)
             {
                 Panel panel = new Panel();
                 panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
@@ -556,16 +556,16 @@ namespace Snake
                 switch (livello.dimensioneCampo)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_GRANDE;
                         break;
                     default:
                         goto case DimensioniCampoGioco.Medio;
@@ -600,6 +600,7 @@ namespace Snake
         {
             tmr.Enabled = false; 
             MessageBox.Show("GAME OVER\nPunteggio: " + serpente.GetLength(), "GAME OVER ");
+            
             this.Close();
         }
 
