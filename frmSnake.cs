@@ -39,7 +39,7 @@ namespace Snake
         //private Elementi[,] matSerpente;
         //private Elementi[,] matCibo;
         private int sizeStampa;
-        private Menu nomeChiamante;
+        private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
         private Cibo cibo;
@@ -65,7 +65,7 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
@@ -241,8 +241,8 @@ namespace Snake
         /// <param name="serpente"></param>
         private void StampaSerpente(Serpente serpente)
         {
-        DrawingControl.SuspendDrawing(pnlElementiDinamici);
-        pnlElementiDinamici.Controls.Clear();
+            DrawingControl.SuspendDrawing(pnlElementiDinamici);
+            pnlElementiDinamici.Controls.Clear();
             for (int i = serpente.GetLength() - 1; i > -1; i--)
             {
                 Panel panel = new Panel();
@@ -255,7 +255,7 @@ namespace Snake
                 queueSerpente.Enqueue(panel); //se funziona usare questo
                 pnlElementiDinamici.Controls.Add(panel);
             }
-        DrawingControl.ResumeDrawing(pnlElementiDinamici);
+            DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
         // --- Da ricontrollare come viene aggiunto l'ultimo pannello quando si mangia, perché viene visualizzato solo quando l'ultimo elemento del serpente passa sopra al cibo e non viene visualizzato quando la testa passa sopra al cibo, incrementando immediatamente la lunghezza
@@ -587,7 +587,7 @@ namespace Snake
             {
                 if (!mangiato && !init)
                     //matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
-                posLastPrec = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
+                    posLastPrec = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
                 //matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
             }
 
@@ -644,7 +644,7 @@ namespace Snake
         /// <summary>
         /// deserializza il file json nella classe Livello
         /// </summary>
-        private void CaricamentoLivello() 
+        private void CaricamentoLivello()
         {
             StreamReader reader1 = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
@@ -657,16 +657,16 @@ namespace Snake
                 switch (livello.dimensioneCampo)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_PICCOLO;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_PICCOLO;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_MEDIO;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_MEDIO;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_GRANDE;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_GRANDE;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
                         break;
                     default:
                         goto case DimensioniCampoGioco.Medio;
@@ -699,14 +699,13 @@ namespace Snake
         /// </summary>
         private void GameOver()
         {
-            tmr.Enabled = false; 
+            tmr.Enabled = false;
             MessageBox.Show("GAME OVER\nPunteggio: " + serpente.GetLength(), "GAME OVER ");
-            
             this.Close();
         }
 
         //rivedere cartella Classifica
-        private void SaveClassifica(Classifica classifica,int index)
+        private void SaveClassifica(Classifica classifica, int index)
         {
             string json = JsonConvert.SerializeObject(classifica);
             string nome = "Data/Classifica/classifica" + index + ".json";
@@ -742,14 +741,19 @@ namespace Snake
             nomeChiamante.Show();
             classifica.ClassificaPunteggi.Add(recordutente);
             classifica.ClassificaPunteggi.Sort((s1, s2) => s2.PunteggioPlayer.CompareTo(s1.PunteggioPlayer));
-            if(classifica.ClassificaPunteggi.Count>10)
+            if (classifica.ClassificaPunteggi.Count > 10)
             {
-                for (int i = classifica.ClassificaPunteggi.Count-1;i > 9;i --)
+                for (int i = classifica.ClassificaPunteggi.Count - 1; i > 9; i--)
                 {
                     classifica.ClassificaPunteggi.Remove(classifica.ClassificaPunteggi[i]);
                 }
             }
             SaveClassifica(classifica, numLivello);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
@@ -815,6 +819,6 @@ namespace Snake
             SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
             parent.Refresh();
         }
-        
+
     }
 }

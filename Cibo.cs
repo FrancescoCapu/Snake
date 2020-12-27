@@ -22,7 +22,7 @@ namespace Snake
             return food.X;
         }
         public int GetFoodY()
-        { 
+        {
             return food.Y;
         }
     }

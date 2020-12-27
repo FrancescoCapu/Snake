@@ -19,14 +19,13 @@ namespace Snake
         Grande
     }
 
-    public partial class Menu : Form
+    public partial class frmMenu : Form
     {
         public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
         public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
         public const int WIDTH_CAMPO_GRANDE = 37, HEIGHT_CAMPO_GRANDE = 25;
         private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
-        private Classifica classifica;
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
         private Color color = Color.Orange;
@@ -38,7 +37,7 @@ namespace Snake
             Veloce
         }
 
-        public Menu()
+        public frmMenu()
         {
             InitializeComponent();
         }
@@ -135,11 +134,6 @@ namespace Snake
             }
         }
 
-        private void txtNome_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// ridimensiona la grandezza delle picturebox
         /// </summary>
@@ -176,7 +170,7 @@ namespace Snake
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
-        {  
+        {
             Settings frmSettings = new Settings();
             frmSettings.ShowDialog();
         }
@@ -248,7 +242,7 @@ namespace Snake
         private void InizializzaButtons()
         {
             btnRight.Size = new Size(30, 30);
-            btnRight.Location = new Point(picRight1.Location.X + picRight1.Width , picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
+            btnRight.Location = new Point(picRight1.Location.X + picRight1.Width, picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
 
             btnLeft.Size = new Size(30, 30);
             btnLeft.Location = new Point(picLeft1.Location.X - btnLeft.Width, picCenter.Location.Y + picCenter.Height / 2 - btnLeft.Size.Height / 2);
