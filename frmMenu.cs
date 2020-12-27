@@ -19,13 +19,14 @@ namespace Snake
         Grande
     }
 
-    public partial class frmMenu : Form
+    public partial class Menu : Form
     {
         public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
         public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
         public const int WIDTH_CAMPO_GRANDE = 37, HEIGHT_CAMPO_GRANDE = 25;
         private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
         private RootNomiFile rootNomiFileMenu;
+        private Classifica classifica;
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
         private Color color = Color.Orange;
@@ -37,7 +38,7 @@ namespace Snake
             Veloce
         }
 
-        public frmMenu()
+        public Menu()
         {
             InitializeComponent();
         }
@@ -132,6 +133,11 @@ namespace Snake
             {
                 MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void txtNome_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
