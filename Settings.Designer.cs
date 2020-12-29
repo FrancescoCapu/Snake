@@ -30,27 +30,32 @@ namespace Snake
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.btnDefaultSettings = new System.Windows.Forms.Button();
+            this.btnSalva = new System.Windows.Forms.Button();
+            this.lblTitolo = new System.Windows.Forms.Label();
             this.cmbKeyTongue = new System.Windows.Forms.ComboBox();
             this.cmbKeyRight = new System.Windows.Forms.ComboBox();
             this.cmbKeyDown = new System.Windows.Forms.ComboBox();
             this.cmbKeyLeft = new System.Windows.Forms.ComboBox();
             this.cmbKeyUp = new System.Windows.Forms.ComboBox();
-            this.btnDefaultSettings = new System.Windows.Forms.Button();
             this.lblUseTongue = new System.Windows.Forms.Label();
             this.lblRight = new System.Windows.Forms.Label();
             this.lblDown = new System.Windows.Forms.Label();
             this.lblLeft = new System.Windows.Forms.Label();
             this.lblUp = new System.Windows.Forms.Label();
-            this.btnSalva = new System.Windows.Forms.Button();
-            this.lblTitolo = new System.Windows.Forms.Label();
-            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.trackBarSizeQuadrati = new System.Windows.Forms.TrackBar();
+            this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblSizeQuadrati);
             this.panel1.Controls.Add(this.pnlButtons);
+            this.panel1.Controls.Add(this.trackBarSizeQuadrati);
             this.panel1.Controls.Add(this.lblTitolo);
             this.panel1.Controls.Add(this.cmbKeyTongue);
             this.panel1.Controls.Add(this.cmbKeyRight);
@@ -63,55 +68,20 @@ namespace Snake
             this.panel1.Controls.Add(this.lblLeft);
             this.panel1.Controls.Add(this.lblUp);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(482, 423);
+            this.panel1.Size = new System.Drawing.Size(482, 759);
             this.panel1.TabIndex = 0;
             // 
-            // cmbKeyTongue
+            // pnlButtons
             // 
-            this.cmbKeyTongue.FormattingEnabled = true;
-            this.cmbKeyTongue.Location = new System.Drawing.Point(234, 230);
-            this.cmbKeyTongue.Name = "cmbKeyTongue";
-            this.cmbKeyTongue.Size = new System.Drawing.Size(121, 24);
-            this.cmbKeyTongue.TabIndex = 20;
-            this.cmbKeyTongue.SelectedIndexChanged += new System.EventHandler(this.cmbKeyTongue_SelectedIndexChanged);
-            // 
-            // cmbKeyRight
-            // 
-            this.cmbKeyRight.FormattingEnabled = true;
-            this.cmbKeyRight.Location = new System.Drawing.Point(234, 192);
-            this.cmbKeyRight.Name = "cmbKeyRight";
-            this.cmbKeyRight.Size = new System.Drawing.Size(121, 24);
-            this.cmbKeyRight.TabIndex = 19;
-            this.cmbKeyRight.SelectedIndexChanged += new System.EventHandler(this.cmbKeyRight_SelectedIndexChanged);
-            // 
-            // cmbKeyDown
-            // 
-            this.cmbKeyDown.FormattingEnabled = true;
-            this.cmbKeyDown.Location = new System.Drawing.Point(236, 148);
-            this.cmbKeyDown.Name = "cmbKeyDown";
-            this.cmbKeyDown.Size = new System.Drawing.Size(121, 24);
-            this.cmbKeyDown.TabIndex = 18;
-            this.cmbKeyDown.SelectedIndexChanged += new System.EventHandler(this.cmbKeyDown_SelectedIndexChanged);
-            // 
-            // cmbKeyLeft
-            // 
-            this.cmbKeyLeft.FormattingEnabled = true;
-            this.cmbKeyLeft.Location = new System.Drawing.Point(236, 94);
-            this.cmbKeyLeft.Name = "cmbKeyLeft";
-            this.cmbKeyLeft.Size = new System.Drawing.Size(121, 24);
-            this.cmbKeyLeft.TabIndex = 17;
-            this.cmbKeyLeft.SelectedIndexChanged += new System.EventHandler(this.cmbKeyLeft_SelectedIndexChanged);
-            // 
-            // cmbKeyUp
-            // 
-            this.cmbKeyUp.FormattingEnabled = true;
-            this.cmbKeyUp.Location = new System.Drawing.Point(234, 58);
-            this.cmbKeyUp.Name = "cmbKeyUp";
-            this.cmbKeyUp.Size = new System.Drawing.Size(121, 24);
-            this.cmbKeyUp.TabIndex = 16;
-            this.cmbKeyUp.SelectedIndexChanged += new System.EventHandler(this.cmbKeyUp_SelectedIndexChanged);
+            this.pnlButtons.Controls.Add(this.btnDefaultSettings);
+            this.pnlButtons.Controls.Add(this.btnSalva);
+            this.pnlButtons.Location = new System.Drawing.Point(43, 499);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(391, 128);
+            this.pnlButtons.TabIndex = 23;
             // 
             // btnDefaultSettings
             // 
@@ -124,6 +94,73 @@ namespace Snake
             this.btnDefaultSettings.Text = "Ripristina impostazioni di default";
             this.btnDefaultSettings.UseVisualStyleBackColor = true;
             this.btnDefaultSettings.Click += new System.EventHandler(this.btnDefaultSettings_Click);
+            // 
+            // btnSalva
+            // 
+            this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalva.Location = new System.Drawing.Point(225, 0);
+            this.btnSalva.Name = "btnSalva";
+            this.btnSalva.Size = new System.Drawing.Size(166, 128);
+            this.btnSalva.TabIndex = 21;
+            this.btnSalva.Text = "Salva impostazioni";
+            this.btnSalva.UseVisualStyleBackColor = true;
+            this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
+            // 
+            // lblTitolo
+            // 
+            this.lblTitolo.AutoSize = true;
+            this.lblTitolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitolo.Location = new System.Drawing.Point(105, 13);
+            this.lblTitolo.Name = "lblTitolo";
+            this.lblTitolo.Size = new System.Drawing.Size(286, 38);
+            this.lblTitolo.TabIndex = 22;
+            this.lblTitolo.Text = "Impostazioni tasti";
+            // 
+            // cmbKeyTongue
+            // 
+            this.cmbKeyTongue.FormattingEnabled = true;
+            this.cmbKeyTongue.Location = new System.Drawing.Point(234, 230);
+            this.cmbKeyTongue.Name = "cmbKeyTongue";
+            this.cmbKeyTongue.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyTongue.TabIndex = 20;
+            this.cmbKeyTongue.SelectedIndexChanged += new System.EventHandler(this.cmbKeyTongue_SelectedIndexChanged);
+            // 
+            // cmbKeyRight
+            // 
+            this.cmbKeyRight.FormattingEnabled = true;
+            this.cmbKeyRight.Location = new System.Drawing.Point(234, 192);
+            this.cmbKeyRight.Name = "cmbKeyRight";
+            this.cmbKeyRight.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyRight.TabIndex = 19;
+            this.cmbKeyRight.SelectedIndexChanged += new System.EventHandler(this.cmbKeyRight_SelectedIndexChanged);
+            // 
+            // cmbKeyDown
+            // 
+            this.cmbKeyDown.FormattingEnabled = true;
+            this.cmbKeyDown.Location = new System.Drawing.Point(236, 148);
+            this.cmbKeyDown.Name = "cmbKeyDown";
+            this.cmbKeyDown.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyDown.TabIndex = 18;
+            this.cmbKeyDown.SelectedIndexChanged += new System.EventHandler(this.cmbKeyDown_SelectedIndexChanged);
+            // 
+            // cmbKeyLeft
+            // 
+            this.cmbKeyLeft.FormattingEnabled = true;
+            this.cmbKeyLeft.Location = new System.Drawing.Point(236, 94);
+            this.cmbKeyLeft.Name = "cmbKeyLeft";
+            this.cmbKeyLeft.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyLeft.TabIndex = 17;
+            this.cmbKeyLeft.SelectedIndexChanged += new System.EventHandler(this.cmbKeyLeft_SelectedIndexChanged);
+            // 
+            // cmbKeyUp
+            // 
+            this.cmbKeyUp.FormattingEnabled = true;
+            this.cmbKeyUp.Location = new System.Drawing.Point(234, 58);
+            this.cmbKeyUp.Name = "cmbKeyUp";
+            this.cmbKeyUp.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyUp.TabIndex = 16;
+            this.cmbKeyUp.SelectedIndexChanged += new System.EventHandler(this.cmbKeyUp_SelectedIndexChanged);
             // 
             // lblUseTongue
             // 
@@ -175,49 +212,43 @@ namespace Snake
             this.lblUp.TabIndex = 0;
             this.lblUp.Text = "Su:";
             // 
-            // btnSalva
+            // trackBarSizeQuadrati
             // 
-            this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalva.Location = new System.Drawing.Point(225, 0);
-            this.btnSalva.Name = "btnSalva";
-            this.btnSalva.Size = new System.Drawing.Size(166, 128);
-            this.btnSalva.TabIndex = 21;
-            this.btnSalva.Text = "Salva impostazioni";
-            this.btnSalva.UseVisualStyleBackColor = true;
-            this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
+            this.trackBarSizeQuadrati.Location = new System.Drawing.Point(234, 278);
+            this.trackBarSizeQuadrati.Maximum = 32;
+            this.trackBarSizeQuadrati.Minimum = 8;
+            this.trackBarSizeQuadrati.Name = "trackBarSizeQuadrati";
+            this.trackBarSizeQuadrati.Size = new System.Drawing.Size(104, 56);
+            this.trackBarSizeQuadrati.TabIndex = 1;
+            this.trackBarSizeQuadrati.TickFrequency = 2;
+            this.trackBarSizeQuadrati.Value = 8;
+            this.trackBarSizeQuadrati.Scroll += new System.EventHandler(this.trackBarSizeQuadrati_Scroll);
             // 
-            // lblTitolo
+            // lblSizeQuadrati
             // 
-            this.lblTitolo.AutoSize = true;
-            this.lblTitolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitolo.Location = new System.Drawing.Point(105, 13);
-            this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(298, 39);
-            this.lblTitolo.TabIndex = 22;
-            this.lblTitolo.Text = "Impostazioni tasti";
-            // 
-            // pnlButtons
-            // 
-            this.pnlButtons.Controls.Add(this.btnDefaultSettings);
-            this.pnlButtons.Controls.Add(this.btnSalva);
-            this.pnlButtons.Location = new System.Drawing.Point(44, 260);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(391, 128);
-            this.pnlButtons.TabIndex = 23;
+            this.lblSizeQuadrati.AutoSize = true;
+            this.lblSizeQuadrati.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSizeQuadrati.Location = new System.Drawing.Point(106, 278);
+            this.lblSizeQuadrati.Name = "lblSizeQuadrati";
+            this.lblSizeQuadrati.Size = new System.Drawing.Size(188, 24);
+            this.lblSizeQuadrati.TabIndex = 24;
+            this.lblSizeQuadrati.Text = "Grandezza quadratini";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 423);
+            this.ClientSize = new System.Drawing.Size(482, 759);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pnlButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,5 +270,7 @@ namespace Snake
         private System.Windows.Forms.Button btnSalva;
         private System.Windows.Forms.Label lblTitolo;
         private System.Windows.Forms.Panel pnlButtons;
+        private System.Windows.Forms.Label lblSizeQuadrati;
+        private System.Windows.Forms.TrackBar trackBarSizeQuadrati;
     }
 }

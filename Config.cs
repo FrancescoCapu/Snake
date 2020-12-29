@@ -14,6 +14,7 @@ namespace Snake
         public static Keys down;
         public static Keys right;
         public static Keys tongue;
+        public static int sizeQuadrato;
 
         public static void DefaultSettings()
         {
@@ -22,6 +23,7 @@ namespace Snake
             down = Keys.Down;
             right = Keys.Right;
             tongue = Keys.Space;
+            sizeQuadrato = 16;
         }
     }
 }

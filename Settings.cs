@@ -32,31 +32,38 @@ namespace Snake
 
         private void SetPositions()
         {
-            this.Size = new Size(400, 400);
+            this.Size = new Size(400, 630);
 
             lblTitolo.Location = new Point(this.Width / 2 - lblTitolo.Size.Width / 2, 20);
 
-            lblUp.Location = new Point(this.Width / 4, lblTitolo.Location.Y + lblTitolo.Size.Height + 25);
+            lblUp.Location = new Point(this.Width / 6, lblTitolo.Location.Y + lblTitolo.Size.Height + 25);
             cmbKeyUp.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyUp.Size.Width, lblUp.Location.Y);
 
-            lblLeft.Location = new Point(this.Width / 4, lblUp.Location.Y + lblUp.Size.Height + 15);
+            lblLeft.Location = new Point(this.Width / 6, lblUp.Location.Y + lblUp.Size.Height + 15);
             cmbKeyLeft.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyLeft.Size.Width, lblLeft.Location.Y);
 
-            lblDown.Location = new Point(this.Width / 4, lblLeft.Location.Y + lblLeft.Size.Height + 15);
+            lblDown.Location = new Point(this.Width / 6, lblLeft.Location.Y + lblLeft.Size.Height + 15);
             cmbKeyDown.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyDown.Size.Width, lblDown.Location.Y);
 
-            lblRight.Location = new Point(this.Width / 4, lblDown.Location.Y + lblDown.Size.Height + 15);
-            cmbKeyRight.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyRight.Size.Width, lblDown.Location.Y);
+            lblRight.Location = new Point(this.Width / 6, lblDown.Location.Y + lblDown.Size.Height + 15);
+            cmbKeyRight.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyRight.Size.Width, lblRight.Location.Y);
 
-            lblUseTongue.Location = new Point(this.Width / 4, lblDown.Location.Y + lblDown.Size.Height + 15);
+            lblUseTongue.Location = new Point(this.Width / 6, lblRight.Location.Y + lblRight.Size.Height + 15);
             cmbKeyTongue.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyTongue.Size.Width, lblUseTongue.Location.Y);
 
-            btnDefaultSettings.Size = new Size(this.Width / 3, 85);
+            lblSizeQuadrati.Location = new Point(this.Width / 6, lblUseTongue.Location.Y + lblUseTongue.Size.Height + 20);
+            lblSizeQuadrati.Text = "Grandezza\nquadratini";
+            trackBarSizeQuadrati.Location = new Point(cmbKeyTongue.Location.X - 8, lblSizeQuadrati.Location.Y);
+            trackBarSizeQuadrati.Size = new Size(this.Width - trackBarSizeQuadrati.Location.X - 30, 72);
+
+            pnlButtons.Size = new Size(this.Width - 30 * 2, 85);
+            pnlButtons.Location = new Point(30, lblSizeQuadrati.Location.Y + lblSizeQuadrati.Size.Height + 35);
+            pnlButtons.Controls.Add(btnDefaultSettings);
+            pnlButtons.Controls.Add(btnSalva);
+
+            btnDefaultSettings.Size = new Size(pnlButtons.Size.Width / 2 - 15, 85);
 
             btnSalva.Size = btnDefaultSettings.Size;
-
-            pnlButtons.Size = new Size(btnDefaultSettings.Size.Width + 20 + btnSalva.Size.Width, btnDefaultSettings.Size.Height);
-            pnlButtons.Location = new Point(this.Width / 2 - pnlButtons.Size.Width / 2, lblUseTongue.Location.Y + lblUseTongue.Size.Height + 35);
         }
 
         private void UpdateCommands()
@@ -66,11 +73,13 @@ namespace Snake
             cmbKeyDown.SelectedItem = Config.down;
             cmbKeyRight.SelectedItem = Config.right;
             cmbKeyTongue.SelectedItem = Config.tongue;
+            trackBarSizeQuadrati.Value = Config.sizeQuadrato;
         }
 
         private void btnDefaultSettings_Click(object sender, EventArgs e)
         {
             Config.DefaultSettings();
+            trackBarSizeQuadrati.Value = Config.sizeQuadrato;
             UpdateCommands();
         }
 
@@ -344,6 +353,11 @@ namespace Snake
             {
 
             }
+        }
+
+        private void trackBarSizeQuadrati_Scroll(object sender, EventArgs e)
+        {
+            Config.sizeQuadrato = trackBarSizeQuadrati.Value;
         }
 
         private void btnSalva_Click(object sender, EventArgs e) => Close();

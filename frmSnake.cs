@@ -718,7 +718,7 @@ namespace Snake
         {
             try
             {
-                StreamReader reader = new StreamReader("Data/CLassifica/classifica" + index + ".json");
+                StreamReader reader = new StreamReader("Data/Classifica/classifica" + index + ".json");
                 c = JsonConvert.DeserializeObject<Classifica>(reader.ReadToEnd());
                 reader.Close();
             }
@@ -751,11 +751,6 @@ namespace Snake
                 }
             }
             SaveClassifica(classifica, numLivello);
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-
         }
 
         /// <summary>
