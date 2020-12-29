@@ -24,7 +24,12 @@ namespace Snake
         public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
         public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
         public const int WIDTH_CAMPO_GRANDE = 37, HEIGHT_CAMPO_GRANDE = 25;
-        private int heightCampoGioco, widthCampoGioco, timerInterval, numeroLivello;
+        private const int TIMER_INTERVAL_LENTO = 300;
+        private const int TIMER_INTERVAL_NORMALE = 150;
+        private const int TIMER_INTERVAL_VELOCE = 75;
+        private int heightCampoGioco = HEIGHT_CAMPO_MEDIO, widthCampoGioco = WIDTH_CAMPO_MEDIO;
+        private int timerInterval = TIMER_INTERVAL_NORMALE;
+        private int numeroLivello = 0;
         private RootNomiFile rootNomiFileMenu;
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
@@ -46,6 +51,7 @@ namespace Snake
         {
             Config.DefaultSettings();
 
+            /*
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
             cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
@@ -55,6 +61,7 @@ namespace Snake
             cmbVelocita.Items.Add(Velocita.Normale);
             cmbVelocita.Items.Add(Velocita.Veloce);
             cmbVelocita.SelectedItem = Velocita.Normale;
+            */
 
             rootNomiFileMenu = new RootNomiFile();
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
@@ -65,14 +72,30 @@ namespace Snake
             InizializzaPic();
             CreatePicColors();
             InizializzaButtons();
+
+            lblDimensioneCampo.Location = new Point(this.Width / 10, pnlDimensioneCampo.Height / 2 - lblDimensioneCampo.Height / 2);
+            trackBarDimensioneCampo.Location = new Point(lblDimensioneCampo.Location.X + lblDimensioneCampo.Width + 50, pnlDimensioneCampo.Height / 2 - trackBarDimensioneCampo.Height / 2);
+            trackBarDimensioneCampo.Size = new Size(300, 56);
+
+            lblVelocita.Location = new Point(lblDimensioneCampo.Location.X, pnlVelocita.Height / 2 - lblVelocita.Height / 2);
+            trackBarVelocita.Location = new Point(trackBarDimensioneCampo.Location.X, pnlVelocita.Height / 2 - trackBarVelocita.Height / 2);
+            trackBarVelocita.Size = new Size(300, 56);
+
+            lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
+            txtNome.Size = new Size(200, 30);
+            txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
+
+            trackBarVelocita.Value = 1;
+            trackBarDimensioneCampo.Value = 1;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (txtNome.Text != "")
             {
-                if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
-                {
+                //if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
+                //{
+                    /*
                     switch (cmbDimensioneCampo.SelectedItem)
                     {
                         case DimensioniCampoGioco.Piccolo:
@@ -91,6 +114,8 @@ namespace Snake
                             //non verrà mai eseguito
                             goto case DimensioniCampoGioco.Medio;
                     }
+                    */
+                    /*
                     switch (cmbVelocita.SelectedItem)
                     {
                         case Velocita.Lento:
@@ -106,6 +131,7 @@ namespace Snake
                             //non verrà mai eseguito
                             goto case Velocita.Normale;
                     }
+                    */
                     /*if (cmbLivelli.SelectedItem == null)
                     {
                         numeroLivello = 0;
@@ -118,11 +144,11 @@ namespace Snake
                     frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
                     frmSnake.Show();
                     this.Hide();
-                }
-                else    //non verrà mai eseguito
+                //}
+                /*else    //non verrà mai eseguito
                 {
                     MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                }*/
             }
             else
             {
@@ -131,12 +157,12 @@ namespace Snake
         }
 
         /// <summary>
-        /// ridimensiona la grandezza delle picturebox
+        /// ridimensiona la posizione e la grandezza delle picturebox e delle label
         /// </summary>
         private void InizializzaPic()
         {
             picCenter.Size = new Size(200, 136);    //200, 136 è esattamente la metà della grandezza in pixel del campo gioco medio
-            picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, pnlLivelli.Height / 8);
+            picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, pnlLivelli.Height / 8 + pnlSettings.Height);
             picCenter.Image = lstPreviewLevels[0];
             picCenter.BackColor = Color.FromArgb(0, 0, 0, 0);
             picCenter.Visible = true;
@@ -151,7 +177,7 @@ namespace Snake
             picLeft1.Visible = true;
             picLeft1.Enabled = true;
             picLeft1.SizeMode = PictureBoxSizeMode.StretchImage;
-            //picLeft1.Click += btnLeft.Click(btnLeft, btnLeft.Click);
+            picLeft1.Click += delegate { btnLeft.PerformClick(); };
             pnlLivelli.Controls.Add(picLeft1);
 
             picRight1.Size = new Size(100, 68);
@@ -161,8 +187,10 @@ namespace Snake
             picRight1.Visible = true;
             picRight1.Enabled = true;
             picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
-            //picRight1.Click = ???
+            picRight1.Click += delegate { btnRight.PerformClick(); };
             pnlLivelli.Controls.Add(picRight1);
+
+            lblSelezionaLivello.Location = new Point(picCenter.Location.X + picCenter.Width / 2 - lblSelezionaLivello.Width / 2, picCenter.Location.Y - lblSelezionaLivello.Height - 15);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -177,8 +205,65 @@ namespace Snake
             classifica.Show();
         }
 
+        private void trackBarVelocità_Scroll(object sender, EventArgs e)
+        {
+            switch (trackBarVelocita.Value)
+            {
+                case 0:
+                    timerInterval = TIMER_INTERVAL_LENTO;
+                    break;
+                case 1:
+                    timerInterval = TIMER_INTERVAL_NORMALE;
+                    break;
+                case 2:
+                    timerInterval = TIMER_INTERVAL_VELOCE;
+                    break;
+                default:
+                    goto case 1;
+            }
+        }
+
+        private void trackBarDimensioneCampo_Scroll(object sender, EventArgs e)
+        {
+            switch (trackBarDimensioneCampo.Value)
+            {
+                case 0:
+                    heightCampoGioco = HEIGHT_CAMPO_PICCOLO;
+                    widthCampoGioco = WIDTH_CAMPO_PICCOLO;
+                    break;
+                case 1:
+                    heightCampoGioco = HEIGHT_CAMPO_MEDIO;
+                    widthCampoGioco = WIDTH_CAMPO_MEDIO;
+                    break;
+                case 2:
+                    heightCampoGioco = HEIGHT_CAMPO_GRANDE;
+                    widthCampoGioco = WIDTH_CAMPO_GRANDE;
+                    break;
+                default:
+                    goto case 1;
+            }
+        }
+
         private void CreatePicColors()
         {
+            PictureBox pictureBox = new PictureBox();
+            try
+            {
+                pictureBox.Image = Image.FromFile("Data/imgs/selectionArrow.png");
+                pictureBox.Visible = true;
+                pictureBox.Enabled = true;
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox.Size = new Size(30, 41);
+                pictureBox.Location = new Point(85, 50);
+                pnlColors.Controls.Add(pictureBox);
+            }
+            catch (FileNotFoundException)
+            {
+                pictureBox.Visible = false;
+                pictureBox.Enabled = false;
+            }
+                
+
             lstColor.Add(Color.Pink);
             lstColor.Add(Color.Red);
             lstColor.Add(Color.Orange);
@@ -201,16 +286,18 @@ namespace Snake
                 pic.Location = new Point(i * 40, 5);
                 pic.Click += delegate
                 {
+                    pictureBox.Location = new Point(pic.Location.X + 5, pic.Location.Y + pic.Height + 5);
                     color = pic.BackColor;
                     Console.WriteLine(color);
                 };
                 pnlColors.Controls.Add(pic);
             }
-            pnlColors.Size = new Size(this.Size.Width, 50);
-            pnlColors.Location = new Point((this.Size.Width - 400) / 2, 300);
+            pnlColors.Size = new Size(this.Size.Width, 103);
+            pnlColors.Location = new Point((this.Size.Width - 400) / 2, 320);
+
+            lblColorSnake.Location = new Point(this.Width / 2 - lblColorSnake.Width / 2, pnlColors.Location.Y - lblColorSnake.Height - 15);
         }
 
-        // --- da finire - così non funziona ---
         private void GetPictures()
         {
             string aus;
@@ -243,11 +330,50 @@ namespace Snake
 
         private void InizializzaButtons()
         {
-            btnRight.Size = new Size(30, 30);
-            btnRight.Location = new Point(picRight1.Location.X + picRight1.Width, picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
+            //btnSettings
+            btnSettings.Size = new Size(pnlSettings.Height, pnlSettings.Height);
+            try
+            {
+                btnSettings.BackgroundImage = Image.FromFile("Data/imgs/settings.png");
+                btnSettings.BackgroundImageLayout = ImageLayout.Stretch;
+                btnSettings.Text = "";
+            }
+            catch (FileNotFoundException)
+            {
+                btnSettings.Text = "Settings";
+            }
 
-            btnLeft.Size = new Size(30, 30);
-            btnLeft.Location = new Point(picLeft1.Location.X - btnLeft.Width, picCenter.Location.Y + picCenter.Height / 2 - btnLeft.Size.Height / 2);
+            //btnRight
+            try
+            {
+                btnRight.BackgroundImage = Image.FromFile("Data/imgs/rightArrow.png");
+                btnRight.BackgroundImageLayout = ImageLayout.Stretch;
+                btnRight.Text = "";
+                btnRight.Location = new Point(picRight1.Location.X + picRight1.Size.Width, picRight1.Location.Y + picRight1.Size.Height / 5);
+                btnRight.Size = new Size(picRight1.Size.Height / 5 * 3, picRight1.Size.Height / 5 * 3);
+            }
+            catch (FileNotFoundException)
+            {
+                btnRight.Text = "+";
+                btnRight.Size = new Size(30, 30);
+                btnRight.Location = new Point(picRight1.Location.X + picRight1.Width, picCenter.Location.Y + picCenter.Height / 2 - btnRight.Size.Height / 2);
+            }
+
+            //btnLeft
+            try
+            {
+                btnLeft.BackgroundImage = Image.FromFile("Data/imgs/leftArrow.png");
+                btnLeft.BackgroundImageLayout = ImageLayout.Stretch;
+                btnLeft.Text = "";
+                btnLeft.Location = new Point(picLeft1.Location.X - picLeft1.Size.Height / 5 * 3, picLeft1.Location.Y + picLeft1.Size.Height / 5);
+                btnLeft.Size = new Size(picLeft1.Size.Height / 5 * 3, picLeft1.Size.Height / 5 * 3);
+            }
+            catch (FileNotFoundException)
+            {
+                btnLeft.Text = "-";
+                btnLeft.Size = new Size(30, 30);
+                btnLeft.Location = new Point(picLeft1.Location.X - btnLeft.Width, picCenter.Location.Y + picCenter.Height / 2 - btnLeft.Size.Height / 2);
+            }
             btnLeft.Enabled = false;
             btnLeft.Visible = false;
         }
@@ -290,10 +416,20 @@ namespace Snake
             }
             if (numeroLivello == 1)
             {
+                pnlDimensioneCampo.Enabled = false;
+                pnlDimensioneCampo.Visible = false;
+                /*
                 lblDimensioneCampo.Enabled = false;
                 lblDimensioneCampo.Visible = false;
+                */
+                /*
                 cmbDimensioneCampo.Enabled = false;
                 cmbDimensioneCampo.Visible = false;
+                */
+                /*
+                trackBarDimensioneCampo.Enabled = false;
+                trackBarDimensioneCampo.Visible = false;
+                */
             }
         }
 
@@ -306,10 +442,20 @@ namespace Snake
             }
             if (numeroLivello == 0)
             {
+                pnlDimensioneCampo.Enabled = true;
+                pnlDimensioneCampo.Visible = true;
+                /*
                 lblDimensioneCampo.Enabled = true;
                 lblDimensioneCampo.Visible = true;
+                */
+                /*
                 cmbDimensioneCampo.Enabled = true;
                 cmbDimensioneCampo.Visible = true;
+                */
+                /*
+                trackBarDimensioneCampo.Enabled = true;
+                trackBarDimensioneCampo.Visible = true;
+                */
             }
         }
     }
