@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Snake
 {
-    class Classifica
+    public partial class Classifica : Form
     {
-        public List<RecordUtente> ClassificaPunteggi;
-
         public Classifica()
         {
-            ClassificaPunteggi = new List<RecordUtente>();
+            InitializeComponent();
         }
     }
 }

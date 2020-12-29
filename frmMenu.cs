@@ -175,6 +175,12 @@ namespace Snake
             frmSettings.ShowDialog();
         }
 
+        private void btnClassifica_Click(object sender, EventArgs e)
+        {
+            Classifica classifica = new Classifica();
+            classifica.Show();
+        }
+
         private void CreatePicColors()
         {
             lstColor.Add(Color.Pink);

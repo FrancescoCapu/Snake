@@ -54,7 +54,7 @@ namespace Snake
         private Panel panelLingua;
         private bool useTongue;
         private int contIntervalTongue = 0;
-        private Classifica classifica;
+        private Ranking classifica;
         private RecordUtente recordutente = new RecordUtente();
         private readonly Color color;
 
@@ -100,7 +100,7 @@ namespace Snake
             PrintTongue();
             NewCibo(ref cibo, serpente);
             PrintFood(cibo);
-            classifica = new Classifica();
+            classifica = new Ranking();
         }
 
         /// <summary>
@@ -707,19 +707,19 @@ namespace Snake
         }
 
         //rivedere cartella Classifica
-        private void SaveClassifica(Classifica classifica, int index)
+        private void SaveClassifica(Ranking classifica, int index)
         {
             string json = JsonConvert.SerializeObject(classifica);
             string nome = "Data/Classifica/classifica" + index + ".json";
             System.IO.File.WriteAllText(@nome, json);
         }
 
-        private void ReadClassifica(ref Classifica c, int index)
+        private void ReadClassifica(ref Ranking c, int index)
         {
             try
             {
-                StreamReader reader = new StreamReader("Data/CLassifica/classifica" + index + ".json");
-                c = JsonConvert.DeserializeObject<Classifica>(reader.ReadToEnd());
+                StreamReader reader = new StreamReader("Data/Classifica/classifica" + index + ".json");
+                c = JsonConvert.DeserializeObject<Ranking>(reader.ReadToEnd());
                 reader.Close();
             }
             catch (FileNotFoundException)
