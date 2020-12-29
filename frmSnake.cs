@@ -270,7 +270,7 @@ namespace Snake
             if (hasEaten)
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
+                panel.Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
                 panel.Size = new Size(sizeStampa, sizeStampa);
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = color;
@@ -279,12 +279,13 @@ namespace Snake
                 queueSerpente.Enqueue(panel);
 
                 //Se si può evitare il for è meglio...
-
+                
                 for (int i = 0; i < s.GetLength() - 1; i++)
                 {
                     temp = queueSerpente.Dequeue();
                     queueSerpente.Enqueue(temp);
                 }
+                
                 pnlElementiDinamici.Controls.Add(panel);
                 /*
                 for (int i = s.getLength() - 2; i > 0; i--)
@@ -477,13 +478,14 @@ namespace Snake
                 case Tasto.fermo:
                     break;
             }
+            //Console.WriteLine(serpente.GetX(0) + " " + serpente.GetY(0));
             posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
             UpdateTongue(serpente.GetTongueX(), serpente.GetTongueY());
             if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(serpente))
                 GameOver();
             else
             {
-                if (HasEaten(ref serpente, cibo))
+                if (HasEaten(ref serpente, ref cibo))
                 {
                     IncSnake(cibo, serpente);
                     UpdateSnake(ref serpente, true);
@@ -634,7 +636,7 @@ namespace Snake
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        private bool HasEaten(ref Serpente s, Cibo c)
+        private bool HasEaten(ref Serpente s, ref Cibo c)
         {
             if (s.GetX(0) == c.GetFoodX() && s.GetY(0) == c.GetFoodY() || s.GetTongueX() == c.GetFoodX() && s.GetTongueY() == c.GetFoodY())
                 return true;
