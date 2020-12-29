@@ -72,83 +72,32 @@ namespace Snake
             InizializzaPic();
             CreatePicColors();
             InizializzaButtons();
-
-            lblDimensioneCampo.Location = new Point(this.Width / 10, pnlDimensioneCampo.Height / 2 - lblDimensioneCampo.Height / 2);
-            trackBarDimensioneCampo.Location = new Point(lblDimensioneCampo.Location.X + lblDimensioneCampo.Width + 50, pnlDimensioneCampo.Height / 2 - trackBarDimensioneCampo.Height / 2);
-            trackBarDimensioneCampo.Size = new Size(300, 56);
-
-            lblVelocita.Location = new Point(lblDimensioneCampo.Location.X, pnlVelocita.Height / 2 - lblVelocita.Height / 2);
-            trackBarVelocita.Location = new Point(trackBarDimensioneCampo.Location.X, pnlVelocita.Height / 2 - trackBarVelocita.Height / 2);
-            trackBarVelocita.Size = new Size(300, 56);
-
-            lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
-            txtNome.Size = new Size(200, 30);
-            txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
-
-            trackBarVelocita.Value = 1;
-            trackBarDimensioneCampo.Value = 1;
+            InizializzaGraficaMenu();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (txtNome.Text != "")
             {
-                //if (cmbDimensioneCampo.SelectedItem != null && cmbVelocita.SelectedItem != null)
-                //{
-                    /*
-                    switch (cmbDimensioneCampo.SelectedItem)
+                if (radioButtonSinglePlayer.Checked || radioButtonMultiplayer.Checked)
+                {
+                    if (radioButtonSinglePlayer.Checked)
                     {
-                        case DimensioniCampoGioco.Piccolo:
-                            heightCampoGioco = HEIGHT_CAMPO_PICCOLO;
-                            widthCampoGioco = WIDTH_CAMPO_PICCOLO;
-                            break;
-                        case DimensioniCampoGioco.Medio:
-                            heightCampoGioco = HEIGHT_CAMPO_MEDIO;
-                            widthCampoGioco = WIDTH_CAMPO_MEDIO;
-                            break;
-                        case DimensioniCampoGioco.Grande:
-                            heightCampoGioco = HEIGHT_CAMPO_GRANDE;
-                            widthCampoGioco = WIDTH_CAMPO_GRANDE;
-                            break;
-                        default:
-                            //non verrà mai eseguito
-                            goto case DimensioniCampoGioco.Medio;
-                    }
-                    */
-                    /*
-                    switch (cmbVelocita.SelectedItem)
-                    {
-                        case Velocita.Lento:
-                            timerInterval = 300;
-                            break;
-                        case Velocita.Normale:
-                            timerInterval = 150;
-                            break;
-                        case Velocita.Veloce:
-                            timerInterval = 75;
-                            break;
-                        default:
-                            //non verrà mai eseguito
-                            goto case Velocita.Normale;
-                    }
-                    */
-                    /*if (cmbLivelli.SelectedItem == null)
-                    {
-                        numeroLivello = 0;
+                        Settings.ReadPreviousConfig();
+                        string nome = txtNome.Text;
+                        frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
+                        frmSnake.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        //numeroLivello = cmbLivelli.SelectedIndex;
-                    }*/
-                    string nome = txtNome.Text;
-                    frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
-                    frmSnake.Show();
-                    this.Hide();
-                //}
-                /*else    //non verrà mai eseguito
+                        //Codice per il multiplayer
+                    }
+                }
+                else
                 {
-                    MessageBox.Show("Errore durante la selezione delle impostazioni di gioco", "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }*/
+                    MessageBox.Show("Devi prima selezionare una modalità di gioco", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
             else
             {
@@ -405,6 +354,29 @@ namespace Snake
                 btnRight.Enabled = true;
                 btnRight.Visible = true;
             }
+        }
+
+        private void InizializzaGraficaMenu()
+        {
+            lblDimensioneCampo.Location = new Point(this.Width / 10, pnlDimensioneCampo.Height / 2 - lblDimensioneCampo.Height / 2);
+            trackBarDimensioneCampo.Location = new Point(lblDimensioneCampo.Location.X + lblDimensioneCampo.Width + 50, pnlDimensioneCampo.Height / 2 - trackBarDimensioneCampo.Height / 2);
+            trackBarDimensioneCampo.Size = new Size(300, 56);
+
+            lblVelocita.Location = new Point(lblDimensioneCampo.Location.X, pnlVelocita.Height / 2 - lblVelocita.Height / 2);
+            trackBarVelocita.Location = new Point(trackBarDimensioneCampo.Location.X, pnlVelocita.Height / 2 - trackBarVelocita.Height / 2);
+            trackBarVelocita.Size = new Size(300, 56);
+
+            lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
+            txtNome.Size = new Size(200, 30);
+            txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
+
+            lblNumeroGiocatori.Location = new Point(lblDimensioneCampo.Location.X, pnlNumeroGiocatori.Height / 2 - lblNumeroGiocatori.Height / 2);
+            radioButtonSinglePlayer.Location = new Point(trackBarDimensioneCampo.Location.X + 8, pnlNumeroGiocatori.Height / 2 - radioButtonSinglePlayer.Height / 2);
+            radioButtonSinglePlayer.Checked = true;
+            radioButtonMultiplayer.Location = new Point(radioButtonSinglePlayer.Location.X + radioButtonSinglePlayer.Width + 60, radioButtonSinglePlayer.Location.Y);
+
+            trackBarVelocita.Value = 1;
+            trackBarDimensioneCampo.Value = 1;
         }
 
         private void btnRight_Click(object sender, EventArgs e)

@@ -374,9 +374,13 @@ namespace Snake
         {
             try
             {
+                if (!System.IO.Directory.Exists("Data/Settings"))
+                {
+                    System.IO.Directory.CreateDirectory("Data/Settings");
+                }
                 SaveConfig saveConfig = new SaveConfig(Config.up, Config.left, Config.down, Config.right, Config.tongue, Config.sizeQuadrato);
                 string Configserialized = JsonConvert.SerializeObject(saveConfig);
-                string path = "userSettingsConfig.json";
+                string path = "Data/Settings/userSettingsConfig.json";
                 File.WriteAllText(@path, Configserialized);
             }
             catch (Exception fe)
@@ -384,11 +388,11 @@ namespace Snake
                 MessageBox.Show(fe.ToString(), "");
             }
         }
-        private bool ReadPreviousConfig()
+        public static bool ReadPreviousConfig()
         {
             try
             {
-                StreamReader reader = new StreamReader("userSettingsConfig.json");
+                StreamReader reader = new StreamReader("Settings/userSettingsConfig.json");
                 SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
                 reader.Close();
                 Config.up = saveConfig.up;
@@ -400,6 +404,10 @@ namespace Snake
                 return true;
             }
             catch (FileNotFoundException)
+            {
+                return false;
+            }
+            catch (DirectoryNotFoundException)
             {
                 return false;
             }

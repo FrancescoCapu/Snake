@@ -710,9 +710,10 @@ namespace Snake
             this.Close();
         }
 
-        //rivedere cartella Classifica
         private void SaveClassifica(Ranking classifica, int index)
         {
+            if (!System.IO.Directory.Exists("Data/Classifica"))
+                System.IO.Directory.CreateDirectory("Data/Classifica");
             string json = JsonConvert.SerializeObject(classifica);
             string nome = "Data/Classifica/classifica" + index + ".json";
             System.IO.File.WriteAllText(@nome, json);
@@ -727,6 +728,10 @@ namespace Snake
                 reader.Close();
             }
             catch (FileNotFoundException)
+            {
+
+            }
+            catch (DirectoryNotFoundException)
             {
 
             }

@@ -51,6 +51,10 @@ namespace Snake
             this.trackBarVelocita = new System.Windows.Forms.TrackBar();
             this.trackBarDimensioneCampo = new System.Windows.Forms.TrackBar();
             this.pnlDimensioneCampo = new System.Windows.Forms.Panel();
+            this.radioButtonSinglePlayer = new System.Windows.Forms.RadioButton();
+            this.radioButtonMultiplayer = new System.Windows.Forms.RadioButton();
+            this.pnlNumeroGiocatori = new System.Windows.Forms.Panel();
+            this.lblNumeroGiocatori = new System.Windows.Forms.Label();
             this.pnlVelocita.SuspendLayout();
             this.pnlLivelli.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRight1)).BeginInit();
@@ -61,11 +65,13 @@ namespace Snake
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).BeginInit();
             this.pnlDimensioneCampo.SuspendLayout();
+            this.pnlNumeroGiocatori.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.Location = new System.Drawing.Point(0, 907);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStart.Name = "btnStart";
@@ -108,6 +114,7 @@ namespace Snake
             // 
             // pnlLivelli
             // 
+            this.pnlLivelli.Controls.Add(this.pnlNumeroGiocatori);
             this.pnlLivelli.Controls.Add(this.pnlDimensioneCampo);
             this.pnlLivelli.Controls.Add(this.lblColorSnake);
             this.pnlLivelli.Controls.Add(this.lblSelezionaLivello);
@@ -289,6 +296,51 @@ namespace Snake
             this.pnlDimensioneCampo.Size = new System.Drawing.Size(789, 100);
             this.pnlDimensioneCampo.TabIndex = 16;
             // 
+            // radioButtonSinglePlayer
+            // 
+            this.radioButtonSinglePlayer.AutoSize = true;
+            this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(331, 43);
+            this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
+            this.radioButtonSinglePlayer.Size = new System.Drawing.Size(141, 29);
+            this.radioButtonSinglePlayer.TabIndex = 0;
+            this.radioButtonSinglePlayer.TabStop = true;
+            this.radioButtonSinglePlayer.Text = "Singleplayer";
+            this.radioButtonSinglePlayer.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMultiplayer
+            // 
+            this.radioButtonMultiplayer.AutoSize = true;
+            this.radioButtonMultiplayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonMultiplayer.Location = new System.Drawing.Point(499, 43);
+            this.radioButtonMultiplayer.Name = "radioButtonMultiplayer";
+            this.radioButtonMultiplayer.Size = new System.Drawing.Size(127, 29);
+            this.radioButtonMultiplayer.TabIndex = 17;
+            this.radioButtonMultiplayer.TabStop = true;
+            this.radioButtonMultiplayer.Text = "Multiplayer";
+            this.radioButtonMultiplayer.UseVisualStyleBackColor = true;
+            // 
+            // pnlNumeroGiocatori
+            // 
+            this.pnlNumeroGiocatori.Controls.Add(this.lblNumeroGiocatori);
+            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonMultiplayer);
+            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonSinglePlayer);
+            this.pnlNumeroGiocatori.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 507);
+            this.pnlNumeroGiocatori.Name = "pnlNumeroGiocatori";
+            this.pnlNumeroGiocatori.Size = new System.Drawing.Size(789, 100);
+            this.pnlNumeroGiocatori.TabIndex = 18;
+            // 
+            // lblNumeroGiocatori
+            // 
+            this.lblNumeroGiocatori.AutoSize = true;
+            this.lblNumeroGiocatori.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumeroGiocatori.Location = new System.Drawing.Point(80, 32);
+            this.lblNumeroGiocatori.Name = "lblNumeroGiocatori";
+            this.lblNumeroGiocatori.Size = new System.Drawing.Size(158, 25);
+            this.lblNumeroGiocatori.TabIndex = 18;
+            this.lblNumeroGiocatori.Text = "Modalità di gioco";
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -321,6 +373,8 @@ namespace Snake
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).EndInit();
             this.pnlDimensioneCampo.ResumeLayout(false);
             this.pnlDimensioneCampo.PerformLayout();
+            this.pnlNumeroGiocatori.ResumeLayout(false);
+            this.pnlNumeroGiocatori.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -349,5 +403,9 @@ namespace Snake
         private System.Windows.Forms.TrackBar trackBarVelocita;
         private System.Windows.Forms.TrackBar trackBarDimensioneCampo;
         private System.Windows.Forms.Panel pnlDimensioneCampo;
+        private System.Windows.Forms.RadioButton radioButtonMultiplayer;
+        private System.Windows.Forms.RadioButton radioButtonSinglePlayer;
+        private System.Windows.Forms.Panel pnlNumeroGiocatori;
+        private System.Windows.Forms.Label lblNumeroGiocatori;
     }
 }
