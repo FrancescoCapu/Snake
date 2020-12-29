@@ -60,11 +60,7 @@ namespace Snake
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
             reader.Close();
-            /*for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
-            {
-                cmbLivelli.Items.Add(i);
-            }
-            cmbLivelli.SelectedIndex = 0;*/
+            
             GetPictures();
             InizializzaPic();
             CreatePicColors();
@@ -173,6 +169,12 @@ namespace Snake
         {
             Settings frmSettings = new Settings();
             frmSettings.ShowDialog();
+        }
+
+        private void btnClassifica_Click(object sender, EventArgs e)
+        {
+            Classifica classifica = new Classifica();
+            classifica.Show();
         }
 
         private void CreatePicColors()

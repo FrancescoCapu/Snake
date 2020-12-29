@@ -46,6 +46,7 @@ namespace Snake
             this.lblNome = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.pnlSettings = new System.Windows.Forms.Panel();
+            this.btnClassifica = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.pnlDimensioneCampo.SuspendLayout();
             this.pnlLivelli.SuspendLayout();
@@ -59,10 +60,10 @@ namespace Snake
             // btnStart
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnStart.Location = new System.Drawing.Point(0, 1052);
+            this.btnStart.Location = new System.Drawing.Point(0, 717);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(771, 66);
+            this.btnStart.Size = new System.Drawing.Size(789, 66);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -75,10 +76,10 @@ namespace Snake
             this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
             this.pnlDimensioneCampo.Controls.Add(this.cmbDimensioneCampo);
             this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 824);
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 489);
             this.pnlDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
-            this.pnlDimensioneCampo.Size = new System.Drawing.Size(771, 128);
+            this.pnlDimensioneCampo.Size = new System.Drawing.Size(789, 128);
             this.pnlDimensioneCampo.TabIndex = 1;
             // 
             // cmbVelocita
@@ -130,12 +131,12 @@ namespace Snake
             this.pnlLivelli.Location = new System.Drawing.Point(0, 0);
             this.pnlLivelli.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLivelli.Name = "pnlLivelli";
-            this.pnlLivelli.Size = new System.Drawing.Size(771, 952);
+            this.pnlLivelli.Size = new System.Drawing.Size(789, 617);
             this.pnlLivelli.TabIndex = 2;
             // 
             // pnlColors
             // 
-            this.pnlColors.Location = new System.Drawing.Point(208, 293);
+            this.pnlColors.Location = new System.Drawing.Point(279, 162);
             this.pnlColors.Name = "pnlColors";
             this.pnlColors.Size = new System.Drawing.Size(200, 240);
             this.pnlColors.TabIndex = 13;
@@ -189,9 +190,9 @@ namespace Snake
             this.pnlNickname.Controls.Add(this.lblNome);
             this.pnlNickname.Controls.Add(this.txtNome);
             this.pnlNickname.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNickname.Location = new System.Drawing.Point(0, 952);
+            this.pnlNickname.Location = new System.Drawing.Point(0, 617);
             this.pnlNickname.Name = "pnlNickname";
-            this.pnlNickname.Size = new System.Drawing.Size(771, 100);
+            this.pnlNickname.Size = new System.Drawing.Size(789, 100);
             this.pnlNickname.TabIndex = 12;
             // 
             // lblNome
@@ -213,17 +214,29 @@ namespace Snake
             // 
             // pnlSettings
             // 
+            this.pnlSettings.Controls.Add(this.btnClassifica);
             this.pnlSettings.Controls.Add(this.btnSettings);
             this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSettings.Location = new System.Drawing.Point(0, 0);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(771, 67);
+            this.pnlSettings.Size = new System.Drawing.Size(789, 67);
             this.pnlSettings.TabIndex = 13;
+            // 
+            // btnClassifica
+            // 
+            this.btnClassifica.Location = new System.Drawing.Point(347, 0);
+            this.btnClassifica.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnClassifica.Name = "btnClassifica";
+            this.btnClassifica.Size = new System.Drawing.Size(84, 67);
+            this.btnClassifica.TabIndex = 6;
+            this.btnClassifica.Text = "Classifica";
+            this.btnClassifica.UseVisualStyleBackColor = true;
+            this.btnClassifica.Click += new System.EventHandler(this.btnClassifica_Click);
             // 
             // btnSettings
             // 
             this.btnSettings.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSettings.Location = new System.Drawing.Point(696, 0);
+            this.btnSettings.Location = new System.Drawing.Point(714, 0);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 67);
             this.btnSettings.TabIndex = 0;
@@ -235,7 +248,7 @@ namespace Snake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 1118);
+            this.ClientSize = new System.Drawing.Size(789, 783);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pnlLivelli);
             this.Controls.Add(this.pnlNickname);
@@ -282,5 +295,6 @@ namespace Snake
         private System.Windows.Forms.Panel pnlColors;
         private System.Windows.Forms.Panel pnlSettings;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnClassifica;
     }
 }

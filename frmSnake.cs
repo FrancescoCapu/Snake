@@ -38,7 +38,6 @@ namespace Snake
         // per debug
         //private Elementi[,] matSerpente;
         //private Elementi[,] matCibo;
-        private int sizeStampa;
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
@@ -54,7 +53,7 @@ namespace Snake
         private Panel panelLingua;
         private bool useTongue;
         private int contIntervalTongue = 0;
-        private Classifica classifica;
+        private Ranking classifica;
         private RecordUtente recordutente = new RecordUtente();
         private readonly Color color;
 
@@ -100,7 +99,7 @@ namespace Snake
             PrintTongue();
             NewCibo(ref cibo, serpente);
             PrintFood(cibo);
-            classifica = new Classifica();
+            classifica = new Ranking();
         }
 
         /// <summary>
@@ -110,8 +109,6 @@ namespace Snake
         /// <param name="Width"></param>
         private void Inizializza(int height, int width)
         {
-            //per il momento è 16, in seguito bisgona fare una funzione getGrandezza per impostarla di conseguenza ??
-            sizeStampa = 16;
             //stesso ragionamento per la dimensione del campo gioco
             campoGioco = new Elementi[width, height];
             //matSerpente = new Elementi[width, height];
@@ -131,11 +128,11 @@ namespace Snake
                 //matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
             }
             */
-            pnlCampoGioco.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
-            pnlElementiDinamici.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
+            pnlCampoGioco.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
+            pnlElementiDinamici.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
             pnlElementiDinamici.Location = new Point(0, 0);
             pnlElementiDinamici.BorderStyle = BorderStyle.None;
-            this.Size = new Size(GetWidth() * sizeStampa, GetHeigth() * sizeStampa);
+            this.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
         }
 
         /// <summary>
@@ -224,8 +221,8 @@ namespace Snake
                         Panel panel = new Panel();
                         panel.BackColor = Color.White;
                         panel.BorderStyle = BorderStyle.FixedSingle;
-                        panel.Location = new Point(i * sizeStampa, j * sizeStampa);
-                        panel.Size = new Size(sizeStampa, sizeStampa);
+                        panel.Location = new Point(i * Config.sizeQuadrato, j * Config.sizeQuadrato);
+                        panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                         panel.Visible = true;
                         pnlCampoGioco.Controls.Add(panel);
                     }
@@ -246,8 +243,8 @@ namespace Snake
             for (int i = serpente.GetLength() - 1; i > -1; i--)
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(serpente.GetX(i) * sizeStampa, serpente.GetY(i) * sizeStampa);
-                panel.Size = new Size(sizeStampa, sizeStampa);
+                panel.Location = new Point(serpente.GetX(i) * Config.sizeQuadrato, serpente.GetY(i) * Config.sizeQuadrato);
+                panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = color;
                 panel.Visible = true;
@@ -270,8 +267,8 @@ namespace Snake
             if (hasEaten)
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
-                panel.Size = new Size(sizeStampa, sizeStampa);
+                panel.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
+                panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = color;
                 panel.Visible = true;
@@ -304,20 +301,20 @@ namespace Snake
                 }
                 */
                 temp = queueSerpente.Dequeue();
-                temp.Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+                temp.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
                 queueSerpente.Enqueue(temp);
             }
-            //lstPanelSerpente[0].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+            //lstPanelSerpente[0].Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
             /*
             if (hasEaten == false)
             {
-                lstPanelSerpente[lstPanelSerpente.Count - 1].Location = new Point(s.GetX(0) * sizeStampa, s.GetY(0) * sizeStampa);
+                lstPanelSerpente[lstPanelSerpente.Count - 1].Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
             }
             else
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(posLastPrec.X * sizeStampa, posLastPrec.Y * sizeStampa);
-                panel.Size = new Size(sizeStampa, sizeStampa);
+                panel.Location = new Point(posLastPrec.X * Config.sizeQuadrato, posLastPrec.Y * Config.sizeQuadrato);
+                panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = Color.Orange;
                 panel.Visible = true;
@@ -342,8 +339,8 @@ namespace Snake
             pannello.Controls.Add(mela);
             //pannello.BackgroundImage =Image.FromFile("Data/imgs/ezgif-1-b94c4881a805.png");
             pannello.BorderStyle = BorderStyle.None;
-            pannello.Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
-            pannello.Size = new Size(sizeStampa, sizeStampa);
+            pannello.Location = new Point(c.GetFoodX() * Config.sizeQuadrato, c.GetFoodY() * Config.sizeQuadrato);
+            pannello.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
             mela.Size = pannello.Size;
             pannello.Visible = true;
             pnlElementiDinamici.Controls.Add(pannello);
@@ -358,7 +355,7 @@ namespace Snake
         /// <param name="foodIndex"></param>
         private void UpdateFood(ref Cibo c, int foodIndex = 0)
         {
-            lstPanelCibo[foodIndex].Location = new Point(c.GetFoodX() * sizeStampa, c.GetFoodY() * sizeStampa);
+            lstPanelCibo[foodIndex].Location = new Point(c.GetFoodX() * Config.sizeQuadrato, c.GetFoodY() * Config.sizeQuadrato);
         }
 
         /// <summary>
@@ -370,8 +367,8 @@ namespace Snake
             panelLingua.Visible = false;
             panelLingua.Enabled = true;
             panelLingua.BackColor = Color.Red;
-            panelLingua.Size = new Size(sizeStampa, sizeStampa / 3);
-            panelLingua.Location = new Point((serpente.GetX(0)) * sizeStampa, (serpente.GetY(0) * sizeStampa) + sizeStampa / 3);
+            panelLingua.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato / 3);
+            panelLingua.Location = new Point((serpente.GetX(0)) * Config.sizeQuadrato, (serpente.GetY(0) * Config.sizeQuadrato) + Config.sizeQuadrato / 3);
             pnlElementiDinamici.Controls.Add(panelLingua);
         }
 
@@ -384,13 +381,13 @@ namespace Snake
         {
             if (tasto == Tasto.su || tasto == Tasto.giu)
             {
-                panelLingua.Location = new Point(x * sizeStampa + sizeStampa / 3, y * sizeStampa);
-                panelLingua.Size = new Size(sizeStampa / 3, sizeStampa);
+                panelLingua.Location = new Point(x * Config.sizeQuadrato + Config.sizeQuadrato / 3, y * Config.sizeQuadrato);
+                panelLingua.Size = new Size(Config.sizeQuadrato / 3, Config.sizeQuadrato);
             }
             else
             {
-                panelLingua.Location = new Point(x * sizeStampa, y * sizeStampa + sizeStampa / 3);
-                panelLingua.Size = new Size(sizeStampa, sizeStampa / 3);
+                panelLingua.Location = new Point(x * Config.sizeQuadrato, y * Config.sizeQuadrato + Config.sizeQuadrato / 3);
+                panelLingua.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato / 3);
             }
         }
 
@@ -513,6 +510,7 @@ namespace Snake
         /// <param name="e"></param>
         private void frmSnake_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             switch (e.KeyCode)
             {
                 case Keys.Left:
@@ -535,6 +533,7 @@ namespace Snake
                         tasto = Tasto.giu;
                     }
                     break;
+                    /*
                 case Keys.A:
                     {
                         goto case Keys.Left;
@@ -551,19 +550,24 @@ namespace Snake
                     {
                         goto case Keys.Down;
                     }
-                default:
-                    if (e.KeyCode == Config.up)
-                        goto case Keys.Up;
-                    else if (e.KeyCode == Config.left)
-                        goto case Keys.Left;
-                    else if (e.KeyCode == Config.down)
-                        goto case Keys.Down;
-                    else if (e.KeyCode == Config.right)
-                        goto case Keys.Right;
-                    else if (e.KeyCode == Config.tongue)
-                        useTongue = true;
-                    break;
-            }
+                    */
+            //default:
+            if (e.KeyCode == Config.up)
+                //goto case Keys.Up;
+                tasto = Tasto.su;
+            else if (e.KeyCode == Config.left)
+                tasto = Tasto.sinistra;
+            //goto case Keys.Left;
+            else if (e.KeyCode == Config.down)
+                tasto = Tasto.giu;
+            //goto case Keys.Down;
+            else if (e.KeyCode == Config.right)
+                tasto = Tasto.destra;
+            //goto case Keys.Right;
+            else if (e.KeyCode == Config.tongue)
+                useTongue = true;
+                    //break;
+            //}
             /*
             if (e.KeyCode == Config.tongue)
             {
@@ -707,19 +711,19 @@ namespace Snake
         }
 
         //rivedere cartella Classifica
-        private void SaveClassifica(Classifica classifica, int index)
+        private void SaveClassifica(Ranking classifica, int index)
         {
             string json = JsonConvert.SerializeObject(classifica);
             string nome = "Data/Classifica/classifica" + index + ".json";
             System.IO.File.WriteAllText(@nome, json);
         }
 
-        private void ReadClassifica(ref Classifica c, int index)
+        private void ReadClassifica(ref Ranking c, int index)
         {
             try
             {
                 StreamReader reader = new StreamReader("Data/Classifica/classifica" + index + ".json");
-                c = JsonConvert.DeserializeObject<Classifica>(reader.ReadToEnd());
+                c = JsonConvert.DeserializeObject<Ranking>(reader.ReadToEnd());
                 reader.Close();
             }
             catch (FileNotFoundException)

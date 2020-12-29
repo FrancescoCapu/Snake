@@ -30,9 +30,11 @@ namespace Snake
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnDefaultSettings = new System.Windows.Forms.Button();
             this.btnSalva = new System.Windows.Forms.Button();
+            this.trackBarSizeQuadrati = new System.Windows.Forms.TrackBar();
             this.lblTitolo = new System.Windows.Forms.Label();
             this.cmbKeyTongue = new System.Windows.Forms.ComboBox();
             this.cmbKeyRight = new System.Windows.Forms.ComboBox();
@@ -44,8 +46,6 @@ namespace Snake
             this.lblDown = new System.Windows.Forms.Label();
             this.lblLeft = new System.Windows.Forms.Label();
             this.lblUp = new System.Windows.Forms.Label();
-            this.trackBarSizeQuadrati = new System.Windows.Forms.TrackBar();
-            this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
@@ -73,6 +73,16 @@ namespace Snake
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(482, 759);
             this.panel1.TabIndex = 0;
+            // 
+            // lblSizeQuadrati
+            // 
+            this.lblSizeQuadrati.AutoSize = true;
+            this.lblSizeQuadrati.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSizeQuadrati.Location = new System.Drawing.Point(106, 278);
+            this.lblSizeQuadrati.Name = "lblSizeQuadrati";
+            this.lblSizeQuadrati.Size = new System.Drawing.Size(188, 24);
+            this.lblSizeQuadrati.TabIndex = 24;
+            this.lblSizeQuadrati.Text = "Grandezza quadratini";
             // 
             // pnlButtons
             // 
@@ -106,6 +116,18 @@ namespace Snake
             this.btnSalva.Text = "Salva impostazioni";
             this.btnSalva.UseVisualStyleBackColor = true;
             this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
+            // 
+            // trackBarSizeQuadrati
+            // 
+            this.trackBarSizeQuadrati.Location = new System.Drawing.Point(234, 278);
+            this.trackBarSizeQuadrati.Maximum = 32;
+            this.trackBarSizeQuadrati.Minimum = 8;
+            this.trackBarSizeQuadrati.Name = "trackBarSizeQuadrati";
+            this.trackBarSizeQuadrati.Size = new System.Drawing.Size(104, 56);
+            this.trackBarSizeQuadrati.TabIndex = 1;
+            this.trackBarSizeQuadrati.TickFrequency = 2;
+            this.trackBarSizeQuadrati.Value = 8;
+            this.trackBarSizeQuadrati.Scroll += new System.EventHandler(this.trackBarSizeQuadrati_Scroll);
             // 
             // lblTitolo
             // 
@@ -212,28 +234,6 @@ namespace Snake
             this.lblUp.TabIndex = 0;
             this.lblUp.Text = "Su:";
             // 
-            // trackBarSizeQuadrati
-            // 
-            this.trackBarSizeQuadrati.Location = new System.Drawing.Point(234, 278);
-            this.trackBarSizeQuadrati.Maximum = 32;
-            this.trackBarSizeQuadrati.Minimum = 8;
-            this.trackBarSizeQuadrati.Name = "trackBarSizeQuadrati";
-            this.trackBarSizeQuadrati.Size = new System.Drawing.Size(104, 56);
-            this.trackBarSizeQuadrati.TabIndex = 1;
-            this.trackBarSizeQuadrati.TickFrequency = 2;
-            this.trackBarSizeQuadrati.Value = 8;
-            this.trackBarSizeQuadrati.Scroll += new System.EventHandler(this.trackBarSizeQuadrati_Scroll);
-            // 
-            // lblSizeQuadrati
-            // 
-            this.lblSizeQuadrati.AutoSize = true;
-            this.lblSizeQuadrati.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSizeQuadrati.Location = new System.Drawing.Point(106, 278);
-            this.lblSizeQuadrati.Name = "lblSizeQuadrati";
-            this.lblSizeQuadrati.Size = new System.Drawing.Size(188, 24);
-            this.lblSizeQuadrati.TabIndex = 24;
-            this.lblSizeQuadrati.Text = "Grandezza quadratini";
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -244,6 +244,7 @@ namespace Snake
             this.MinimizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Load += new System.EventHandler(this.Settings_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

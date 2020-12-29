@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Snake
 {
@@ -27,6 +29,8 @@ namespace Snake
             AddKeysCmbDown();
             AddKeysCmbRight();
             AddKeysCmbTongue();
+            if (!ReadPreviousConfig())
+                Config.DefaultSettings();
             UpdateCommands();
         }
 
@@ -360,6 +364,50 @@ namespace Snake
             Config.sizeQuadrato = trackBarSizeQuadrati.Value;
         }
 
-        private void btnSalva_Click(object sender, EventArgs e) => Close();
+        private void btnSalva_Click(object sender, EventArgs e)
+        {
+            SaveCurrentConfig();
+            Close();
+        }
+
+        private void SaveCurrentConfig()
+        {
+            try
+            {
+                SaveConfig saveConfig = new SaveConfig(Config.up, Config.left, Config.down, Config.right, Config.tongue, Config.sizeQuadrato);
+                string Configserialized = JsonConvert.SerializeObject(saveConfig);
+                string path = "userSettingsConfig.json";
+                File.WriteAllText(@path, Configserialized);
+            }
+            catch (Exception fe)
+            {
+                MessageBox.Show(fe.ToString(), "");
+            }
+        }
+        private bool ReadPreviousConfig()
+        {
+            try
+            {
+                StreamReader reader = new StreamReader("userSettingsConfig.json");
+                SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
+                reader.Close();
+                Config.up = saveConfig.up;
+                Config.left = saveConfig.left;
+                Config.down = saveConfig.down;
+                Config.right = saveConfig.right;
+                Config.tongue = saveConfig.tongue;
+                Config.sizeQuadrato = saveConfig.sizeQuadrato;
+                return true;
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveCurrentConfig();
+        }
     }
 }
