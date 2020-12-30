@@ -11,12 +11,12 @@ namespace Snake
     {
         protected Point tonguePoint;
 
-        public Lingua(int tongueX, int tongueY)
+        protected Lingua(int tongueX, int tongueY)
         {
             tonguePoint = new Point(tongueX, tongueY);
         }
 
-        public void UpdateTonguePosition(int x, int y)
+        protected void UpdateTonguePosition(int x, int y)
         {
             tonguePoint = new Point(x, y);
         }

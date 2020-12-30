@@ -49,20 +49,6 @@ namespace Snake
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
-            Config.DefaultSettings();
-
-            /*
-            cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Piccolo);
-            cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Medio);
-            cmbDimensioneCampo.Items.Add(DimensioniCampoGioco.Grande);
-            cmbDimensioneCampo.SelectedItem = DimensioniCampoGioco.Medio;
-
-            cmbVelocita.Items.Add(Velocita.Lento);
-            cmbVelocita.Items.Add(Velocita.Normale);
-            cmbVelocita.Items.Add(Velocita.Veloce);
-            cmbVelocita.SelectedItem = Velocita.Normale;
-            */
-
             rootNomiFileMenu = new RootNomiFile();
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
@@ -83,8 +69,7 @@ namespace Snake
                 {
                     if (radioButtonSinglePlayer.Checked)
                     {
-                        bool a = Settings.ReadPreviousConfig();
-                        Console.WriteLine(a);
+                        Settings.ReadPreviousConfig();
                         string nome = txtNome.Text;
                         frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
                         frmSnake.Show();
@@ -92,7 +77,7 @@ namespace Snake
                     }
                     else
                     {
-                        //Codice per il multiplayer
+                        //Codice per apertura form multiplayer multiplayer
                     }
                 }
                 else
@@ -391,18 +376,6 @@ namespace Snake
             {
                 pnlDimensioneCampo.Enabled = false;
                 pnlDimensioneCampo.Visible = false;
-                /*
-                lblDimensioneCampo.Enabled = false;
-                lblDimensioneCampo.Visible = false;
-                */
-                /*
-                cmbDimensioneCampo.Enabled = false;
-                cmbDimensioneCampo.Visible = false;
-                */
-                /*
-                trackBarDimensioneCampo.Enabled = false;
-                trackBarDimensioneCampo.Visible = false;
-                */
             }
         }
 
@@ -417,18 +390,6 @@ namespace Snake
             {
                 pnlDimensioneCampo.Enabled = true;
                 pnlDimensioneCampo.Visible = true;
-                /*
-                lblDimensioneCampo.Enabled = true;
-                lblDimensioneCampo.Visible = true;
-                */
-                /*
-                cmbDimensioneCampo.Enabled = true;
-                cmbDimensioneCampo.Visible = true;
-                */
-                /*
-                trackBarDimensioneCampo.Enabled = true;
-                trackBarDimensioneCampo.Visible = true;
-                */
             }
         }
     }

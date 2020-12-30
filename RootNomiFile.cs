@@ -13,7 +13,6 @@ namespace Snake
         public RootNomiFile()
         {
             nomeFileDaLeggere = new List<string>();
-
         }
     }
 }
