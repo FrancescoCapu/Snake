@@ -392,7 +392,7 @@ namespace Snake
         {
             try
             {
-                StreamReader reader = new StreamReader("Settings/userSettingsConfig.json");
+                StreamReader reader = new StreamReader("Data/Settings/userSettingsConfig.json");
                 SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
                 reader.Close();
                 Config.up = saveConfig.up;
@@ -405,10 +405,12 @@ namespace Snake
             }
             catch (FileNotFoundException)
             {
+                Config.DefaultSettings();
                 return false;
             }
             catch (DirectoryNotFoundException)
             {
+                Config.DefaultSettings();
                 return false;
             }
         }

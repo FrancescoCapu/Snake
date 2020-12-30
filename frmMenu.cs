@@ -83,7 +83,8 @@ namespace Snake
                 {
                     if (radioButtonSinglePlayer.Checked)
                     {
-                        Settings.ReadPreviousConfig();
+                        bool a = Settings.ReadPreviousConfig();
+                        Console.WriteLine(a);
                         string nome = txtNome.Text;
                         frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
                         frmSnake.Show();

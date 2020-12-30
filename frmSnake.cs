@@ -14,30 +14,24 @@ using Newtonsoft.Json;
 
 namespace Snake
 {
-    enum Tasto
-    {
-        sinistra,
-        destra,
-        su,
-        giu,
-        fermo
-    }
-
-    //Non so se "serpente = 2" e "cibo = 3" servano realmente
-    enum Elementi
-    {
-        libero = 0,
-        muro = 1,
-        serpente = 2,
-        cibo = 3
-    }
-
     public partial class frmSnake : Form
     {
+        enum Tasto
+        {
+            sinistra,
+            destra,
+            su,
+            giu,
+            fermo
+        }
+
+        enum Elementi
+        {
+            libero = 0,
+            muro = 1
+        }
+
         private Elementi[,] campoGioco;
-        // per debug
-        //private Elementi[,] matSerpente;
-        //private Elementi[,] matCibo;
         private frmMenu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
@@ -92,8 +86,6 @@ namespace Snake
             posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
             cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             AddMuri();
-            //AggiornaMatSnake(serpente, false, true);
-            //TrasferelloCibo(cibo);
             StampaCampoGioco();
             StampaSerpente(serpente);
             PrintTongue();
@@ -109,25 +101,14 @@ namespace Snake
         /// <param name="Width"></param>
         private void Inizializza(int height, int width)
         {
-            //stesso ragionamento per la dimensione del campo gioco
             campoGioco = new Elementi[width, height];
-            //matSerpente = new Elementi[width, height];
-            //matCibo = new Elementi[width, height];
             for (int i = 0; i < GetWidth(); i++)
             {
                 for (int j = 0; j < GetHeigth(); j++)
                 {
                     campoGioco[i, j] = Elementi.libero;
-                    //matSerpente[i, j] = Elementi.libero;
-                    //matCibo[i, j] = Elementi.libero;
                 }
             }
-            /*
-            for (int i = 0; i < serpente.GetLength(); i++)
-            {
-                //matSerpente[serpente.GetX(i), serpente.GetY(i)] = Elementi.serpente;
-            }
-            */
             pnlCampoGioco.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
             pnlElementiDinamici.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
             pnlElementiDinamici.Location = new Point(0, 0);
@@ -142,9 +123,7 @@ namespace Snake
         /// <param name="serpente"></param>
         private void IncSnake(Cibo c, Serpente serpente)
         {
-            //if (c.GetFoodX() == serpente.GetX(0) && c.GetFoodY() == serpente.GetY(0))
             serpente.IncLength(posLastPrec);
-            //cibo = new Cibo(cibo.GetFoodX(),cibo.GetFoodY());
         }
 
         /// <summary>
@@ -185,23 +164,6 @@ namespace Snake
             panelLingua.Visible = true;
             s.SetTonguePosition(serpente.GetX(0) + incX, serpente.GetY(0) + incY);
         }
-
-        /*
-        /// <summary>
-        /// riporta tutti i valori della matrice campoGioco a 0
-        /// </summary>
-        private void Reset()
-        {
-            for (int i = 0; i < GetWidth(); i++)
-            {
-                for (int j = 0; j < GetHeigth(); j++)
-                {
-                    campoGioco[i, j] = Elementi.libero;
-                    matSerpente[i, j] = Elementi.libero;
-                }
-            }
-        }
-        */
 
         #region Funzioni stampa
 
@@ -255,7 +217,6 @@ namespace Snake
             DrawingControl.ResumeDrawing(pnlElementiDinamici);
         }
 
-        // --- Da ricontrollare come viene aggiunto l'ultimo pannello quando si mangia, perché viene visualizzato solo quando l'ultimo elemento del serpente passa sopra al cibo e non viene visualizzato quando la testa passa sopra al cibo, incrementando immediatamente la lunghezza
         /// <summary>
         /// aggiorna la posizione dei pannelli che compongono il serpente senza doverli cancellare e ristampare ogni volta
         /// </summary>
@@ -272,7 +233,6 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = color;
                 panel.Visible = true;
-                //lstPanelSerpente.Add(panel);
                 queueSerpente.Enqueue(panel);
 
                 //Se si può evitare il for è meglio...
@@ -284,44 +244,13 @@ namespace Snake
                 }
                 
                 pnlElementiDinamici.Controls.Add(panel);
-                /*
-                for (int i = s.getLength() - 2; i > 0; i--)
-                {
-                    lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
-                }
-                */
-                //queueSerpente.Enqueue(queueSerpente.Dequeue().Location = new Point(s.GetX(0), s.GetY(0));
             }
             else
             {
-                /*
-                for (int i = s.getLength() - 1; i > 0; i--)
-                {
-                    lstPanelSerpente[i].Location = lstPanelSerpente[i - 1].Location;
-                }
-                */
                 temp = queueSerpente.Dequeue();
                 temp.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
                 queueSerpente.Enqueue(temp);
             }
-            //lstPanelSerpente[0].Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
-            /*
-            if (hasEaten == false)
-            {
-                lstPanelSerpente[lstPanelSerpente.Count - 1].Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
-            }
-            else
-            {
-                Panel panel = new Panel();
-                panel.Location = new Point(posLastPrec.X * Config.sizeQuadrato, posLastPrec.Y * Config.sizeQuadrato);
-                panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
-                panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = Color.Orange;
-                panel.Visible = true;
-                lstPanelSerpente.Add(panel);
-                pnlElementiDinamici.Controls.Add(panel);
-            }
-            */
         }
 
         /// <summary>
@@ -337,7 +266,6 @@ namespace Snake
             mela.SizeMode = PictureBoxSizeMode.StretchImage;
             mela.Image = Image.FromFile("Data/imgs/mela.png");
             pannello.Controls.Add(mela);
-            //pannello.BackgroundImage =Image.FromFile("Data/imgs/ezgif-1-b94c4881a805.png");
             pannello.BorderStyle = BorderStyle.None;
             pannello.Location = new Point(c.GetFoodX() * Config.sizeQuadrato, c.GetFoodY() * Config.sizeQuadrato);
             pannello.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
@@ -418,10 +346,6 @@ namespace Snake
         /// <param name="e"></param>
         private void tmr_Tick(object sender, EventArgs e)
         {
-            //TrasferelloSerpente(serpente);
-            //TrasferelloCibo(cibo);
-            //StampaSerpente(serpente);
-            //PrintFood(cibo);
             switch (tasto)
             {
                 case Tasto.sinistra:
@@ -489,8 +413,6 @@ namespace Snake
                     NewCibo(ref cibo, serpente);
                     UpdateFood(ref cibo);
                 }
-                //AggiornaMatSnake(serpente, HasEaten(serpente, cibo));
-                //StampaSerpente(serpente);
                 if (tasto != Tasto.fermo)
                     UpdateSnake(ref serpente, false);
             }
@@ -510,108 +432,16 @@ namespace Snake
         /// <param name="e"></param>
         private void frmSnake_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    {
-                        tasto = Tasto.sinistra;
-                    }
-                    break;
-                case Keys.Right:
-                    {
-                        tasto = Tasto.destra;
-                    }
-                    break;
-                case Keys.Up:
-                    {
-                        tasto = Tasto.su;
-                    }
-                    break;
-                case Keys.Down:
-                    {
-                        tasto = Tasto.giu;
-                    }
-                    break;
-                    /*
-                case Keys.A:
-                    {
-                        goto case Keys.Left;
-                    }
-                case Keys.D:
-                    {
-                        goto case Keys.Right;
-                    }
-                case Keys.W:
-                    {
-                        goto case Keys.Up;
-                    }
-                case Keys.S:
-                    {
-                        goto case Keys.Down;
-                    }
-                    */
-            //default:
             if (e.KeyCode == Config.up)
-                //goto case Keys.Up;
                 tasto = Tasto.su;
             else if (e.KeyCode == Config.left)
                 tasto = Tasto.sinistra;
-            //goto case Keys.Left;
             else if (e.KeyCode == Config.down)
                 tasto = Tasto.giu;
-            //goto case Keys.Down;
             else if (e.KeyCode == Config.right)
                 tasto = Tasto.destra;
-            //goto case Keys.Right;
             else if (e.KeyCode == Config.tongue)
                 useTongue = true;
-                    //break;
-            //}
-            /*
-            if (e.KeyCode == Config.tongue)
-            {
-                useTongue = true;
-            }
-            */
-        }
-
-        /// <summary>
-        /// imposta a 2 i campi della matrice campoGioco occupati dal serpente
-        /// </summary>
-        /// <param name="s"></param> 
-        private void AggiornaMatSnake(Serpente s, bool mangiato, bool init = false)
-        {
-            /*
-            for (int i = 0; i < s.getLength(); i++)
-            {
-                matSerpente[s.GetX(i), s.GetY(i)] = Elementi.serpente;
-            }
-            */
-
-            if (tasto != Tasto.fermo)
-            {
-                if (!mangiato && !init)
-                    //matSerpente[posLastPrec.X, posLastPrec.Y] = Elementi.libero;
-                    posLastPrec = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
-                //matSerpente[s.GetX(0), s.GetY(0)] = Elementi.serpente;
-            }
-
-            Console.Write("\n------------------------------");
-            for (int j = 0; j < GetHeigth(); j++)
-            {
-                Console.Write("\n");
-                for (int i = 0; i < GetWidth(); i++)
-                {
-                    //Console.Write((int)matSerpente[i, j] + " ");
-                }
-            }
-        }
-
-        // --- Non serve a nienteeeeeeee ---
-        private void TrasferelloCibo(Cibo c)
-        {
-            //matCibo[c.GetFoodX(), c.GetFoodY()] = Elementi.cibo;
         }
 
         /// <summary>
@@ -710,6 +540,11 @@ namespace Snake
             this.Close();
         }
 
+        /// <summary>
+        /// salva la classifica del livello selezionato su un file esterno
+        /// </summary>
+        /// <param name="classifica"></param>
+        /// <param name="index"></param>
         private void SaveClassifica(Ranking classifica, int index)
         {
             if (!System.IO.Directory.Exists("Data/Classifica"))
@@ -719,6 +554,11 @@ namespace Snake
             System.IO.File.WriteAllText(@nome, json);
         }
 
+        /// <summary>
+        /// legge la classifica dal file esterno del livello selezionato
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="index"></param>
         private void ReadClassifica(ref Ranking c, int index)
         {
             try
