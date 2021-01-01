@@ -19,7 +19,7 @@ namespace Snake
         Grande
     }
 
-    public partial class frmMenu : Form
+    public partial class Menu : Form
     {
         public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
         public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
@@ -31,6 +31,7 @@ namespace Snake
         private int timerInterval = TIMER_INTERVAL_NORMALE;
         private int numeroLivello = 0;
         private RootNomiFile rootNomiFileMenu;
+        public Classifica classifica;
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
         private Color color = Color.Orange;
@@ -42,7 +43,7 @@ namespace Snake
             Veloce
         }
 
-        public frmMenu()
+        public Menu()
         {
             InitializeComponent();
         }
@@ -77,7 +78,13 @@ namespace Snake
                     }
                     else
                     {
-                        //Codice per apertura form multiplayer multiplayer
+                        if (txtPlayer2.Text !="")
+                        {
+                            Multiplayer multiplayer = new Multiplayer();
+                            multiplayer.Show();
+                        }
+                        else
+                            MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 else
@@ -130,14 +137,14 @@ namespace Snake
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            Settings frmSettings = new Settings();
-            frmSettings.ShowDialog();
+            Settings settings= new Settings();
+            settings.ShowDialog();
         }
 
         private void btnClassifica_Click(object sender, EventArgs e)
         {
-            Classifica classifica = new Classifica();
-            classifica.Show();
+            Classifica classifica = new Classifica(numeroLivello);
+            classifica.ShowDialog();
         }
 
         private void trackBarVelocità_Scroll(object sender, EventArgs e)
@@ -241,7 +248,6 @@ namespace Snake
                 for (int i = 0; i < rootNomiFileMenu.nomeFileDaLeggere.Count; i++)
                 {
                     aus = "Data/imgs/preview_level_" + i + ".PNG";
-                    Console.WriteLine(aus);
                     lstPreviewLevels.Add(Image.FromFile(aus));
                 }
             }
@@ -278,6 +284,18 @@ namespace Snake
                 btnSettings.Text = "Settings";
             }
 
+            btnClassifica.Size = new Size(pnlSettings.Height, pnlSettings.Height);
+            try
+            {
+                btnClassifica.BackgroundImage = Image.FromFile("Data/imgs/trofeo.png");
+                btnClassifica.BackgroundImageLayout = ImageLayout.Stretch;
+                btnClassifica.Text = "";
+            }
+            catch(FileNotFoundException)
+            {
+                btnClassifica.Text = "Ranking";
+            }
+
             //btnRight
             try
             {
@@ -311,6 +329,11 @@ namespace Snake
             }
             btnLeft.Enabled = false;
             btnLeft.Visible = false;
+        }
+
+        private void txtNome_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void UpdatePics(int index)
@@ -353,7 +376,8 @@ namespace Snake
             trackBarVelocita.Size = new Size(300, 56);
 
             lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
-            txtNome.Size = new Size(200, 30);
+            txtNome.Size = new Size(100, 30);
+            txtPlayer2.Size = new Size(100,30);
             txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
 
             lblNumeroGiocatori.Location = new Point(lblDimensioneCampo.Location.X, pnlNumeroGiocatori.Height / 2 - lblNumeroGiocatori.Height / 2);

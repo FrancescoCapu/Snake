@@ -29,31 +29,50 @@ namespace Snake
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbClassifica = new System.Windows.Forms.ComboBox();
+            this.lstClassifica = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cmbClassifica
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(347, 157);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 28);
-            this.comboBox1.TabIndex = 0;
+            this.cmbClassifica.FormattingEnabled = true;
+            this.cmbClassifica.Items.AddRange(new object[] {
+            "livello 1",
+            "livello 2",
+            "livello 3"});
+            this.cmbClassifica.Location = new System.Drawing.Point(12, 12);
+            this.cmbClassifica.Name = "cmbClassifica";
+            this.cmbClassifica.Size = new System.Drawing.Size(260, 28);
+            this.cmbClassifica.TabIndex = 0;
+            // 
+            // lstClassifica
+            // 
+            this.lstClassifica.FormattingEnabled = true;
+            this.lstClassifica.ItemHeight = 20;
+            this.lstClassifica.Location = new System.Drawing.Point(13, 47);
+            this.lstClassifica.Name = "lstClassifica";
+            this.lstClassifica.Size = new System.Drawing.Size(259, 364);
+            this.lstClassifica.TabIndex = 1;
+            this.lstClassifica.SelectedIndexChanged += new System.EventHandler(this.lstClassifica_SelectedIndexChanged);
             // 
             // Classifica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(284, 429);
+            this.Controls.Add(this.lstClassifica);
+            this.Controls.Add(this.cmbClassifica);
             this.Name = "Classifica";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Classifica";
+            this.Load += new System.EventHandler(this.Classifica_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbClassifica;
+        private System.Windows.Forms.ListBox lstClassifica;
     }
 }
