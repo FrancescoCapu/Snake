@@ -53,7 +53,6 @@ namespace Snake
             this.lstClassifica.Name = "lstClassifica";
             this.lstClassifica.Size = new System.Drawing.Size(259, 364);
             this.lstClassifica.TabIndex = 1;
-            this.lstClassifica.SelectedIndexChanged += new System.EventHandler(this.lstClassifica_SelectedIndexChanged);
             // 
             // Classifica
             // 

@@ -30,6 +30,7 @@ namespace Snake
                 lstClassifica.Items.Add(ranking.ClassificaPunteggi[i].NomePlayer);
                 lstClassifica.Items.Add(ranking.ClassificaPunteggi[i].PunteggioPlayer);
             }
+            
         }
         private void ReadClassifica(ref Ranking ranking, int index)
         {
@@ -54,11 +55,6 @@ namespace Snake
         }
 
         private void Classifica_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lstClassifica_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

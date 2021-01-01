@@ -75,10 +75,10 @@ namespace Snake
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(0, 962);
+            this.btnStart.Location = new System.Drawing.Point(0, 913);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(982, 82);
+            this.btnStart.Size = new System.Drawing.Size(873, 66);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -89,19 +89,20 @@ namespace Snake
             this.pnlVelocita.Controls.Add(this.trackBarVelocita);
             this.pnlVelocita.Controls.Add(this.lblVelocita);
             this.pnlVelocita.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlVelocita.Location = new System.Drawing.Point(0, 712);
+            this.pnlVelocita.Location = new System.Drawing.Point(0, 713);
             this.pnlVelocita.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlVelocita.Name = "pnlVelocita";
-            this.pnlVelocita.Size = new System.Drawing.Size(982, 125);
+            this.pnlVelocita.Size = new System.Drawing.Size(873, 100);
             this.pnlVelocita.TabIndex = 1;
             // 
             // trackBarVelocita
             // 
             this.trackBarVelocita.LargeChange = 1;
-            this.trackBarVelocita.Location = new System.Drawing.Point(93, 45);
+            this.trackBarVelocita.Location = new System.Drawing.Point(83, 36);
+            this.trackBarVelocita.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBarVelocita.Maximum = 2;
             this.trackBarVelocita.Name = "trackBarVelocita";
-            this.trackBarVelocita.Size = new System.Drawing.Size(183, 56);
+            this.trackBarVelocita.Size = new System.Drawing.Size(163, 56);
             this.trackBarVelocita.TabIndex = 1;
             this.trackBarVelocita.Value = 1;
             this.trackBarVelocita.Scroll += new System.EventHandler(this.trackBarVelocità_Scroll);
@@ -110,9 +111,9 @@ namespace Snake
             // 
             this.lblVelocita.AutoSize = true;
             this.lblVelocita.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVelocita.Location = new System.Drawing.Point(22, 72);
+            this.lblVelocita.Location = new System.Drawing.Point(20, 58);
             this.lblVelocita.Name = "lblVelocita";
-            this.lblVelocita.Size = new System.Drawing.Size(99, 29);
+            this.lblVelocita.Size = new System.Drawing.Size(82, 25);
             this.lblVelocita.TabIndex = 3;
             this.lblVelocita.Text = "Velocità";
             // 
@@ -120,9 +121,9 @@ namespace Snake
             // 
             this.lblDimensioneCampo.AutoSize = true;
             this.lblDimensioneCampo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDimensioneCampo.Location = new System.Drawing.Point(218, 45);
+            this.lblDimensioneCampo.Location = new System.Drawing.Point(194, 36);
             this.lblDimensioneCampo.Name = "lblDimensioneCampo";
-            this.lblDimensioneCampo.Size = new System.Drawing.Size(221, 29);
+            this.lblDimensioneCampo.Size = new System.Drawing.Size(179, 25);
             this.lblDimensioneCampo.TabIndex = 2;
             this.lblDimensioneCampo.Text = "Dimensione campo";
             // 
@@ -143,7 +144,7 @@ namespace Snake
             this.pnlLivelli.Location = new System.Drawing.Point(0, 0);
             this.pnlLivelli.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLivelli.Name = "pnlLivelli";
-            this.pnlLivelli.Size = new System.Drawing.Size(982, 837);
+            this.pnlLivelli.Size = new System.Drawing.Size(873, 813);
             this.pnlLivelli.TabIndex = 2;
             // 
             // pnlNumeroGiocatori
@@ -152,16 +153,17 @@ namespace Snake
             this.pnlNumeroGiocatori.Controls.Add(this.radioButtonMultiplayer);
             this.pnlNumeroGiocatori.Controls.Add(this.radioButtonSinglePlayer);
             this.pnlNumeroGiocatori.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 507);
+            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 553);
+            this.pnlNumeroGiocatori.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlNumeroGiocatori.Name = "pnlNumeroGiocatori";
-            this.pnlNumeroGiocatori.Size = new System.Drawing.Size(789, 100);
+            this.pnlNumeroGiocatori.Size = new System.Drawing.Size(873, 80);
             this.pnlNumeroGiocatori.TabIndex = 18;
             // 
             // lblNumeroGiocatori
             // 
             this.lblNumeroGiocatori.AutoSize = true;
             this.lblNumeroGiocatori.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumeroGiocatori.Location = new System.Drawing.Point(80, 32);
+            this.lblNumeroGiocatori.Location = new System.Drawing.Point(71, 26);
             this.lblNumeroGiocatori.Name = "lblNumeroGiocatori";
             this.lblNumeroGiocatori.Size = new System.Drawing.Size(158, 25);
             this.lblNumeroGiocatori.TabIndex = 18;
@@ -171,7 +173,8 @@ namespace Snake
             // 
             this.radioButtonMultiplayer.AutoSize = true;
             this.radioButtonMultiplayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonMultiplayer.Location = new System.Drawing.Point(499, 43);
+            this.radioButtonMultiplayer.Location = new System.Drawing.Point(444, 34);
+            this.radioButtonMultiplayer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonMultiplayer.Name = "radioButtonMultiplayer";
             this.radioButtonMultiplayer.Size = new System.Drawing.Size(127, 29);
             this.radioButtonMultiplayer.TabIndex = 17;
@@ -183,7 +186,8 @@ namespace Snake
             // 
             this.radioButtonSinglePlayer.AutoSize = true;
             this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(331, 43);
+            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(294, 34);
+            this.radioButtonSinglePlayer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
             this.radioButtonSinglePlayer.Size = new System.Drawing.Size(141, 29);
             this.radioButtonSinglePlayer.TabIndex = 0;
@@ -196,18 +200,20 @@ namespace Snake
             this.pnlDimensioneCampo.Controls.Add(this.trackBarDimensioneCampo);
             this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
             this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 607);
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 633);
+            this.pnlDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
-            this.pnlDimensioneCampo.Size = new System.Drawing.Size(789, 100);
+            this.pnlDimensioneCampo.Size = new System.Drawing.Size(873, 80);
             this.pnlDimensioneCampo.TabIndex = 16;
             // 
             // trackBarDimensioneCampo
             // 
             this.trackBarDimensioneCampo.LargeChange = 1;
-            this.trackBarDimensioneCampo.Location = new System.Drawing.Point(327, 23);
+            this.trackBarDimensioneCampo.Location = new System.Drawing.Point(291, 18);
+            this.trackBarDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBarDimensioneCampo.Maximum = 2;
             this.trackBarDimensioneCampo.Name = "trackBarDimensioneCampo";
-            this.trackBarDimensioneCampo.Size = new System.Drawing.Size(209, 56);
+            this.trackBarDimensioneCampo.Size = new System.Drawing.Size(186, 56);
             this.trackBarDimensioneCampo.TabIndex = 1;
             this.trackBarDimensioneCampo.Value = 1;
             this.trackBarDimensioneCampo.Scroll += new System.EventHandler(this.trackBarDimensioneCampo_Scroll);
@@ -216,7 +222,7 @@ namespace Snake
             // 
             this.lblColorSnake.AutoSize = true;
             this.lblColorSnake.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColorSnake.Location = new System.Drawing.Point(362, 163);
+            this.lblColorSnake.Location = new System.Drawing.Point(322, 130);
             this.lblColorSnake.Name = "lblColorSnake";
             this.lblColorSnake.Size = new System.Drawing.Size(282, 25);
             this.lblColorSnake.TabIndex = 15;
@@ -226,7 +232,7 @@ namespace Snake
             // 
             this.lblSelezionaLivello.AutoSize = true;
             this.lblSelezionaLivello.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelezionaLivello.Location = new System.Drawing.Point(332, 83);
+            this.lblSelezionaLivello.Location = new System.Drawing.Point(295, 66);
             this.lblSelezionaLivello.Name = "lblSelezionaLivello";
             this.lblSelezionaLivello.Size = new System.Drawing.Size(179, 25);
             this.lblSelezionaLivello.TabIndex = 14;
@@ -234,18 +240,18 @@ namespace Snake
             // 
             // pnlColors
             // 
-            this.pnlColors.Location = new System.Drawing.Point(326, 252);
-            this.pnlColors.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.pnlColors.Location = new System.Drawing.Point(290, 202);
+            this.pnlColors.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlColors.Name = "pnlColors";
-            this.pnlColors.Size = new System.Drawing.Size(252, 300);
+            this.pnlColors.Size = new System.Drawing.Size(224, 240);
             this.pnlColors.TabIndex = 13;
             // 
             // btnLeft
             // 
-            this.btnLeft.Location = new System.Drawing.Point(46, 132);
-            this.btnLeft.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnLeft.Location = new System.Drawing.Point(41, 106);
+            this.btnLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLeft.Name = "btnLeft";
-            this.btnLeft.Size = new System.Drawing.Size(84, 29);
+            this.btnLeft.Size = new System.Drawing.Size(75, 23);
             this.btnLeft.TabIndex = 9;
             this.btnLeft.Text = "button2";
             this.btnLeft.UseVisualStyleBackColor = true;
@@ -253,10 +259,10 @@ namespace Snake
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(687, 132);
-            this.btnRight.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnRight.Location = new System.Drawing.Point(611, 106);
+            this.btnRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnRight.Name = "btnRight";
-            this.btnRight.Size = new System.Drawing.Size(84, 29);
+            this.btnRight.Size = new System.Drawing.Size(75, 23);
             this.btnRight.TabIndex = 8;
             this.btnRight.Text = "button1";
             this.btnRight.UseVisualStyleBackColor = true;
@@ -264,28 +270,28 @@ namespace Snake
             // 
             // picRight1
             // 
-            this.picRight1.Location = new System.Drawing.Point(466, 132);
-            this.picRight1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.picRight1.Location = new System.Drawing.Point(414, 106);
+            this.picRight1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.picRight1.Name = "picRight1";
-            this.picRight1.Size = new System.Drawing.Size(112, 62);
+            this.picRight1.Size = new System.Drawing.Size(100, 50);
             this.picRight1.TabIndex = 7;
             this.picRight1.TabStop = false;
             // 
             // picLeft1
             // 
-            this.picLeft1.Location = new System.Drawing.Point(226, 132);
-            this.picLeft1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.picLeft1.Location = new System.Drawing.Point(201, 106);
+            this.picLeft1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.picLeft1.Name = "picLeft1";
-            this.picLeft1.Size = new System.Drawing.Size(112, 62);
+            this.picLeft1.Size = new System.Drawing.Size(100, 50);
             this.picLeft1.TabIndex = 6;
             this.picLeft1.TabStop = false;
             // 
             // picCenter
             // 
-            this.picCenter.Location = new System.Drawing.Point(346, 132);
-            this.picCenter.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.picCenter.Location = new System.Drawing.Point(308, 106);
+            this.picCenter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.picCenter.Name = "picCenter";
-            this.picCenter.Size = new System.Drawing.Size(112, 62);
+            this.picCenter.Size = new System.Drawing.Size(100, 50);
             this.picCenter.TabIndex = 5;
             this.picCenter.TabStop = false;
             // 
@@ -297,44 +303,46 @@ namespace Snake
             this.pnlNickname.Controls.Add(this.lblPlayer1);
             this.pnlNickname.Controls.Add(this.lblNome);
             this.pnlNickname.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNickname.Location = new System.Drawing.Point(0, 837);
-            this.pnlNickname.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.pnlNickname.Location = new System.Drawing.Point(0, 813);
+            this.pnlNickname.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlNickname.Name = "pnlNickname";
-            this.pnlNickname.Size = new System.Drawing.Size(982, 125);
+            this.pnlNickname.Size = new System.Drawing.Size(873, 100);
             this.pnlNickname.TabIndex = 12;
             // 
             // txtNome
             // 
             this.txtNome.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNome.Location = new System.Drawing.Point(412, 63);
+            this.txtNome.Location = new System.Drawing.Point(366, 50);
+            this.txtNome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(44, 26);
+            this.txtNome.Size = new System.Drawing.Size(40, 22);
             this.txtNome.TabIndex = 15;
             this.txtNome.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblPlayer2
             // 
             this.lblPlayer2.AutoSize = true;
-            this.lblPlayer2.Location = new System.Drawing.Point(784, 12);
+            this.lblPlayer2.Location = new System.Drawing.Point(697, 10);
             this.lblPlayer2.Name = "lblPlayer2";
-            this.lblPlayer2.Size = new System.Drawing.Size(92, 20);
+            this.lblPlayer2.Size = new System.Drawing.Size(82, 17);
             this.lblPlayer2.TabIndex = 14;
             this.lblPlayer2.Text = "Giocatore 2";
             // 
             // txtPlayer2
             // 
-            this.txtPlayer2.Location = new System.Drawing.Point(788, 51);
+            this.txtPlayer2.Location = new System.Drawing.Point(700, 41);
+            this.txtPlayer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPlayer2.Name = "txtPlayer2";
-            this.txtPlayer2.Size = new System.Drawing.Size(120, 26);
+            this.txtPlayer2.Size = new System.Drawing.Size(107, 22);
             this.txtPlayer2.TabIndex = 11;
             this.txtPlayer2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblPlayer1
             // 
             this.lblPlayer1.AutoSize = true;
-            this.lblPlayer1.Location = new System.Drawing.Point(421, 12);
+            this.lblPlayer1.Location = new System.Drawing.Point(374, 10);
             this.lblPlayer1.Name = "lblPlayer1";
-            this.lblPlayer1.Size = new System.Drawing.Size(92, 20);
+            this.lblPlayer1.Size = new System.Drawing.Size(82, 17);
             this.lblPlayer1.TabIndex = 12;
             this.lblPlayer1.Text = "Giocatore 1";
             // 
@@ -342,9 +350,9 @@ namespace Snake
             // 
             this.lblNome.AutoSize = true;
             this.lblNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNome.Location = new System.Drawing.Point(20, 63);
+            this.lblNome.Location = new System.Drawing.Point(18, 50);
             this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(268, 29);
+            this.lblNome.Size = new System.Drawing.Size(217, 25);
             this.lblNome.TabIndex = 10;
             this.lblNome.Text = "Inserisci il tuo nickname";
             // 
@@ -354,9 +362,9 @@ namespace Snake
             this.pnlSettings.Controls.Add(this.btnSettings);
             this.pnlSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSettings.Location = new System.Drawing.Point(0, 0);
-            this.pnlSettings.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.pnlSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(982, 85);
+            this.pnlSettings.Size = new System.Drawing.Size(873, 68);
             this.pnlSettings.TabIndex = 13;
             // 
             // btnClassifica
@@ -364,7 +372,7 @@ namespace Snake
             this.btnClassifica.Location = new System.Drawing.Point(0, 0);
             this.btnClassifica.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnClassifica.Name = "btnClassifica";
-            this.btnClassifica.Size = new System.Drawing.Size(94, 85);
+            this.btnClassifica.Size = new System.Drawing.Size(84, 68);
             this.btnClassifica.TabIndex = 6;
             this.btnClassifica.Text = "Classifica";
             this.btnClassifica.UseVisualStyleBackColor = true;
@@ -373,20 +381,20 @@ namespace Snake
             // btnSettings
             // 
             this.btnSettings.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSettings.Location = new System.Drawing.Point(898, 0);
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btnSettings.Location = new System.Drawing.Point(798, 0);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(84, 85);
+            this.btnSettings.Size = new System.Drawing.Size(75, 68);
             this.btnSettings.TabIndex = 0;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // frmMenu
+            // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 1044);
+            this.ClientSize = new System.Drawing.Size(873, 979);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pnlLivelli);
             this.Controls.Add(this.pnlNickname);
