@@ -1,1 +1,6 @@
-{"numLev":0,"posMuri":[],"dimensioneCampo":1}
+{
+  "numLev": 0,
+  "dimensioneCampo": 1,
+  "head": "8, 8",
+  "posMuri": []
+}

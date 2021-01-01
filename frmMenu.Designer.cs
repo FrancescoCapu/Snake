@@ -31,9 +31,18 @@ namespace Snake
         {
             this.btnStart = new System.Windows.Forms.Button();
             this.pnlVelocita = new System.Windows.Forms.Panel();
+            this.trackBarVelocita = new System.Windows.Forms.TrackBar();
             this.lblVelocita = new System.Windows.Forms.Label();
             this.lblDimensioneCampo = new System.Windows.Forms.Label();
             this.pnlLivelli = new System.Windows.Forms.Panel();
+            this.pnlNumeroGiocatori = new System.Windows.Forms.Panel();
+            this.lblNumeroGiocatori = new System.Windows.Forms.Label();
+            this.radioButtonMultiplayer = new System.Windows.Forms.RadioButton();
+            this.radioButtonSinglePlayer = new System.Windows.Forms.RadioButton();
+            this.pnlDimensioneCampo = new System.Windows.Forms.Panel();
+            this.trackBarDimensioneCampo = new System.Windows.Forms.TrackBar();
+            this.lblColorSnake = new System.Windows.Forms.Label();
+            this.lblSelezionaLivello = new System.Windows.Forms.Label();
             this.pnlColors = new System.Windows.Forms.Panel();
             this.btnLeft = new System.Windows.Forms.Button();
             this.btnRight = new System.Windows.Forms.Button();
@@ -46,26 +55,17 @@ namespace Snake
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.btnClassifica = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.lblSelezionaLivello = new System.Windows.Forms.Label();
-            this.lblColorSnake = new System.Windows.Forms.Label();
-            this.trackBarVelocita = new System.Windows.Forms.TrackBar();
-            this.trackBarDimensioneCampo = new System.Windows.Forms.TrackBar();
-            this.pnlDimensioneCampo = new System.Windows.Forms.Panel();
-            this.radioButtonSinglePlayer = new System.Windows.Forms.RadioButton();
-            this.radioButtonMultiplayer = new System.Windows.Forms.RadioButton();
-            this.pnlNumeroGiocatori = new System.Windows.Forms.Panel();
-            this.lblNumeroGiocatori = new System.Windows.Forms.Label();
             this.pnlVelocita.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).BeginInit();
             this.pnlLivelli.SuspendLayout();
+            this.pnlNumeroGiocatori.SuspendLayout();
+            this.pnlDimensioneCampo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRight1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).BeginInit();
             this.pnlNickname.SuspendLayout();
             this.pnlSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).BeginInit();
-            this.pnlDimensioneCampo.SuspendLayout();
-            this.pnlNumeroGiocatori.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
@@ -91,6 +91,17 @@ namespace Snake
             this.pnlVelocita.Name = "pnlVelocita";
             this.pnlVelocita.Size = new System.Drawing.Size(789, 100);
             this.pnlVelocita.TabIndex = 1;
+            // 
+            // trackBarVelocita
+            // 
+            this.trackBarVelocita.LargeChange = 1;
+            this.trackBarVelocita.Location = new System.Drawing.Point(93, 45);
+            this.trackBarVelocita.Maximum = 2;
+            this.trackBarVelocita.Name = "trackBarVelocita";
+            this.trackBarVelocita.Size = new System.Drawing.Size(183, 56);
+            this.trackBarVelocita.TabIndex = 1;
+            this.trackBarVelocita.Value = 1;
+            this.trackBarVelocita.Scroll += new System.EventHandler(this.trackBarVelocità_Scroll);
             // 
             // lblVelocita
             // 
@@ -131,6 +142,92 @@ namespace Snake
             this.pnlLivelli.Name = "pnlLivelli";
             this.pnlLivelli.Size = new System.Drawing.Size(789, 807);
             this.pnlLivelli.TabIndex = 2;
+            // 
+            // pnlNumeroGiocatori
+            // 
+            this.pnlNumeroGiocatori.Controls.Add(this.lblNumeroGiocatori);
+            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonMultiplayer);
+            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonSinglePlayer);
+            this.pnlNumeroGiocatori.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 507);
+            this.pnlNumeroGiocatori.Name = "pnlNumeroGiocatori";
+            this.pnlNumeroGiocatori.Size = new System.Drawing.Size(789, 100);
+            this.pnlNumeroGiocatori.TabIndex = 18;
+            // 
+            // lblNumeroGiocatori
+            // 
+            this.lblNumeroGiocatori.AutoSize = true;
+            this.lblNumeroGiocatori.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumeroGiocatori.Location = new System.Drawing.Point(80, 32);
+            this.lblNumeroGiocatori.Name = "lblNumeroGiocatori";
+            this.lblNumeroGiocatori.Size = new System.Drawing.Size(158, 25);
+            this.lblNumeroGiocatori.TabIndex = 18;
+            this.lblNumeroGiocatori.Text = "Modalità di gioco";
+            // 
+            // radioButtonMultiplayer
+            // 
+            this.radioButtonMultiplayer.AutoSize = true;
+            this.radioButtonMultiplayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonMultiplayer.Location = new System.Drawing.Point(499, 43);
+            this.radioButtonMultiplayer.Name = "radioButtonMultiplayer";
+            this.radioButtonMultiplayer.Size = new System.Drawing.Size(127, 29);
+            this.radioButtonMultiplayer.TabIndex = 17;
+            this.radioButtonMultiplayer.TabStop = true;
+            this.radioButtonMultiplayer.Text = "Multiplayer";
+            this.radioButtonMultiplayer.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSinglePlayer
+            // 
+            this.radioButtonSinglePlayer.AutoSize = true;
+            this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(331, 43);
+            this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
+            this.radioButtonSinglePlayer.Size = new System.Drawing.Size(141, 29);
+            this.radioButtonSinglePlayer.TabIndex = 0;
+            this.radioButtonSinglePlayer.TabStop = true;
+            this.radioButtonSinglePlayer.Text = "Singleplayer";
+            this.radioButtonSinglePlayer.UseVisualStyleBackColor = true;
+            // 
+            // pnlDimensioneCampo
+            // 
+            this.pnlDimensioneCampo.Controls.Add(this.trackBarDimensioneCampo);
+            this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
+            this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 607);
+            this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
+            this.pnlDimensioneCampo.Size = new System.Drawing.Size(789, 100);
+            this.pnlDimensioneCampo.TabIndex = 16;
+            // 
+            // trackBarDimensioneCampo
+            // 
+            this.trackBarDimensioneCampo.LargeChange = 1;
+            this.trackBarDimensioneCampo.Location = new System.Drawing.Point(327, 23);
+            this.trackBarDimensioneCampo.Maximum = 2;
+            this.trackBarDimensioneCampo.Name = "trackBarDimensioneCampo";
+            this.trackBarDimensioneCampo.Size = new System.Drawing.Size(209, 56);
+            this.trackBarDimensioneCampo.TabIndex = 1;
+            this.trackBarDimensioneCampo.Value = 1;
+            this.trackBarDimensioneCampo.Scroll += new System.EventHandler(this.trackBarDimensioneCampo_Scroll);
+            // 
+            // lblColorSnake
+            // 
+            this.lblColorSnake.AutoSize = true;
+            this.lblColorSnake.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColorSnake.Location = new System.Drawing.Point(362, 163);
+            this.lblColorSnake.Name = "lblColorSnake";
+            this.lblColorSnake.Size = new System.Drawing.Size(282, 25);
+            this.lblColorSnake.TabIndex = 15;
+            this.lblColorSnake.Text = "Seleziona il colore del serpente";
+            // 
+            // lblSelezionaLivello
+            // 
+            this.lblSelezionaLivello.AutoSize = true;
+            this.lblSelezionaLivello.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelezionaLivello.Location = new System.Drawing.Point(332, 83);
+            this.lblSelezionaLivello.Name = "lblSelezionaLivello";
+            this.lblSelezionaLivello.Size = new System.Drawing.Size(179, 25);
+            this.lblSelezionaLivello.TabIndex = 14;
+            this.lblSelezionaLivello.Text = "Seleziona un livello";
             // 
             // pnlColors
             // 
@@ -244,103 +341,6 @@ namespace Snake
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // lblSelezionaLivello
-            // 
-            this.lblSelezionaLivello.AutoSize = true;
-            this.lblSelezionaLivello.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelezionaLivello.Location = new System.Drawing.Point(332, 83);
-            this.lblSelezionaLivello.Name = "lblSelezionaLivello";
-            this.lblSelezionaLivello.Size = new System.Drawing.Size(179, 25);
-            this.lblSelezionaLivello.TabIndex = 14;
-            this.lblSelezionaLivello.Text = "Seleziona un livello";
-            // 
-            // lblColorSnake
-            // 
-            this.lblColorSnake.AutoSize = true;
-            this.lblColorSnake.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColorSnake.Location = new System.Drawing.Point(362, 163);
-            this.lblColorSnake.Name = "lblColorSnake";
-            this.lblColorSnake.Size = new System.Drawing.Size(282, 25);
-            this.lblColorSnake.TabIndex = 15;
-            this.lblColorSnake.Text = "Seleziona il colore del serpente";
-            // 
-            // trackBarVelocita
-            // 
-            this.trackBarVelocita.LargeChange = 1;
-            this.trackBarVelocita.Location = new System.Drawing.Point(93, 45);
-            this.trackBarVelocita.Maximum = 2;
-            this.trackBarVelocita.Name = "trackBarVelocita";
-            this.trackBarVelocita.Size = new System.Drawing.Size(183, 56);
-            this.trackBarVelocita.TabIndex = 1;
-            this.trackBarVelocita.Value = 1;
-            this.trackBarVelocita.Scroll += new System.EventHandler(this.trackBarVelocità_Scroll);
-            // 
-            // trackBarDimensioneCampo
-            // 
-            this.trackBarDimensioneCampo.LargeChange = 1;
-            this.trackBarDimensioneCampo.Location = new System.Drawing.Point(327, 23);
-            this.trackBarDimensioneCampo.Maximum = 2;
-            this.trackBarDimensioneCampo.Name = "trackBarDimensioneCampo";
-            this.trackBarDimensioneCampo.Size = new System.Drawing.Size(209, 56);
-            this.trackBarDimensioneCampo.TabIndex = 1;
-            this.trackBarDimensioneCampo.Value = 1;
-            this.trackBarDimensioneCampo.Scroll += new System.EventHandler(this.trackBarDimensioneCampo_Scroll);
-            // 
-            // pnlDimensioneCampo
-            // 
-            this.pnlDimensioneCampo.Controls.Add(this.trackBarDimensioneCampo);
-            this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
-            this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 607);
-            this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
-            this.pnlDimensioneCampo.Size = new System.Drawing.Size(789, 100);
-            this.pnlDimensioneCampo.TabIndex = 16;
-            // 
-            // radioButtonSinglePlayer
-            // 
-            this.radioButtonSinglePlayer.AutoSize = true;
-            this.radioButtonSinglePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSinglePlayer.Location = new System.Drawing.Point(331, 43);
-            this.radioButtonSinglePlayer.Name = "radioButtonSinglePlayer";
-            this.radioButtonSinglePlayer.Size = new System.Drawing.Size(141, 29);
-            this.radioButtonSinglePlayer.TabIndex = 0;
-            this.radioButtonSinglePlayer.TabStop = true;
-            this.radioButtonSinglePlayer.Text = "Singleplayer";
-            this.radioButtonSinglePlayer.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonMultiplayer
-            // 
-            this.radioButtonMultiplayer.AutoSize = true;
-            this.radioButtonMultiplayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonMultiplayer.Location = new System.Drawing.Point(499, 43);
-            this.radioButtonMultiplayer.Name = "radioButtonMultiplayer";
-            this.radioButtonMultiplayer.Size = new System.Drawing.Size(127, 29);
-            this.radioButtonMultiplayer.TabIndex = 17;
-            this.radioButtonMultiplayer.TabStop = true;
-            this.radioButtonMultiplayer.Text = "Multiplayer";
-            this.radioButtonMultiplayer.UseVisualStyleBackColor = true;
-            // 
-            // pnlNumeroGiocatori
-            // 
-            this.pnlNumeroGiocatori.Controls.Add(this.lblNumeroGiocatori);
-            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonMultiplayer);
-            this.pnlNumeroGiocatori.Controls.Add(this.radioButtonSinglePlayer);
-            this.pnlNumeroGiocatori.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 507);
-            this.pnlNumeroGiocatori.Name = "pnlNumeroGiocatori";
-            this.pnlNumeroGiocatori.Size = new System.Drawing.Size(789, 100);
-            this.pnlNumeroGiocatori.TabIndex = 18;
-            // 
-            // lblNumeroGiocatori
-            // 
-            this.lblNumeroGiocatori.AutoSize = true;
-            this.lblNumeroGiocatori.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumeroGiocatori.Location = new System.Drawing.Point(80, 32);
-            this.lblNumeroGiocatori.Name = "lblNumeroGiocatori";
-            this.lblNumeroGiocatori.Size = new System.Drawing.Size(158, 25);
-            this.lblNumeroGiocatori.TabIndex = 18;
-            this.lblNumeroGiocatori.Text = "Modalità di gioco";
-            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -361,20 +361,20 @@ namespace Snake
             this.Load += new System.EventHandler(this.frmMenu_Load);
             this.pnlVelocita.ResumeLayout(false);
             this.pnlVelocita.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).EndInit();
             this.pnlLivelli.ResumeLayout(false);
             this.pnlLivelli.PerformLayout();
+            this.pnlNumeroGiocatori.ResumeLayout(false);
+            this.pnlNumeroGiocatori.PerformLayout();
+            this.pnlDimensioneCampo.ResumeLayout(false);
+            this.pnlDimensioneCampo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRight1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).EndInit();
             this.pnlNickname.ResumeLayout(false);
             this.pnlNickname.PerformLayout();
             this.pnlSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).EndInit();
-            this.pnlDimensioneCampo.ResumeLayout(false);
-            this.pnlDimensioneCampo.PerformLayout();
-            this.pnlNumeroGiocatori.ResumeLayout(false);
-            this.pnlNumeroGiocatori.PerformLayout();
             this.ResumeLayout(false);
 
         }

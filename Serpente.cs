@@ -11,11 +11,11 @@ namespace Snake
     {
         private List<Point> lstSerpente = new List<Point>(4);
 
-        public Serpente(int width, int height) : base(width, height)
+        public Serpente(int x, int y) : base(x, y)
         {
             for (int i = 0; i < lstSerpente.Capacity; i++)
             {
-                lstSerpente.Add(new Point((width / 3) - i, (height / 2)));
+                lstSerpente.Add(new Point((x) - i, y));
             }
         }
 
