@@ -32,7 +32,7 @@ namespace Snake
         }
 
         private Elementi[,] campoGioco;
-        private frmMenu nomeChiamante;
+        private Menu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
         private Serpente serpente;
         private Cibo cibo;
@@ -58,7 +58,7 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
+        public frmSnake(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
@@ -493,16 +493,16 @@ namespace Snake
                 switch (livello.dimensioneCampo)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
-                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
+                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_GRANDE;
                         break;
                     default:
                         goto case DimensioniCampoGioco.Medio;
@@ -545,7 +545,7 @@ namespace Snake
         /// </summary>
         /// <param name="classifica"></param>
         /// <param name="index"></param>
-        private void SaveClassifica(Ranking classifica, int index)
+        private static void SaveClassifica(ref Ranking classifica, int index)
         {
             if (!System.IO.Directory.Exists("Data/Classifica"))
                 System.IO.Directory.CreateDirectory("Data/Classifica");
@@ -599,7 +599,7 @@ namespace Snake
                     classifica.ClassificaPunteggi.Remove(classifica.ClassificaPunteggi[i]);
                 }
             }
-            SaveClassifica(classifica, numLivello);
+            SaveClassifica(ref classifica, numLivello);
         }
 
         /// <summary>

@@ -32,6 +32,7 @@ namespace Snake
             if (!ReadPreviousConfig())
                 Config.DefaultSettings();
             UpdateCommands();
+            trackBarSizeQuadrati.Value = 1;
         }
 
         private void SetPositions()
