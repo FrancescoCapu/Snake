@@ -23,7 +23,6 @@ namespace Snake
         private void Settings_Load(object sender, EventArgs e)
         {
             SetPositions();
-            UpdateCommands();
             AddKeysCmbUp();
             AddKeysCmbLeft();
             AddKeysCmbDown();
@@ -32,7 +31,6 @@ namespace Snake
             if (!ReadPreviousConfig())
                 Config.DefaultSettings();
             UpdateCommands();
-            trackBarSizeQuadrati.Value = 1;
         }
 
         private void SetPositions()

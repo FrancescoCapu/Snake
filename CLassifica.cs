@@ -15,6 +15,7 @@ namespace Snake
     public partial class Classifica : Form
     {
         private Ranking ranking = new Ranking();
+        private RootNomiFile rootNomiFile = new RootNomiFile();
         private int numLivello;
         public Classifica(int numLivello)
         {
@@ -22,41 +23,36 @@ namespace Snake
             this.numLivello = numLivello;
         }
 
-        private void cmbClassifica_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ReadClassifica(ref ranking, cmbClassifica.SelectedIndex);
-            for(int i=0;i<ranking.ClassificaPunteggi.Count;i++)
-            {
-                lstClassifica.Items.Add(ranking.ClassificaPunteggi[i].NomePlayer);
-                lstClassifica.Items.Add(ranking.ClassificaPunteggi[i].PunteggioPlayer);
-            }
-            
-        }
-        private void ReadClassifica(ref Ranking ranking, int index)
-        {
-            try
-            {
-                StreamReader reader = new StreamReader("Data/Classifica/classifica" + index + ".json");
-                ranking = JsonConvert.DeserializeObject<Ranking>(reader.ReadToEnd());
-                reader.Close();
-            }
-            catch (FileNotFoundException)
-            {
-
-            }
-            catch (DirectoryNotFoundException)
-            {
-
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString(), "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void Classifica_Load(object sender, EventArgs e)
         {
+            frmSnake.GetNomiFile(ref rootNomiFile);
+            for (int i = 0; i < rootNomiFile.nomeFileDaLeggere.Count; i++)
+            {
+                cmbLevelSelected.Items.Add(i);
+            }
+            cmbLevelSelected.SelectedIndex = 0;
 
+            frmSnake.ReadClassifica(ref ranking, 0);
+            dataGridViewClassifica.ColumnCount = 2;
+
+            AddRows(ref dataGridViewClassifica, ref ranking);
+        }
+
+        private void cmbLevelSelected_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            frmSnake.ReadClassifica(ref ranking, cmbLevelSelected.SelectedIndex);
+            dataGridViewClassifica.ColumnCount = 2;
+            AddRows(ref dataGridViewClassifica, ref ranking);
+        }
+
+        private void AddRows(ref DataGridView dgv, ref Ranking r)
+        {
+            dgv.Rows.Clear();
+            for (int i = 0; i < r.ClassificaPunteggi.Count; i++)
+            {
+                string temp = r.ClassificaPunteggi[i].NomePlayer + " | " + r.ClassificaPunteggi[i].PunteggioPlayer;
+                dgv.Rows.Add(temp.Split('|'));
+            }
         }
     }
 }

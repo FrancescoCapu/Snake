@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class Ranking
+    public class Ranking
     {
         public List<RecordUtente> ClassificaPunteggi;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class RootNomiFile
+    public class RootNomiFile
     {
         public List<string> nomeFileDaLeggere;
 

@@ -11,10 +11,9 @@ using System.Runtime.InteropServices;
 using System.IO;
 using Newtonsoft.Json;
 
-
 namespace Snake
 {
-    public partial class frmSnake : Form
+    public partial class frmMultiplayer : Form
     {
         enum Tasto
         {
@@ -34,7 +33,7 @@ namespace Snake
         private Elementi[,] campoGioco;
         private Menu nomeChiamante;
         private int heightCampoGioco, widthCampoGioco;
-        private Serpente serpente;
+        private Serpente serpente1, serpente2;
         private Cibo cibo;
         private RootNomiFile rootNomiFile;
         private Livello livello;
@@ -42,7 +41,7 @@ namespace Snake
         private Tasto tasto = Tasto.fermo;
         private Tasto tastoPrec = Tasto.destra;
         private Point posLastPrec;
-        private Queue<Panel> queueSerpente = new Queue<Panel>();
+        private Queue<Panel> queueserpente1 = new Queue<Panel>();
         private List<Panel> lstPanelCibo = new List<Panel>();
         private Panel panelLingua;
         private bool useTongue;
@@ -58,7 +57,7 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
+        public frmMultiplayer(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
@@ -82,12 +81,12 @@ namespace Snake
             rootNomiFile = new RootNomiFile();
             CaricamentoLivello();
             Inizializza(heightCampoGioco, widthCampoGioco);
-            serpente = new Serpente(livello.head.X, livello.head.Y);
-            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
+            serpente1 = new Serpente(livello.head.X, livello.head.Y);
+            posLastPrec = new Point(serpente1.GetX(serpente1.GetLength() - 1), serpente1.GetY(serpente1.GetLength() - 1));
             cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             AddMuri();
             StampaCampoGioco();
-            StampaSerpente(serpente);
+            Stampaserpente(serpente1);
             PrintTongue();
             NewCibo(ref cibo, serpente);
             PrintFood(cibo);
@@ -149,7 +148,7 @@ namespace Snake
                 UseTongue(ref s, incX, incY);
             else
             {
-                serpente.SetTonguePosition(serpente.GetX(0), serpente.GetY(0));
+                s.SetTonguePosition(s.GetX(0), s.GetY(0));
             }
         }
 
@@ -162,7 +161,7 @@ namespace Snake
         private void UseTongue(ref Serpente s, int incX, int incY)
         {
             panelLingua.Visible = true;
-            s.SetTonguePosition(serpente.GetX(0) + incX, serpente.GetY(0) + incY);
+            s.SetTonguePosition(s.GetX(0) + incX, s.GetY(0) + incY);
         }
 
         #region Funzioni stampa
@@ -198,14 +197,14 @@ namespace Snake
         /// stampa il serpente in base alla propria posizione. da usare solo per la prima stampa
         /// </summary>
         /// <param name="serpente"></param>
-        private void StampaSerpente(Serpente serpente)
+        private void StampaSerpente(Serpente s)
         {
             DrawingControl.SuspendDrawing(pnlElementiDinamici);
             pnlElementiDinamici.Controls.Clear();
-            for (int i = serpente.GetLength() - 1; i > -1; i--)
+            for (int i = s.GetLength() - 1; i > -1; i--)
             {
                 Panel panel = new Panel();
-                panel.Location = new Point(serpente.GetX(i) * Config.sizeQuadrato, serpente.GetY(i) * Config.sizeQuadrato);
+                panel.Location = new Point(s.GetX(i) * Config.sizeQuadrato, s.GetY(i) * Config.sizeQuadrato);
                 panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = color;
@@ -236,13 +235,13 @@ namespace Snake
                 queueSerpente.Enqueue(panel);
 
                 //Se si può evitare il for è meglio...
-                
+
                 for (int i = 0; i < s.GetLength() - 1; i++)
                 {
                     temp = queueSerpente.Dequeue();
                     queueSerpente.Enqueue(temp);
                 }
-                
+
                 pnlElementiDinamici.Controls.Add(panel);
             }
             else
@@ -289,14 +288,14 @@ namespace Snake
         /// <summary>
         /// Inizializza il pannello della lingua e lo aggiunge a pnlElementiDinamici
         /// </summary>
-        private void PrintTongue()
+        private void PrintTongue(ref Serpente s)
         {
             panelLingua = new Panel();
             panelLingua.Visible = false;
             panelLingua.Enabled = true;
             panelLingua.BackColor = Color.Red;
             panelLingua.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato / 3);
-            panelLingua.Location = new Point((serpente.GetX(0)) * Config.sizeQuadrato, (serpente.GetY(0) * Config.sizeQuadrato) + Config.sizeQuadrato / 3);
+            panelLingua.Location = new Point((s.GetX(0)) * Config.sizeQuadrato, (s.GetY(0) * Config.sizeQuadrato) + Config.sizeQuadrato / 3);
             pnlElementiDinamici.Controls.Add(panelLingua);
         }
 
@@ -430,7 +429,7 @@ namespace Snake
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frmSnake_KeyDown(object sender, KeyEventArgs e)
+        private void frmMultiplayer_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Config.up)
                 tasto = Tasto.su;
@@ -595,7 +594,7 @@ namespace Snake
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void frmSnake_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmMultiplayer_FormClosing(object sender, FormClosingEventArgs e)
         {
             ReadClassifica(ref classifica, numLivello);
             recordutente.PunteggioPlayer = serpente.GetLength();
@@ -653,28 +652,5 @@ namespace Snake
                 } while (flag);
             }
         }
-    }
-
-    /// <summary>
-    /// Classe speciale che ha due metodi utili ad impedire l'effetto sfarfallio nel draw
-    /// </summary>
-    class DrawingControl
-    {
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
-
-        private const int WM_SETREDRAW = 11;
-
-        public static void SuspendDrawing(Control parent)
-        {
-            SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
-        }
-
-        public static void ResumeDrawing(Control parent)
-        {
-            SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-            parent.Refresh();
-        }
-
     }
 }

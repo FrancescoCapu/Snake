@@ -51,9 +51,12 @@ namespace Snake
         private void frmMenu_Load(object sender, EventArgs e)
         {
             rootNomiFileMenu = new RootNomiFile();
+            /*
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
             reader.Close();
+            */
+            frmSnake.GetNomiFile(ref rootNomiFileMenu);
             
             GetPictures();
             InizializzaPic();
@@ -78,13 +81,7 @@ namespace Snake
                     }
                     else
                     {
-                        if (txtPlayer2.Text !="")
-                        {
-                            Multiplayer multiplayer = new Multiplayer();
-                            multiplayer.Show();
-                        }
-                        else
-                            MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, Name, color, numeroLivello);
                     }
                 }
                 else
@@ -103,8 +100,10 @@ namespace Snake
         /// </summary>
         private void InizializzaPic()
         {
+            lblSelezionaLivello.Location = new Point(pnlLivelli.Width / 2 - lblSelezionaLivello.Width / 2, pnlSettings.Location.Y + pnlSettings.Height + lblSelezionaLivello.Height + 25);
+
             picCenter.Size = new Size(200, 136);    //200, 136 è esattamente la metà della grandezza in pixel del campo gioco medio
-            picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, pnlLivelli.Height / 8 + pnlSettings.Height);
+            picCenter.Location = new Point(pnlLivelli.Width / 2 - picCenter.Width / 2, lblSelezionaLivello.Location.Y + lblSelezionaLivello.Height + 15);
             picCenter.Image = lstPreviewLevels[0];
             picCenter.BackColor = Color.FromArgb(0, 0, 0, 0);
             picCenter.Visible = true;
@@ -131,8 +130,6 @@ namespace Snake
             picRight1.SizeMode = PictureBoxSizeMode.StretchImage;
             picRight1.Click += delegate { btnRight.PerformClick(); };
             pnlLivelli.Controls.Add(picRight1);
-
-            lblSelezionaLivello.Location = new Point(picCenter.Location.X + picCenter.Width / 2 - lblSelezionaLivello.Width / 2, picCenter.Location.Y - lblSelezionaLivello.Height - 15);
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -188,6 +185,8 @@ namespace Snake
 
         private void CreatePicColors()
         {
+            lblColorSnake.Location = new Point(pnlLivelli.Width / 2 - lblColorSnake.Width / 2, picCenter.Location.Y + picCenter.Height + 25);
+
             PictureBox pictureBox = new PictureBox();
             try
             {
@@ -235,9 +234,7 @@ namespace Snake
                 pnlColors.Controls.Add(pic);
             }
             pnlColors.Size = new Size(this.Size.Width, 103);
-            pnlColors.Location = new Point((this.Size.Width - 400) / 2, 320);
-
-            lblColorSnake.Location = new Point(this.Width / 2 - lblColorSnake.Width / 2, pnlColors.Location.Y - lblColorSnake.Height - 15);
+            pnlColors.Location = new Point((this.Size.Width - 400) / 2, lblColorSnake.Location.Y  + lblColorSnake.Height + 15);
         }
 
         private void GetPictures()
@@ -331,9 +328,32 @@ namespace Snake
             btnLeft.Visible = false;
         }
 
-        private void txtNome_TextChanged(object sender, EventArgs e)
+        private void radioButtonMultiplayer_CheckedChanged(object sender, EventArgs e)
         {
+            pnlNickname.Size = new Size(pnlNickname.Width, 200);
 
+            lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 4 - lblNome.Height / 2);
+            lblNome.Text = "Inserisci il nome del giocatore 1";
+            txtNome.Size = new Size(200, 30);
+            txtNome.Location = new Point(lblNome.Location.X + lblNome.Width + 25, pnlNickname.Height / 4 - txtNome.Height / 2);
+
+            pnlNicknamePlayer2.Enabled = true;
+            pnlNicknamePlayer2.Visible = true;
+            txtNamePlayer2.Location = new Point(lblNamePlayer2.Location.X + lblNamePlayer2.Width + 25, pnlNicknamePlayer2.Height / 2 - txtNamePlayer2.Height / 2);
+
+        }
+
+        private void radioButtonSinglePlayer_CheckedChanged(object sender, EventArgs e)
+        {
+            pnlNickname.Size = new Size(pnlNickname.Width, 100);
+
+            lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
+            lblNome.Text = "Inserisci il tuo nickname";
+            txtNome.Size = new Size(200, 30);
+            txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
+
+            pnlNicknamePlayer2.Enabled = false;
+            pnlNicknamePlayer2.Visible = false;
         }
 
         private void UpdatePics(int index)
@@ -376,8 +396,7 @@ namespace Snake
             trackBarVelocita.Size = new Size(300, 56);
 
             lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
-            txtNome.Size = new Size(100, 30);
-            txtPlayer2.Size = new Size(100,30);
+            txtNome.Size = new Size(200, 30);
             txtNome.Location = new Point(trackBarVelocita.Location.X, pnlNickname.Height / 2 - txtNome.Height / 2);
 
             lblNumeroGiocatori.Location = new Point(lblDimensioneCampo.Location.X, pnlNumeroGiocatori.Height / 2 - lblNumeroGiocatori.Height / 2);
@@ -387,6 +406,51 @@ namespace Snake
 
             trackBarVelocita.Value = 1;
             trackBarDimensioneCampo.Value = 1;
+
+            pnlNickname.Controls.Add(pnlNicknamePlayer2);
+            pnlNicknamePlayer2.Dock = DockStyle.Bottom;
+            pnlNicknamePlayer2.Size = new Size(pnlNicknamePlayer2.Width, 100);
+            pnlNicknamePlayer2.Enabled = false;
+            pnlNicknamePlayer2.Visible = false;
+
+            lblNamePlayer2.Text = "Inserisci il nome del giocatore 2";
+            lblNamePlayer2.Location = new Point(lblNome.Location.X, pnlNicknamePlayer2.Height / 2 - lblNamePlayer2.Height / 2);
+
+            txtNamePlayer2.Size = txtNome.Size;
+
+            try
+            {
+                pnlSettings.Controls.Add(picLogo);
+                picLogo.Image = Image.FromFile("Data/imgs/logoSnake.png");
+                picLogo.Size = new Size((int)(pnlSettings.Height * 2.133), pnlSettings.Height);     //2.133 è il rapporto tra la larghezza e l'altezza dell'immagine logoSnake.png
+                picLogo.SizeMode = PictureBoxSizeMode.StretchImage;
+                picLogo.Location = new Point(this.Width / 2 - picLogo.Width / 2, 1);
+            }
+            catch (FileNotFoundException)
+            {
+                ImageLogoExceptionSolution(ref picLogo);
+            }
+            catch (OutOfMemoryException)
+            {
+                ImageLogoExceptionSolution(ref picLogo);
+            }
+            catch (ArgumentException)
+            {
+                ImageLogoExceptionSolution(ref picLogo);
+            }
+            catch (Exception)
+            {
+                ImageLogoExceptionSolution(ref picLogo);
+                Console.WriteLine("Errore ignoto :/");
+            }
+        }
+
+        private void ImageLogoExceptionSolution(ref PictureBox pic)
+        {
+            pnlSettings.Controls.Remove(pic);
+            pic.Image = null;
+            pic.Enabled = false;
+            pic.Visible = false;
         }
 
         private void btnRight_Click(object sender, EventArgs e)

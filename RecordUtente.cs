@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    class RecordUtente
+    public class RecordUtente
     {
         public string NomePlayer;
         public int PunteggioPlayer;
