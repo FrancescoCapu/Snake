@@ -19,7 +19,7 @@ namespace Snake
         Grande
     }
 
-    public partial class Menu : Form
+    public partial class frmMenu : Form
     {
         public const int WIDTH_CAMPO_PICCOLO = 17, HEIGHT_CAMPO_PICCOLO = 13;
         public const int WIDTH_CAMPO_MEDIO = 25, HEIGHT_CAMPO_MEDIO = 17;
@@ -43,7 +43,7 @@ namespace Snake
             Veloce
         }
 
-        public Menu()
+        public frmMenu()
         {
             InitializeComponent();
         }
@@ -81,7 +81,7 @@ namespace Snake
                     }
                     else
                     {
-                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, Name, color, numeroLivello);
+                        //frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, Name, color, numeroLivello);
                     }
                 }
                 else

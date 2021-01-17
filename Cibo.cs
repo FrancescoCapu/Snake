@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Snake
 {
-    class Cibo
+    public class Cibo
     {
         private static Random r = new Random();
         private Point food;

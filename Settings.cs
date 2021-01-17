@@ -22,6 +22,11 @@ namespace Snake
 
         private void Settings_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < 2; i++)
+            {
+                cmbNumPlayers.Items.Add(i);
+            }
+
             SetPositions();
             AddKeysCmbUp();
             AddKeysCmbLeft();
@@ -38,6 +43,9 @@ namespace Snake
             this.Size = new Size(400, 630);
 
             lblTitolo.Location = new Point(this.Width / 2 - lblTitolo.Size.Width / 2, 20);
+
+            lblNumPlayers.Location = new Point(this.Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
+            cmbNumPlayers.Location = new Point(this.Width / 2 + 20, lblNumPlayers.Location.Y);
 
             lblUp.Location = new Point(this.Width / 6, lblTitolo.Location.Y + lblTitolo.Size.Height + 25);
             cmbKeyUp.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyUp.Size.Width, lblUp.Location.Y);
@@ -255,10 +263,10 @@ namespace Snake
 
         private void cmbKeyUp_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.up;
+            Keys temp = Config.up[0];
             try
             {
-                Config.up = (Keys)cmbKeyUp.SelectedItem;
+                Config.up[0] = (Keys)cmbKeyUp.SelectedItem;
                 if (Config.up == Config.left)
                     cmbKeyLeft.SelectedItem = temp;
                 else if (Config.up == Config.down)
@@ -276,10 +284,10 @@ namespace Snake
 
         private void cmbKeyLeft_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.left;
+            Keys temp = Config.left[0];
             try
             {
-                Config.left = (Keys)cmbKeyLeft.SelectedItem;
+                Config.left[0] = (Keys)cmbKeyLeft.SelectedItem;
                 if (Config.left == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.left == Config.down)
@@ -297,10 +305,10 @@ namespace Snake
 
         private void cmbKeyDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.down;
+            Keys temp = Config.down[0];
             try
             {
-                Config.down = (Keys)cmbKeyDown.SelectedItem;
+                Config.down[0] = (Keys)cmbKeyDown.SelectedItem;
                 if (Config.down == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.down == Config.left)
@@ -318,10 +326,10 @@ namespace Snake
 
         private void cmbKeyRight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.right;
+            Keys temp = Config.right[0];
             try
             {
-                Config.right = (Keys)cmbKeyRight.SelectedItem;
+                Config.right[0] = (Keys)cmbKeyRight.SelectedItem;
                 if (Config.right == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.right == Config.left)
@@ -339,10 +347,10 @@ namespace Snake
 
         private void cmbKeyTongue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.tongue;
+            Keys temp = Config.tongue[0];
             try
             {
-                Config.tongue = (Keys)cmbKeyTongue.SelectedItem;
+                Config.tongue[0] = (Keys)cmbKeyTongue.SelectedItem;
                 if (Config.tongue == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.tongue== Config.left)
@@ -377,7 +385,7 @@ namespace Snake
                 {
                     System.IO.Directory.CreateDirectory("Data/Settings");
                 }
-                SaveConfig saveConfig = new SaveConfig(Config.up, Config.left, Config.down, Config.right, Config.tongue, Config.sizeQuadrato);
+                SaveConfig saveConfig = new SaveConfig(Config.up[0], Config.left[0], Config.down[0], Config.right[0], Config.tongue[0], Config.sizeQuadrato);
                 string Configserialized = JsonConvert.SerializeObject(saveConfig);
                 string path = "Data/Settings/userSettingsConfig.json";
                 File.WriteAllText(@path, Configserialized);
@@ -394,11 +402,11 @@ namespace Snake
                 StreamReader reader = new StreamReader("Data/Settings/userSettingsConfig.json");
                 SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
                 reader.Close();
-                Config.up = saveConfig.up;
-                Config.left = saveConfig.left;
-                Config.down = saveConfig.down;
-                Config.right = saveConfig.right;
-                Config.tongue = saveConfig.tongue;
+                Config.up[0] = saveConfig.up;
+                Config.left[0] = saveConfig.left;
+                Config.down[0] = saveConfig.down;
+                Config.right[0] = saveConfig.right;
+                Config.tongue[0] = saveConfig.tongue;
                 Config.sizeQuadrato = saveConfig.sizeQuadrato;
                 return true;
             }
@@ -412,11 +420,21 @@ namespace Snake
                 Config.DefaultSettings();
                 return false;
             }
+            catch (NullReferenceException)
+            {
+                Config.DefaultSettings();
+                return false;
+            }
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveCurrentConfig();
+        }
+
+        private void cmbNumPlayers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

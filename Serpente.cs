@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Snake
 {
-    class Serpente : Lingua
+    public class Serpente : Lingua
     {
         private List<Point> lstSerpente = new List<Point>(4);
         public bool useTongue;

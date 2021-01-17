@@ -7,13 +7,17 @@ using System.Drawing;
 
 namespace Snake
 {
-    abstract class Lingua
+    public abstract class Lingua
     {
         protected Point tonguePoint;
+        protected int countToStop;
+
+        public int CountToStop { get => countToStop; set => countToStop = value; }
 
         protected Lingua(int tongueX, int tongueY)
         {
             tonguePoint = new Point(tongueX, tongueY);
+            CountToStop = 0;
         }
 
         protected void UpdateTonguePosition(int x, int y)
@@ -34,6 +38,11 @@ namespace Snake
         public int GetTongueY()
         {
             return tonguePoint.Y;
+        }
+
+        public void IncCounterTongue()
+        {
+            CountToStop++;
         }
     }
 }

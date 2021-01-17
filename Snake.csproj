@@ -61,10 +61,7 @@
       <DependentUpon>Classifica.cs</DependentUpon>
     </Compile>
     <Compile Include="DrawingControl.cs" />
-    <Compile Include="frmMultiplayer.cs" />
-    <Compile Include="frmMultiplayer.Designer.cs">
-      <DependentUpon>frmMultiplayer.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Ranking.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="frmMenu.cs">
@@ -99,9 +96,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmMultiplayer.resx">
-      <DependentUpon>frmMultiplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSnake.resx">
       <DependentUpon>frmSnake.cs</DependentUpon>

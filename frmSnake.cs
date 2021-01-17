@@ -16,7 +16,7 @@ namespace Snake
 {
     public partial class frmSnake : Form
     {
-        enum Tasto
+        protected enum Tasto
         {
             sinistra,
             destra,
@@ -25,30 +25,31 @@ namespace Snake
             fermo
         }
 
-        enum Elementi
+        protected enum Elementi
         {
             libero = 0,
             muro = 1
         }
 
-        private Elementi[,] campoGioco;
-        private Menu nomeChiamante;
-        private int heightCampoGioco, widthCampoGioco;
-        private Serpente serpente;
-        private Cibo cibo;
-        private RootNomiFile rootNomiFile;
-        private Livello livello;
-        private int numLivello;
-        private Tasto tasto = Tasto.fermo;
-        private Tasto tastoPrec = Tasto.destra;
-        private Point posLastPrec;
-        private Queue<Panel> queueSerpente = new Queue<Panel>();
-        private List<Panel> lstPanelCibo = new List<Panel>();
-        private Panel pnlLingua;
-        private int contIntervalTongue = 0;
-        private Ranking classifica;
-        private RecordUtente recordutente = new RecordUtente();
-        private readonly Color color;
+        protected Elementi[,] campoGioco;
+        protected frmMenu nomeChiamante;
+        protected int heightCampoGioco, widthCampoGioco;
+        protected Serpente serpente;
+        protected Cibo cibo;
+        protected RootNomiFile rootNomiFile;
+        protected Livello livello;
+        protected int numLivello;
+        protected Tasto tasto = Tasto.fermo;
+        protected Tasto tastoPrec = Tasto.destra;
+        protected Point posLastPrec;
+        protected Queue<Panel> queueSerpente = new Queue<Panel>();
+        protected List<Panel> lstPanelCibo = new List<Panel>();
+        protected Panel pnlLingua;
+        protected Ranking classifica;
+        protected RecordUtente recordutente = new RecordUtente();
+        protected readonly Color color;
+        protected const int TICK_TO_RESET_TONGUE = 3;
+        protected Player player1;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -57,7 +58,7 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(Menu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
@@ -68,6 +69,7 @@ namespace Snake
             recordutente.NomePlayer = nome;
             tmr.Interval = timerInterval;
             tmr.Enabled = true;
+            player1 = new Player(1);
         }
 
         /// <summary>
@@ -122,7 +124,7 @@ namespace Snake
         /// </summary>
         /// <param name="c"></param>
         /// <param name="serpente"></param>
-        private void IncSnake(ref Serpente s)
+        protected void IncSnake(ref Serpente s)
         {
             s.IncLength(posLastPrec);
         }
@@ -131,7 +133,7 @@ namespace Snake
         /// resetta le variabili relative all'utilizzo della lingua
         /// </summary>
         /// <param name="s"></param>
-        private void ResetTongue(ref Serpente s, ref Panel pnlTongue)
+        protected void ResetTongue(ref Serpente s, ref Panel pnlTongue)
         {
             s.useTongue = false;
             pnlTongue.Visible = false;
@@ -144,7 +146,7 @@ namespace Snake
         /// <param name="s"></param>
         /// <param name="incX"></param>
         /// <param name="incY"></param>
-        private void CheckUseTongue(ref Serpente s, int incX, int incY)
+        protected void CheckUseTongue(ref Serpente s, int incX, int incY)
         {
             if (s.useTongue)
                 UseTongue(ref s, ref pnlLingua, incX, incY);
@@ -160,7 +162,7 @@ namespace Snake
         /// <param name="s"></param>
         /// <param name="incX"></param>
         /// <param name="incY"></param>
-        private void UseTongue(ref Serpente s, ref Panel pnlTongue, int incX, int incY)
+        protected void UseTongue(ref Serpente s, ref Panel pnlTongue, int incX, int incY)
         {
             pnlTongue.Visible = true;
             s.SetTonguePosition(s.GetX(0) + incX, s.GetY(0) + incY);
@@ -171,7 +173,7 @@ namespace Snake
         /// <summary>
         /// stampa il campo gioco
         /// </summary>
-        private void StampaCampoGioco(ref Panel pnlCampo, ref Panel pnlSnake)
+        protected void StampaCampoGioco(ref Panel pnlCampo, ref Panel pnlSnake)
         {
             DrawingControl.SuspendDrawing(pnlCampo);
             pnlCampo.Controls.Clear();
@@ -199,7 +201,7 @@ namespace Snake
         /// stampa il serpente in base alla propria posizione. da usare solo per la prima stampa
         /// </summary>
         /// <param name="serpente"></param>
-        private void StampaSerpente(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
+        protected void StampaSerpente(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
         {
             DrawingControl.SuspendDrawing(pnlSnake);
             pnlSnake.Controls.Clear();
@@ -223,7 +225,7 @@ namespace Snake
         /// </summary>
         /// <param name="s"></param>
         /// <param name="hasEaten"></param>
-        private void UpdateSnake(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
+        protected void UpdateSnake(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
         {
             Panel temp;
             if (hasEaten)
@@ -258,7 +260,7 @@ namespace Snake
         /// creazione pannello per il cibo. da usare solo per la prima stampa
         /// </summary>
         /// <param name="cibo"></param>
-        private void PrintFood(ref Cibo c, ref Panel pnlSnake, ref List<Panel> lstPnlCibo)
+        protected void PrintFood(ref Cibo c, ref Panel pnlSnake, ref List<Panel> lstPnlCibo)
         {
             Panel pannello = new Panel();
             PictureBox mela = new PictureBox();
@@ -282,7 +284,7 @@ namespace Snake
         /// </summary>
         /// <param name="c"></param>
         /// <param name="foodIndex"></param>
-        private void UpdateFood(ref Cibo c, ref List<Panel> lstPnlCibo, int foodIndex = 0)
+        protected void UpdateFood(ref Cibo c, ref List<Panel> lstPnlCibo, int foodIndex = 0)
         {
             lstPnlCibo[foodIndex].Location = new Point(c.GetFoodX() * Config.sizeQuadrato, c.GetFoodY() * Config.sizeQuadrato);
         }
@@ -290,7 +292,7 @@ namespace Snake
         /// <summary>
         /// Inizializza il pannello della lingua e lo aggiunge a pnlElementiDinamici
         /// </summary>
-        private void PrintTongue(ref Serpente s, ref Panel pnlSnake, ref Panel pnlTongue)
+        protected void PrintTongue(ref Serpente s, ref Panel pnlSnake, ref Panel pnlTongue)
         {
             pnlTongue = new Panel();
             pnlTongue.Visible = false;
@@ -306,7 +308,7 @@ namespace Snake
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private void UpdateTongue(int x, int y, ref Panel pnlTongue)
+        protected void UpdateTongue(int x, int y, ref Panel pnlTongue)
         {
             if (tasto == Tasto.su || tasto == Tasto.giu)
             {
@@ -348,88 +350,9 @@ namespace Snake
         private void tmr_Tick(object sender, EventArgs e)
         {
             LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
-            /*
-            switch (tasto)
-            {
-                case Tasto.sinistra:
-                    if (tastoPrec != Tasto.destra)
-                    {
-                        serpente.AggiornaSnake(-1, 0);
-                        tastoPrec = Tasto.sinistra;
-                        CheckUseTongue(ref serpente, -1, 0);
-                    }
-                    else
-                    {
-                        goto case Tasto.destra;
-                    }
-                    break;
-                case Tasto.destra:
-                    if (tastoPrec != Tasto.sinistra)
-                    {
-                        serpente.AggiornaSnake(1, 0);
-                        tastoPrec = Tasto.destra;
-                        CheckUseTongue(ref serpente, 1, 0);
-                    }
-                    else
-                    {
-                        goto case Tasto.sinistra;
-                    }
-                    break;
-                case Tasto.su:
-                    if (tastoPrec != Tasto.giu)
-                    {
-                        serpente.AggiornaSnake(0, -1);
-                        tastoPrec = Tasto.su;
-                        CheckUseTongue(ref serpente, 0, -1);
-                    }
-                    else
-                    {
-                        goto case Tasto.giu;
-                    }
-                    break;
-                case Tasto.giu:
-                    if (tastoPrec != Tasto.su)
-                    {
-                        serpente.AggiornaSnake(0, 1);
-                        tastoPrec = Tasto.giu;
-                        CheckUseTongue(ref serpente, 0, 1);
-                    }
-                    else
-                    {
-                        goto case Tasto.su;
-                    }
-                    break;
-                case Tasto.fermo:
-                    break;
-            }
-            //Console.WriteLine(serpente.GetX(0) + " " + serpente.GetY(0));
-            posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
-            UpdateTongue(serpente.GetTongueX(), serpente.GetTongueY(), ref pnlLingua);
-            if ((serpente.GetX(0) < 0 || serpente.GetX(0) > GetWidth() - 1 || serpente.GetY(0) < 0 || serpente.GetY(0) > GetHeigth() - 1) || Collisioni(ref serpente))
-                GameOver();
-            else
-            {
-                if (HasEaten(ref serpente, ref cibo))
-                {
-                    IncSnake( ref serpente);
-                    UpdateSnake(ref serpente, ref pnlElementiDinamici, ref queueSerpente, true);
-                    NewCibo(ref cibo, ref serpente);
-                    UpdateFood(ref cibo, ref lstPanelCibo);
-                }
-                if (tasto != Tasto.fermo)
-                    UpdateSnake(ref serpente, ref pnlElementiDinamici, ref queueSerpente, false);
-            }
-            if (contIntervalTongue != 3 && serpente.useTongue)
-                contIntervalTongue++;
-            else
-            {
-                ResetTongue(ref serpente, ref pnlLingua);
-                contIntervalTongue = 0;
-            }
-            */
         }
 
-        private void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
+        protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
         {
             switch (tasto)
             {
@@ -501,14 +424,16 @@ namespace Snake
                 if (tasto != Tasto.fermo)
                     UpdateSnake(ref s, ref pnlSnake, ref queueSnake, false);
             }
-            if (contIntervalTongue != 3 && s.useTongue)
-                contIntervalTongue++;
+            if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
+                s.IncCounterTongue();
             else
             {
                 ResetTongue(ref s, ref pnlTongue);
-                contIntervalTongue = 0;
+                s.CountToStop = 0;
             }
         }
+
+        //------------------------------------------------------------------------- ATTENZIONE PER IL MULTIPLAYER POTREBBE ESSERE NECESSARIO METTERE FRMSNAKE_KEYDOWN COME VIRTUAL -------------------------------------
 
         /// <summary>
         /// spostamento della serpe e utilizzo della lingua
@@ -517,16 +442,21 @@ namespace Snake
         /// <param name="e"></param>
         private void frmSnake_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Config.up)
+            TastoScelto(ref serpente, ref e, ref tasto);
+        }
+
+        protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, ref Tasto tasto, int numPlayer = 0)
+        {
+            if (e.KeyCode == Config.up[numPlayer])
                 tasto = Tasto.su;
-            else if (e.KeyCode == Config.left)
+            else if (e.KeyCode == Config.left[numPlayer])
                 tasto = Tasto.sinistra;
-            else if (e.KeyCode == Config.down)
+            else if (e.KeyCode == Config.down[numPlayer])
                 tasto = Tasto.giu;
-            else if (e.KeyCode == Config.right)
+            else if (e.KeyCode == Config.right[numPlayer])
                 tasto = Tasto.destra;
-            else if (e.KeyCode == Config.tongue)
-                serpente.useTongue = true;
+            else if (e.KeyCode == Config.tongue[numPlayer])
+                s.useTongue = true;
         }
 
         /// <summary>
@@ -534,7 +464,7 @@ namespace Snake
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private bool Collisioni(ref Serpente s)
+        protected bool Collisioni(ref Serpente s)
         {
             if (campoGioco[s.GetX(0), s.GetY(0)] == Elementi.muro)
                 return true;
@@ -553,7 +483,7 @@ namespace Snake
         /// <param name="s"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        private bool HasEaten(ref Serpente s, ref Cibo c)
+        protected bool HasEaten(ref Serpente s, ref Cibo c)
         {
             if (s.GetX(0) == c.GetFoodX() && s.GetY(0) == c.GetFoodY() || s.GetTongueX() == c.GetFoodX() && s.GetTongueY() == c.GetFoodY())
                 return true;
@@ -563,7 +493,7 @@ namespace Snake
         /// <summary>
         /// deserializza il file json nella classe Livello
         /// </summary>
-        private void CaricamentoLivello()
+        protected void CaricamentoLivello()
         {
             /*
             StreamReader reader1 = new StreamReader("Data/levels/indice_livelli.json");
@@ -579,16 +509,16 @@ namespace Snake
                 switch (livello.dimensioneCampo)
                 {
                     case DimensioniCampoGioco.Piccolo:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_PICCOLO;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_PICCOLO;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_PICCOLO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_PICCOLO;
                         break;
                     case DimensioniCampoGioco.Medio:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_MEDIO;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_MEDIO;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_MEDIO;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_MEDIO;
                         break;
                     case DimensioniCampoGioco.Grande:
-                        widthCampoGioco = Snake.Menu.WIDTH_CAMPO_GRANDE;
-                        heightCampoGioco = Snake.Menu.HEIGHT_CAMPO_GRANDE;
+                        widthCampoGioco = frmMenu.WIDTH_CAMPO_GRANDE;
+                        heightCampoGioco = frmMenu.HEIGHT_CAMPO_GRANDE;
                         break;
                     default:
                         goto case DimensioniCampoGioco.Medio;
@@ -606,7 +536,7 @@ namespace Snake
         /// <summary>
         /// aggiunge i muri alla matrice
         /// </summary>
-        private void AddMuri()
+        protected void AddMuri()
         {
             for (int i = 0; i < GetWidth(); i++)
             {
@@ -626,7 +556,7 @@ namespace Snake
         /// <summary>
         /// chiude il gioco
         /// </summary>
-        private void GameOver()
+        protected virtual void GameOver()
         {
             tmr.Enabled = false;
             MessageBox.Show("GAME OVER\nPunteggio: " + serpente.GetLength(), "GAME OVER ");
@@ -638,7 +568,7 @@ namespace Snake
         /// </summary>
         /// <param name="classifica"></param>
         /// <param name="index"></param>
-        private static void SaveClassifica(ref Ranking classifica, int index)
+        protected static void SaveClassifica(ref Ranking classifica, int index)
         {
             if (!System.IO.Directory.Exists("Data/Classifica"))
                 System.IO.Directory.CreateDirectory("Data/Classifica");
@@ -700,7 +630,7 @@ namespace Snake
         /// </summary>
         /// <param name="c"></param>
         /// <param name="s"></param>
-        private void NewCibo(ref Cibo c, ref Serpente s)
+        protected void NewCibo(ref Cibo c, ref Serpente s)
         {
             bool flag;
             if (livello.numLev == 0)

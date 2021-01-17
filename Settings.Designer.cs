@@ -46,6 +46,8 @@ namespace Snake
             this.lblDown = new System.Windows.Forms.Label();
             this.lblLeft = new System.Windows.Forms.Label();
             this.lblUp = new System.Windows.Forms.Label();
+            this.lblNumPlayers = new System.Windows.Forms.Label();
+            this.cmbNumPlayers = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
@@ -53,6 +55,8 @@ namespace Snake
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmbNumPlayers);
+            this.panel1.Controls.Add(this.lblNumPlayers);
             this.panel1.Controls.Add(this.lblSizeQuadrati);
             this.panel1.Controls.Add(this.pnlButtons);
             this.panel1.Controls.Add(this.trackBarSizeQuadrati);
@@ -70,18 +74,17 @@ namespace Snake
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(542, 949);
+            this.panel1.Size = new System.Drawing.Size(482, 759);
             this.panel1.TabIndex = 0;
             // 
             // lblSizeQuadrati
             // 
             this.lblSizeQuadrati.AutoSize = true;
             this.lblSizeQuadrati.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSizeQuadrati.Location = new System.Drawing.Point(119, 348);
+            this.lblSizeQuadrati.Location = new System.Drawing.Point(108, 346);
             this.lblSizeQuadrati.Name = "lblSizeQuadrati";
-            this.lblSizeQuadrati.Size = new System.Drawing.Size(219, 26);
+            this.lblSizeQuadrati.Size = new System.Drawing.Size(188, 24);
             this.lblSizeQuadrati.TabIndex = 24;
             this.lblSizeQuadrati.Text = "Grandezza quadratini";
             // 
@@ -89,10 +92,9 @@ namespace Snake
             // 
             this.pnlButtons.Controls.Add(this.btnDefaultSettings);
             this.pnlButtons.Controls.Add(this.btnSalva);
-            this.pnlButtons.Location = new System.Drawing.Point(48, 624);
-            this.pnlButtons.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pnlButtons.Location = new System.Drawing.Point(43, 499);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(440, 160);
+            this.pnlButtons.Size = new System.Drawing.Size(391, 128);
             this.pnlButtons.TabIndex = 23;
             // 
             // btnDefaultSettings
@@ -100,9 +102,8 @@ namespace Snake
             this.btnDefaultSettings.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDefaultSettings.Location = new System.Drawing.Point(0, 0);
-            this.btnDefaultSettings.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDefaultSettings.Name = "btnDefaultSettings";
-            this.btnDefaultSettings.Size = new System.Drawing.Size(190, 160);
+            this.btnDefaultSettings.Size = new System.Drawing.Size(169, 128);
             this.btnDefaultSettings.TabIndex = 15;
             this.btnDefaultSettings.Text = "Ripristina impostazioni di default";
             this.btnDefaultSettings.UseVisualStyleBackColor = true;
@@ -112,10 +113,9 @@ namespace Snake
             // 
             this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalva.Location = new System.Drawing.Point(253, 0);
-            this.btnSalva.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSalva.Location = new System.Drawing.Point(225, 0);
             this.btnSalva.Name = "btnSalva";
-            this.btnSalva.Size = new System.Drawing.Size(187, 160);
+            this.btnSalva.Size = new System.Drawing.Size(166, 128);
             this.btnSalva.TabIndex = 21;
             this.btnSalva.Text = "Salva impostazioni";
             this.btnSalva.UseVisualStyleBackColor = true;
@@ -123,12 +123,11 @@ namespace Snake
             // 
             // trackBarSizeQuadrati
             // 
-            this.trackBarSizeQuadrati.Location = new System.Drawing.Point(263, 348);
-            this.trackBarSizeQuadrati.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.trackBarSizeQuadrati.Location = new System.Drawing.Point(236, 346);
             this.trackBarSizeQuadrati.Maximum = 32;
             this.trackBarSizeQuadrati.Minimum = 8;
             this.trackBarSizeQuadrati.Name = "trackBarSizeQuadrati";
-            this.trackBarSizeQuadrati.Size = new System.Drawing.Size(117, 69);
+            this.trackBarSizeQuadrati.Size = new System.Drawing.Size(104, 56);
             this.trackBarSizeQuadrati.TabIndex = 1;
             this.trackBarSizeQuadrati.TickFrequency = 2;
             this.trackBarSizeQuadrati.Value = 8;
@@ -138,59 +137,54 @@ namespace Snake
             // 
             this.lblTitolo.AutoSize = true;
             this.lblTitolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitolo.Location = new System.Drawing.Point(118, 16);
+            this.lblTitolo.Location = new System.Drawing.Point(105, 13);
             this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(346, 46);
+            this.lblTitolo.Size = new System.Drawing.Size(286, 38);
             this.lblTitolo.TabIndex = 22;
             this.lblTitolo.Text = "Impostazioni tasti";
             // 
             // cmbKeyTongue
             // 
             this.cmbKeyTongue.FormattingEnabled = true;
-            this.cmbKeyTongue.Location = new System.Drawing.Point(263, 288);
-            this.cmbKeyTongue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbKeyTongue.Location = new System.Drawing.Point(236, 298);
             this.cmbKeyTongue.Name = "cmbKeyTongue";
-            this.cmbKeyTongue.Size = new System.Drawing.Size(136, 33);
+            this.cmbKeyTongue.Size = new System.Drawing.Size(121, 28);
             this.cmbKeyTongue.TabIndex = 20;
             this.cmbKeyTongue.SelectedIndexChanged += new System.EventHandler(this.cmbKeyTongue_SelectedIndexChanged);
             // 
             // cmbKeyRight
             // 
             this.cmbKeyRight.FormattingEnabled = true;
-            this.cmbKeyRight.Location = new System.Drawing.Point(263, 240);
-            this.cmbKeyRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbKeyRight.Location = new System.Drawing.Point(236, 260);
             this.cmbKeyRight.Name = "cmbKeyRight";
-            this.cmbKeyRight.Size = new System.Drawing.Size(136, 33);
+            this.cmbKeyRight.Size = new System.Drawing.Size(121, 28);
             this.cmbKeyRight.TabIndex = 19;
             this.cmbKeyRight.SelectedIndexChanged += new System.EventHandler(this.cmbKeyRight_SelectedIndexChanged);
             // 
             // cmbKeyDown
             // 
             this.cmbKeyDown.FormattingEnabled = true;
-            this.cmbKeyDown.Location = new System.Drawing.Point(266, 185);
-            this.cmbKeyDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbKeyDown.Location = new System.Drawing.Point(238, 216);
             this.cmbKeyDown.Name = "cmbKeyDown";
-            this.cmbKeyDown.Size = new System.Drawing.Size(136, 33);
+            this.cmbKeyDown.Size = new System.Drawing.Size(121, 28);
             this.cmbKeyDown.TabIndex = 18;
             this.cmbKeyDown.SelectedIndexChanged += new System.EventHandler(this.cmbKeyDown_SelectedIndexChanged);
             // 
             // cmbKeyLeft
             // 
             this.cmbKeyLeft.FormattingEnabled = true;
-            this.cmbKeyLeft.Location = new System.Drawing.Point(266, 118);
-            this.cmbKeyLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbKeyLeft.Location = new System.Drawing.Point(238, 162);
             this.cmbKeyLeft.Name = "cmbKeyLeft";
-            this.cmbKeyLeft.Size = new System.Drawing.Size(136, 33);
+            this.cmbKeyLeft.Size = new System.Drawing.Size(121, 28);
             this.cmbKeyLeft.TabIndex = 17;
             this.cmbKeyLeft.SelectedIndexChanged += new System.EventHandler(this.cmbKeyLeft_SelectedIndexChanged);
             // 
             // cmbKeyUp
             // 
             this.cmbKeyUp.FormattingEnabled = true;
-            this.cmbKeyUp.Location = new System.Drawing.Point(263, 72);
-            this.cmbKeyUp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmbKeyUp.Location = new System.Drawing.Point(236, 126);
             this.cmbKeyUp.Name = "cmbKeyUp";
-            this.cmbKeyUp.Size = new System.Drawing.Size(136, 33);
+            this.cmbKeyUp.Size = new System.Drawing.Size(121, 28);
             this.cmbKeyUp.TabIndex = 16;
             this.cmbKeyUp.SelectedIndexChanged += new System.EventHandler(this.cmbKeyUp_SelectedIndexChanged);
             // 
@@ -198,9 +192,9 @@ namespace Snake
             // 
             this.lblUseTongue.AutoSize = true;
             this.lblUseTongue.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUseTongue.Location = new System.Drawing.Point(115, 291);
+            this.lblUseTongue.Location = new System.Drawing.Point(104, 301);
             this.lblUseTongue.Name = "lblUseTongue";
-            this.lblUseTongue.Size = new System.Drawing.Size(121, 26);
+            this.lblUseTongue.Size = new System.Drawing.Size(103, 24);
             this.lblUseTongue.TabIndex = 4;
             this.lblUseTongue.Text = "Usa lingua:";
             // 
@@ -208,9 +202,9 @@ namespace Snake
             // 
             this.lblRight.AutoSize = true;
             this.lblRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRight.Location = new System.Drawing.Point(115, 240);
+            this.lblRight.Location = new System.Drawing.Point(104, 260);
             this.lblRight.Name = "lblRight";
-            this.lblRight.Size = new System.Drawing.Size(82, 26);
+            this.lblRight.Size = new System.Drawing.Size(68, 24);
             this.lblRight.TabIndex = 3;
             this.lblRight.Text = "Destra:";
             // 
@@ -218,9 +212,9 @@ namespace Snake
             // 
             this.lblDown.AutoSize = true;
             this.lblDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDown.Location = new System.Drawing.Point(117, 185);
+            this.lblDown.Location = new System.Drawing.Point(106, 216);
             this.lblDown.Name = "lblDown";
-            this.lblDown.Size = new System.Drawing.Size(52, 26);
+            this.lblDown.Size = new System.Drawing.Size(44, 24);
             this.lblDown.TabIndex = 2;
             this.lblDown.Text = "Giù:";
             // 
@@ -228,9 +222,9 @@ namespace Snake
             // 
             this.lblLeft.AutoSize = true;
             this.lblLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeft.Location = new System.Drawing.Point(117, 129);
+            this.lblLeft.Location = new System.Drawing.Point(106, 171);
             this.lblLeft.Name = "lblLeft";
-            this.lblLeft.Size = new System.Drawing.Size(91, 26);
+            this.lblLeft.Size = new System.Drawing.Size(75, 24);
             this.lblLeft.TabIndex = 1;
             this.lblLeft.Text = "Sinistra:";
             // 
@@ -238,19 +232,37 @@ namespace Snake
             // 
             this.lblUp.AutoSize = true;
             this.lblUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUp.Location = new System.Drawing.Point(115, 72);
+            this.lblUp.Location = new System.Drawing.Point(104, 126);
             this.lblUp.Name = "lblUp";
-            this.lblUp.Size = new System.Drawing.Size(45, 26);
+            this.lblUp.Size = new System.Drawing.Size(38, 24);
             this.lblUp.TabIndex = 0;
             this.lblUp.Text = "Su:";
             // 
+            // lblNumPlayers
+            // 
+            this.lblNumPlayers.AutoSize = true;
+            this.lblNumPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumPlayers.Location = new System.Drawing.Point(77, 68);
+            this.lblNumPlayers.Name = "lblNumPlayers";
+            this.lblNumPlayers.Size = new System.Drawing.Size(155, 24);
+            this.lblNumPlayers.TabIndex = 25;
+            this.lblNumPlayers.Text = "Numero giocatori";
+            // 
+            // cmbNumPlayers
+            // 
+            this.cmbNumPlayers.FormattingEnabled = true;
+            this.cmbNumPlayers.Location = new System.Drawing.Point(238, 67);
+            this.cmbNumPlayers.Name = "cmbNumPlayers";
+            this.cmbNumPlayers.Size = new System.Drawing.Size(121, 28);
+            this.cmbNumPlayers.TabIndex = 26;
+            this.cmbNumPlayers.SelectedIndexChanged += new System.EventHandler(this.cmbNumPlayers_SelectedIndexChanged);
+            // 
             // Settings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(542, 949);
+            this.ClientSize = new System.Drawing.Size(482, 759);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";
@@ -285,5 +297,7 @@ namespace Snake
         private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.Label lblSizeQuadrati;
         private System.Windows.Forms.TrackBar trackBarSizeQuadrati;
+        private System.Windows.Forms.ComboBox cmbNumPlayers;
+        private System.Windows.Forms.Label lblNumPlayers;
     }
 }
