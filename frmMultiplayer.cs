@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 
 namespace Snake
 {
+    /*
     public partial class frmMultiplayer : Form
     {
         enum Tasto
@@ -475,6 +476,7 @@ namespace Snake
                 return true;
             return false;
         }
+     
 
         /// <summary>
         /// deserializza il file json nella classe Livello
@@ -486,6 +488,7 @@ namespace Snake
             rootNomiFile = JsonConvert.DeserializeObject<RootNomiFile>(reader1.ReadToEnd());
             reader1.Close();
             */
+   /*
             GetNomiFile(ref rootNomiFile);
             StreamReader reader = new StreamReader("Data/levels/" + rootNomiFile.nomeFileDaLeggere[numLivello]);
             livello = JsonConvert.DeserializeObject<Livello>(reader.ReadToEnd());
@@ -653,4 +656,5 @@ namespace Snake
             }
         }
     }
+   */
 }

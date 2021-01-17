@@ -10,6 +10,7 @@ namespace Snake
     class Serpente : Lingua
     {
         private List<Point> lstSerpente = new List<Point>(4);
+        public bool useTongue;
 
         public Serpente(int x, int y) : base(x, y)
         {

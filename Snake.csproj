@@ -60,9 +60,8 @@
     <Compile Include="Classifica.Designer.cs">
       <DependentUpon>Classifica.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMultiplayer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="DrawingControl.cs" />
+    <Compile Include="frmMultiplayer.cs" />
     <Compile Include="frmMultiplayer.Designer.cs">
       <DependentUpon>frmMultiplayer.cs</DependentUpon>
     </Compile>
