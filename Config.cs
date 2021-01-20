@@ -10,12 +10,12 @@ namespace Snake
     //Valutare l'eventuale implementazione di una classe Giocatore con i settaggi di ogni giocatore
     static class Config
     {
-        
-        public static Keys[] up = new Keys[2];
-        public static Keys[] left = new Keys[2];
-        public static Keys[] down = new Keys[2];
-        public static Keys[] right = new Keys[2];
-        public static Keys[] tongue = new Keys[2];
+
+        public static Keys up;
+        public static Keys left;
+        public static Keys down;
+        public static Keys right;
+        public static Keys tongue;
         
 
         public static int sizeQuadrato;
@@ -23,11 +23,11 @@ namespace Snake
         public static void DefaultSettings()
         {
             
-            up[0] = Keys.Up;
-            left[0] = Keys.Left;
-            down[0] = Keys.Down;
-            right[0] = Keys.Right;
-            tongue[0] = Keys.Space;
+            up = Keys.Up;
+            left = Keys.Left;
+            down = Keys.Down;
+            right = Keys.Right;
+            tongue = Keys.Space;
             
 
 

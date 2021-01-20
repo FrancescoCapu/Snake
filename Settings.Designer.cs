@@ -30,6 +30,8 @@ namespace Snake
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbNumPlayers = new System.Windows.Forms.ComboBox();
+            this.lblNumPlayers = new System.Windows.Forms.Label();
             this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnDefaultSettings = new System.Windows.Forms.Button();
@@ -46,8 +48,8 @@ namespace Snake
             this.lblDown = new System.Windows.Forms.Label();
             this.lblLeft = new System.Windows.Forms.Label();
             this.lblUp = new System.Windows.Forms.Label();
-            this.lblNumPlayers = new System.Windows.Forms.Label();
-            this.cmbNumPlayers = new System.Windows.Forms.ComboBox();
+            this.lblPlayer1 = new System.Windows.Forms.Label();
+            this.lblPlayer2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
@@ -55,6 +57,8 @@ namespace Snake
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lblPlayer2);
+            this.panel1.Controls.Add(this.lblPlayer1);
             this.panel1.Controls.Add(this.cmbNumPlayers);
             this.panel1.Controls.Add(this.lblNumPlayers);
             this.panel1.Controls.Add(this.lblSizeQuadrati);
@@ -77,6 +81,25 @@ namespace Snake
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(482, 759);
             this.panel1.TabIndex = 0;
+            // 
+            // cmbNumPlayers
+            // 
+            this.cmbNumPlayers.FormattingEnabled = true;
+            this.cmbNumPlayers.Location = new System.Drawing.Point(238, 67);
+            this.cmbNumPlayers.Name = "cmbNumPlayers";
+            this.cmbNumPlayers.Size = new System.Drawing.Size(121, 28);
+            this.cmbNumPlayers.TabIndex = 26;
+            this.cmbNumPlayers.SelectedIndexChanged += new System.EventHandler(this.cmbNumPlayers_SelectedIndexChanged);
+            // 
+            // lblNumPlayers
+            // 
+            this.lblNumPlayers.AutoSize = true;
+            this.lblNumPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumPlayers.Location = new System.Drawing.Point(77, 68);
+            this.lblNumPlayers.Name = "lblNumPlayers";
+            this.lblNumPlayers.Size = new System.Drawing.Size(155, 24);
+            this.lblNumPlayers.TabIndex = 25;
+            this.lblNumPlayers.Text = "Numero giocatori";
             // 
             // lblSizeQuadrati
             // 
@@ -238,24 +261,25 @@ namespace Snake
             this.lblUp.TabIndex = 0;
             this.lblUp.Text = "Su:";
             // 
-            // lblNumPlayers
+            // lblPlayer1
             // 
-            this.lblNumPlayers.AutoSize = true;
-            this.lblNumPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumPlayers.Location = new System.Drawing.Point(77, 68);
-            this.lblNumPlayers.Name = "lblNumPlayers";
-            this.lblNumPlayers.Size = new System.Drawing.Size(155, 24);
-            this.lblNumPlayers.TabIndex = 25;
-            this.lblNumPlayers.Text = "Numero giocatori";
+            this.lblPlayer1.AutoSize = true;
+            this.lblPlayer1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer1.Location = new System.Drawing.Point(381, 701);
+            this.lblPlayer1.Name = "lblPlayer1";
+            this.lblPlayer1.Size = new System.Drawing.Size(60, 24);
+            this.lblPlayer1.TabIndex = 27;
+            this.lblPlayer1.Text = "label1";
             // 
-            // cmbNumPlayers
+            // lblPlayer2
             // 
-            this.cmbNumPlayers.FormattingEnabled = true;
-            this.cmbNumPlayers.Location = new System.Drawing.Point(238, 67);
-            this.cmbNumPlayers.Name = "cmbNumPlayers";
-            this.cmbNumPlayers.Size = new System.Drawing.Size(121, 28);
-            this.cmbNumPlayers.TabIndex = 26;
-            this.cmbNumPlayers.SelectedIndexChanged += new System.EventHandler(this.cmbNumPlayers_SelectedIndexChanged);
+            this.lblPlayer2.AutoSize = true;
+            this.lblPlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayer2.Location = new System.Drawing.Point(359, 730);
+            this.lblPlayer2.Name = "lblPlayer2";
+            this.lblPlayer2.Size = new System.Drawing.Size(60, 24);
+            this.lblPlayer2.TabIndex = 28;
+            this.lblPlayer2.Text = "label1";
             // 
             // Settings
             // 
@@ -299,5 +323,7 @@ namespace Snake
         private System.Windows.Forms.TrackBar trackBarSizeQuadrati;
         private System.Windows.Forms.ComboBox cmbNumPlayers;
         private System.Windows.Forms.Label lblNumPlayers;
+        private System.Windows.Forms.Label lblPlayer2;
+        private System.Windows.Forms.Label lblPlayer1;
     }
 }

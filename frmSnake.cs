@@ -447,15 +447,15 @@ namespace Snake
 
         protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, ref Tasto tasto, int numPlayer = 0)
         {
-            if (e.KeyCode == Config.up[numPlayer])
+            if (e.KeyCode == Config.up)
                 tasto = Tasto.su;
-            else if (e.KeyCode == Config.left[numPlayer])
+            else if (e.KeyCode == Config.left)
                 tasto = Tasto.sinistra;
-            else if (e.KeyCode == Config.down[numPlayer])
+            else if (e.KeyCode == Config.down)
                 tasto = Tasto.giu;
-            else if (e.KeyCode == Config.right[numPlayer])
+            else if (e.KeyCode == Config.right)
                 tasto = Tasto.destra;
-            else if (e.KeyCode == Config.tongue[numPlayer])
+            else if (e.KeyCode == Config.tongue)
                 s.useTongue = true;
         }
 

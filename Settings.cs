@@ -15,6 +15,10 @@ namespace Snake
 {
     public partial class Settings : Form
     {
+        Panel pnlGlobalPlayer1;
+        Panel pnlLblPlayer1;
+        Panel pnlPlayer1Settings;
+
         public Settings()
         {
             InitializeComponent();
@@ -24,18 +28,20 @@ namespace Snake
         {
             for (int i = 0; i < 2; i++)
             {
-                cmbNumPlayers.Items.Add(i);
+                cmbNumPlayers.Items.Add(i + 1);
             }
 
             SetPositions();
-            AddKeysCmbUp();
-            AddKeysCmbLeft();
-            AddKeysCmbDown();
-            AddKeysCmbRight();
-            AddKeysCmbTongue();
+            AddKeysCmbUp(cmbKeyUp);
+            AddKeysCmbLeft(cmbKeyLeft);
+            AddKeysCmbDown(cmbKeyDown);
+            AddKeysCmbRight(cmbKeyRight);
+            AddKeysCmbTongue(cmbKeyTongue);
             if (!ReadPreviousConfig())
                 Config.DefaultSettings();
             UpdateCommands();
+
+            cmbNumPlayers.SelectedItem = 1;
         }
 
         private void SetPositions()
@@ -47,22 +53,65 @@ namespace Snake
             lblNumPlayers.Location = new Point(this.Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
             cmbNumPlayers.Location = new Point(this.Width / 2 + 20, lblNumPlayers.Location.Y);
 
-            lblUp.Location = new Point(this.Width / 6, lblTitolo.Location.Y + lblTitolo.Size.Height + 25);
-            cmbKeyUp.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyUp.Size.Width, lblUp.Location.Y);
+            pnlGlobalPlayer1 = new Panel();
+            pnlGlobalPlayer1.Enabled = true;
+            pnlGlobalPlayer1.Visible = true;
+            pnlGlobalPlayer1.BackColor = Color.Transparent;
+            pnlGlobalPlayer1.Location = new Point(this.Width / 6, lblNumPlayers.Location.Y + lblNumPlayers.Size.Height + 25);
 
-            lblLeft.Location = new Point(this.Width / 6, lblUp.Location.Y + lblUp.Size.Height + 15);
-            cmbKeyLeft.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyLeft.Size.Width, lblLeft.Location.Y);
+            lblPlayer1.Text = "--- Impostazioni giocatore 1 ---";
 
-            lblDown.Location = new Point(this.Width / 6, lblLeft.Location.Y + lblLeft.Size.Height + 15);
-            cmbKeyDown.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyDown.Size.Width, lblDown.Location.Y);
+            pnlLblPlayer1 = new Panel();
+            pnlLblPlayer1.Enabled = false;
+            pnlLblPlayer1.Visible = false;
+            pnlLblPlayer1.Controls.Add(lblPlayer1);
+            pnlLblPlayer1.BackColor = Color.Transparent;
+            pnlGlobalPlayer1.Controls.Add(pnlLblPlayer1);
+            pnlLblPlayer1.Dock = DockStyle.Top;
+            pnlLblPlayer1.Size = new Size(pnlGlobalPlayer1.Width, lblPlayer1.Height + 10);
 
-            lblRight.Location = new Point(this.Width / 6, lblDown.Location.Y + lblDown.Size.Height + 15);
-            cmbKeyRight.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyRight.Size.Width, lblRight.Location.Y);
+            lblPlayer1.Location = new Point(pnlLblPlayer1.Width / 2 - lblPlayer1.Width / 2, pnlLblPlayer1.Height / 2 - lblPlayer1.Height / 2);
 
-            lblUseTongue.Location = new Point(this.Width / 6, lblRight.Location.Y + lblRight.Size.Height + 15);
-            cmbKeyTongue.Location = new Point(this.Width / 2 + this.Width / 4 - cmbKeyTongue.Size.Width, lblUseTongue.Location.Y);
+            pnlPlayer1Settings = new Panel();
+            pnlPlayer1Settings.Enabled = true;
+            pnlPlayer1Settings.Visible = true;
+            pnlGlobalPlayer1.Controls.Add(pnlPlayer1Settings);
+            pnlPlayer1Settings.Location = new Point(0, 1);
+            pnlPlayer1Settings.Dock = DockStyle.Bottom;
 
-            lblSizeQuadrati.Location = new Point(this.Width / 6, lblUseTongue.Location.Y + lblUseTongue.Size.Height + 20);
+            lblUp.Location = new Point(0, 0);
+            cmbKeyUp.Location = new Point(pnlPlayer1Settings.Width / 2 + pnlPlayer1Settings.Width / 4, lblUp.Location.Y);
+            pnlPlayer1Settings.Controls.Add(lblUp);
+            pnlPlayer1Settings.Controls.Add(cmbKeyUp);
+
+            lblLeft.Location = new Point(lblUp.Location.X, lblUp.Location.Y + lblUp.Size.Height + 15);
+            cmbKeyLeft.Location = new Point(cmbKeyUp.Location.X, lblLeft.Location.Y);
+            pnlPlayer1Settings.Controls.Add(lblLeft);
+            pnlPlayer1Settings.Controls.Add(cmbKeyLeft);
+
+            lblDown.Location = new Point(lblLeft.Location.X, lblLeft.Location.Y + lblLeft.Size.Height + 15);
+            cmbKeyDown.Location = new Point(cmbKeyLeft.Location.X, lblDown.Location.Y);
+            pnlPlayer1Settings.Controls.Add(lblDown);
+            pnlPlayer1Settings.Controls.Add(cmbKeyDown);
+
+            lblRight.Location = new Point(lblDown.Location.X, lblDown.Location.Y + lblDown.Size.Height + 15);
+            cmbKeyRight.Location = new Point(cmbKeyDown.Location.X, lblRight.Location.Y);
+            pnlPlayer1Settings.Controls.Add(lblRight);
+            pnlPlayer1Settings.Controls.Add(cmbKeyRight);
+
+            lblUseTongue.Location = new Point(lblRight.Location.X, lblRight.Location.Y + lblRight.Size.Height + 15);
+            cmbKeyTongue.Location = new Point(cmbKeyRight.Location.X, lblUseTongue.Location.Y);
+            pnlPlayer1Settings.Controls.Add(lblUseTongue);
+            pnlPlayer1Settings.Controls.Add(cmbKeyTongue);
+
+            int widthPnlSettings = cmbKeyUp.Location.X + cmbKeyUp.Width - lblUp.Location.X;
+            int heightPnlSettings = cmbKeyTongue.Location.Y + cmbKeyTongue.Height - cmbKeyUp.Location.Y;
+
+            pnlPlayer1Settings.Size = new Size(widthPnlSettings, heightPnlSettings + 5);
+            pnlGlobalPlayer1.Size = new Size(widthPnlSettings, pnlPlayer1Settings.Height + pnlLblPlayer1.Height);
+            panel1.Controls.Add(pnlGlobalPlayer1);
+
+            lblSizeQuadrati.Location = new Point(this.Width / 6, pnlGlobalPlayer1.Location.Y + pnlGlobalPlayer1.Size.Height + 20);
             lblSizeQuadrati.Text = "Grandezza\nquadratini";
             trackBarSizeQuadrati.Location = new Point(cmbKeyTongue.Location.X - 8, lblSizeQuadrati.Location.Y);
             trackBarSizeQuadrati.Size = new Size(this.Width - trackBarSizeQuadrati.Location.X - 30, 72);
@@ -94,7 +143,7 @@ namespace Snake
             UpdateCommands();
         }
 
-        private void AddKeysCmbUp()
+        private void AddKeysCmbUp(ComboBox cmbKeyUp)
         {
             cmbKeyUp.Items.Add(Keys.A);
             cmbKeyUp.Items.Add(Keys.B);
@@ -128,7 +177,7 @@ namespace Snake
             cmbKeyUp.Items.Add(Keys.Right);
         }
 
-        private void AddKeysCmbLeft()
+        private void AddKeysCmbLeft(ComboBox cmbKeyLeft)
         {
             cmbKeyLeft.Items.Add(Keys.A);
             cmbKeyLeft.Items.Add(Keys.B);
@@ -162,7 +211,7 @@ namespace Snake
             cmbKeyLeft.Items.Add(Keys.Right);
         }
 
-        private void AddKeysCmbDown()
+        private void AddKeysCmbDown(ComboBox cmbKeyDown)
         {
             cmbKeyDown.Items.Add(Keys.A);
             cmbKeyDown.Items.Add(Keys.B);
@@ -196,7 +245,7 @@ namespace Snake
             cmbKeyDown.Items.Add(Keys.Right);
         }
 
-        private void AddKeysCmbRight()
+        private void AddKeysCmbRight(ComboBox cmbKeyRight)
         {
             cmbKeyRight.Items.Add(Keys.A);
             cmbKeyRight.Items.Add(Keys.B);
@@ -230,7 +279,7 @@ namespace Snake
             cmbKeyRight.Items.Add(Keys.Right);
         }
 
-        private void AddKeysCmbTongue()
+        private void AddKeysCmbTongue(ComboBox cmbKeyTongue)
         {
             cmbKeyTongue.Items.Add(Keys.A);
             cmbKeyTongue.Items.Add(Keys.B);
@@ -263,10 +312,10 @@ namespace Snake
 
         private void cmbKeyUp_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.up[0];
+            Keys temp = Config.up;
             try
             {
-                Config.up[0] = (Keys)cmbKeyUp.SelectedItem;
+                Config.up = (Keys)cmbKeyUp.SelectedItem;
                 if (Config.up == Config.left)
                     cmbKeyLeft.SelectedItem = temp;
                 else if (Config.up == Config.down)
@@ -284,10 +333,10 @@ namespace Snake
 
         private void cmbKeyLeft_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.left[0];
+            Keys temp = Config.left;
             try
             {
-                Config.left[0] = (Keys)cmbKeyLeft.SelectedItem;
+                Config.left = (Keys)cmbKeyLeft.SelectedItem;
                 if (Config.left == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.left == Config.down)
@@ -305,10 +354,10 @@ namespace Snake
 
         private void cmbKeyDown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.down[0];
+            Keys temp = Config.down;
             try
             {
-                Config.down[0] = (Keys)cmbKeyDown.SelectedItem;
+                Config.down = (Keys)cmbKeyDown.SelectedItem;
                 if (Config.down == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.down == Config.left)
@@ -326,10 +375,10 @@ namespace Snake
 
         private void cmbKeyRight_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.right[0];
+            Keys temp = Config.right;
             try
             {
-                Config.right[0] = (Keys)cmbKeyRight.SelectedItem;
+                Config.right = (Keys)cmbKeyRight.SelectedItem;
                 if (Config.right == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.right == Config.left)
@@ -347,10 +396,10 @@ namespace Snake
 
         private void cmbKeyTongue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Keys temp = Config.tongue[0];
+            Keys temp = Config.tongue;
             try
             {
-                Config.tongue[0] = (Keys)cmbKeyTongue.SelectedItem;
+                Config.tongue = (Keys)cmbKeyTongue.SelectedItem;
                 if (Config.tongue == Config.up)
                     cmbKeyUp.SelectedItem = temp;
                 else if (Config.tongue== Config.left)
@@ -385,7 +434,7 @@ namespace Snake
                 {
                     System.IO.Directory.CreateDirectory("Data/Settings");
                 }
-                SaveConfig saveConfig = new SaveConfig(Config.up[0], Config.left[0], Config.down[0], Config.right[0], Config.tongue[0], Config.sizeQuadrato);
+                SaveConfig saveConfig = new SaveConfig(Config.up, Config.left, Config.down, Config.right, Config.tongue, Config.sizeQuadrato);
                 string Configserialized = JsonConvert.SerializeObject(saveConfig);
                 string path = "Data/Settings/userSettingsConfig.json";
                 File.WriteAllText(@path, Configserialized);
@@ -402,11 +451,11 @@ namespace Snake
                 StreamReader reader = new StreamReader("Data/Settings/userSettingsConfig.json");
                 SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
                 reader.Close();
-                Config.up[0] = saveConfig.up;
-                Config.left[0] = saveConfig.left;
-                Config.down[0] = saveConfig.down;
-                Config.right[0] = saveConfig.right;
-                Config.tongue[0] = saveConfig.tongue;
+                Config.up = saveConfig.up;
+                Config.left = saveConfig.left;
+                Config.down = saveConfig.down;
+                Config.right = saveConfig.right;
+                Config.tongue = saveConfig.tongue;
                 Config.sizeQuadrato = saveConfig.sizeQuadrato;
                 return true;
             }
@@ -434,7 +483,18 @@ namespace Snake
 
         private void cmbNumPlayers_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if ((int)cmbNumPlayers.SelectedItem == 1)
+            {
+                //Visualizza impostazioni per giocatore singolo
+                pnlLblPlayer1.Enabled = false;
+                pnlLblPlayer1.Visible = false;
+            }
+            else
+            {
+                //Visualizza impostazioni per multigiocatore
+                pnlLblPlayer1.Enabled = true;
+                pnlLblPlayer1.Visible = true;
+            }
         }
     }
 }
