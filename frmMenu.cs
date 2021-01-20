@@ -81,7 +81,10 @@ namespace Snake
                     }
                     else
                     {
-                        //frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, Name, color, numeroLivello);
+                        string nomePlayer1 = txtNome.Text;
+                        string nomePlayer2 = txtNamePlayer2.Text;
+                        Color colorPlayer2 = Color.Red;
+                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, nomePlayer1, nomePlayer2, color, colorPlayer2, numeroLivello);
                     }
                 }
                 else
