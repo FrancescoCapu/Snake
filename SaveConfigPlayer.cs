@@ -15,13 +15,9 @@ namespace Snake
         public Keys right;
         public Keys tongue;
 
-        public SaveConfigPlayer(Player player)
+        public SaveConfigPlayer()
         {
-            up = player.up;
-            left = player.left;
-            down = player.down;
-            right = player.right;
-            tongue = player.tongue;
+
         }
     }
 }

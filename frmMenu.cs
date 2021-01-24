@@ -75,7 +75,7 @@ namespace Snake
                     {
                         player1.ChangeName(txtNamePlayer2.Text);
                         player1.ChangeColor(color);
-                        Settings.ReadPreviousConfig(player1);
+                        Settings.ReadPreviousPlayerSettings(player1);
                         //string nome = txtNome.Text;
                         frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, numeroLivello);
                         frmSnake.Show();

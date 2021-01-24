@@ -46,12 +46,13 @@ namespace Snake
             AddKeysCmbRight(cmbKeyRightPlayer2);
             AddKeysCmbTongue(cmbKeyTonguePlayer2);
 
-            if (!ReadPreviousConfig(player1))
+            if (!ReadPreviousPlayerSettings(player1))
             {
-                Config.DefaultSettings();
                 DefaultSettings(player1);
-                DefaultSettings(player2);
+                //DefaultSettings(player2);
             }
+            if (!ReadPreviousViewConfig())
+                Config.DefaultSettings();
 
             UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
             UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
@@ -148,63 +149,77 @@ namespace Snake
 
         private void UpdateTrackbarQuadratini()
         {
-            trackBarSizeQuadrati.Value = Config.sizeQuadrato;
+            try
+            {
+                trackBarSizeQuadrati.Value = Config.sizeQuadrato;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
         private void cmbNumPlayers_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((int)cmbNumPlayers.SelectedItem == 1)
             {
-                //Visualizza impostazioni per giocatore singolo
-                /*
-                pnlLblPlayer1.Enabled = false;
-                pnlLblPlayer1.Visible = false;
-                */
                 lblPlayer1SettingsPrint.Enabled = false;
                 lblPlayer1SettingsPrint.Visible = false;
 
                 pnlSettingsPlayer2.Enabled = false;
                 pnlSettingsPlayer2.Visible = false;
 
-                /*
-                lblPlayer2SettingsPrint.Enabled = false;
-                lblPlayer2SettingsPrint.Visible = false;
-                */
-
                 pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height);
 
-                /*
-                int heightForm = pnlTop.Height + pnlSettingsPlayers.Height + pnlSettingsQuadratini.Height + pnlButtons.Height;
-
-                this.Size = new Size(400, heightForm);
-                */
+                NoneCommands(player2);
+                ResetCmbs(cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+                if (!ReadPreviousPlayerSettings(player1))
+                    player1.DefaultCommands();
+                if (!ReadPreviousViewConfig())
+                    Config.DefaultSettings();
+                UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+                UpdateTrackbarQuadratini();
             }
             else
             {
-                //Visualizza impostazioni per multigiocatore
-                /*
-                pnlLblPlayer1.Enabled = true;
-                pnlLblPlayer1.Visible = true;
-                */
                 lblPlayer1SettingsPrint.Enabled = true;
                 lblPlayer1SettingsPrint.Visible = true;
 
                 pnlSettingsPlayer2.Enabled = true;
                 pnlSettingsPlayer2.Visible = true;
 
-                /*
-                lblPlayer2SettingsPrint.Enabled = true;
-                lblPlayer2SettingsPrint.Visible = true;
-                */
-
                 pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height + pnlSettingsPlayer2.Height);
 
-                /*
-                int heightForm = pnlTop.Height + pnlSettingsPlayers.Height + pnlSettingsQuadratini.Height + pnlButtons.Height;
+                if(!ReadPreviousPlayerSettings(player1, false, player2))
+                {
+                    player1.DefaultCommands();
+                    player2.DefaultCommands();
+                }
+                if (!ReadPreviousViewConfig(false))
+                    Config.DefaultSettings();
 
-                this.Size = new Size(400, heightForm);
-                */
+                UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+                UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+                UpdateTrackbarQuadratini();
             }
+        }
+
+        private void NoneCommands(Player player)
+        {
+            player.up = Keys.None;
+            player.left = Keys.None;
+            player.down = Keys.None;
+            player.right = Keys.None;
+            player.tongue = Keys.None;
+        }
+
+        private void ResetCmbs(ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
+        {
+            cmbUp.SelectedItem = null;
+            cmbLeft.SelectedItem = null;
+            cmbDown.SelectedItem = null;
+            cmbRight.SelectedItem = null;
+            cmbTongue.SelectedItem = null;
         }
 
         private void btnDefaultSettings_Click(object sender, EventArgs e)
@@ -726,7 +741,7 @@ namespace Snake
             Close();
         }
 
-        private void SaveCurrentConfig(Player player, bool singlePlayer = true, Player player2 = null)
+        private void SaveCurrentConfig(Player player1, bool singlePlayer = true, Player player2 = null)
         {
             if (singlePlayer)
             {
@@ -760,7 +775,7 @@ namespace Snake
                     if (!System.IO.Directory.Exists("Data/Settings"))
                         System.IO.Directory.CreateDirectory("Data/Settings");
                     if (!System.IO.Directory.Exists("Data/Settings/Multiplayer"))
-                        System.IO.Directory.CreateDirectory("Sata/Settings/Multiplayer");
+                        System.IO.Directory.CreateDirectory("Data/Settings/Multiplayer");
                     string pathPlayer1 = "Data/Settings/Multiplayer/player1Settings.json";
                     SavePlayerSettingsInFile(player1, pathPlayer1);
                     string pathPlayer2 = "Data/Settings/Multiplayer/player2Settings.json";
@@ -785,7 +800,12 @@ namespace Snake
 
         private void SavePlayerSettingsInFile(Player player, string path)
         {
-            SaveConfigPlayer saveConfigPlayer = new SaveConfigPlayer(player);
+            SaveConfigPlayer saveConfigPlayer = new SaveConfigPlayer();
+            saveConfigPlayer.up = player.up;
+            saveConfigPlayer.left = player.left;
+            saveConfigPlayer.down = player.down;
+            saveConfigPlayer.right = player.right;
+            saveConfigPlayer.tongue = player.tongue;
             string configPlayerSerialized = JsonConvert.SerializeObject(saveConfigPlayer);
             File.WriteAllText(@path, configPlayerSerialized);
         }
@@ -797,20 +817,23 @@ namespace Snake
             File.WriteAllText(@path, classSerialized);
         }
 
-        public static bool ReadPreviousConfig(Player player1, bool singlePlayer = true, Player player2 = null)
+        public static bool ReadPreviousPlayerSettings(Player player1, bool singlePlayer = true, Player player2 = null)
         {
             if (singlePlayer)
             {
                 try
                 {
                     StreamReader reader = new StreamReader("Data/Settings/Singleplayer/playerSettings.json");
-                    SaveConfigPlayer saveConfig = JsonConvert.DeserializeObject<SaveConfigPlayer>(reader.ReadToEnd());
+                    SaveConfigPlayer playerSettings = JsonConvert.DeserializeObject<SaveConfigPlayer>(reader.ReadToEnd());
                     reader.Close();
-                    player1.up = saveConfig.up;
-                    player1.left = saveConfig.left;
-                    player1.down = saveConfig.down;
-                    player1.right = saveConfig.right;
-                    player1.tongue = saveConfig.tongue;
+                    CopyCommands(player1, playerSettings);
+                    /*
+                    player1.up = playerSettings.up;
+                    player1.left = playerSettings.left;
+                    player1.down = playerSettings.down;
+                    player1.right = playerSettings.right;
+                    player1.tongue = playerSettings.tongue;
+                    */
                     //Config.sizeQuadrato = saveConfig.sizeQuadrato;
                     return true;
                 }
@@ -827,6 +850,12 @@ namespace Snake
                     return false;
                 }
                 catch (NullReferenceException)
+                {
+                    player1.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+                catch
                 {
                     player1.DefaultCommands();
                     Config.DefaultSettings();
@@ -866,6 +895,68 @@ namespace Snake
                     player1.DefaultCommands();
                     player2.DefaultCommands();
                     Config.DefaultSettings();
+                    return false;
+                }
+            }
+        }
+
+        private static bool ReadPreviousViewConfig(bool singleplayer = true)
+        {
+            if (singleplayer)
+            {
+                try
+                {
+                    string path = "Data/Settings/Singleplayer/viewSettings.json";
+                    StreamReader reader = new StreamReader(@path);
+                    SaveViewConfig viewConfig = JsonConvert.DeserializeObject<SaveViewConfig>(reader.ReadToEnd());
+                    reader.Close();
+                    Config.sizeQuadrato = viewConfig.sizeQuadrato;
+                    return true;
+                }
+                catch (FileNotFoundException)
+                {
+                    return false;
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    return false;
+                }
+                catch (NullReferenceException)
+                {
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    string path = "Data/Settings/Multiplayer/viewSettings.json";
+                    StreamReader reader = new StreamReader(@path);
+                    SaveViewConfig viewConfig = JsonConvert.DeserializeObject<SaveViewConfig>(reader.ReadToEnd());
+                    reader.Close();
+                    Config.sizeQuadrato = viewConfig.sizeQuadrato;
+                    return true;
+                }
+                catch (FileNotFoundException)
+                {
+                    return false;
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    return false;
+                }
+                catch (NullReferenceException)
+                {
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
                     return false;
                 }
             }
