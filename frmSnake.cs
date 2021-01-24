@@ -47,7 +47,7 @@ namespace Snake
         protected Panel pnlLingua;
         protected Ranking classifica;
         protected RecordUtente recordutente = new RecordUtente();
-        protected readonly Color color;
+        //protected readonly Color color;
         protected const int TICK_TO_RESET_TONGUE = 3;
         protected Player player1;
 
@@ -58,18 +58,19 @@ namespace Snake
         /// <param name="HeightCampoGioco"></param>
         /// <param name="WidthCampoGioco"></param>
         /// <param name="timerTick"></param>
-        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, string nome, Color color, int numLivello = 0)
+        public frmSnake(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, Player player, int numLivello = 0)
         {
             InitializeComponent();
             nomeChiamante = frmChiamante;
             this.heightCampoGioco = heightCampoGioco;
             this.widthCampoGioco = widthCampoGioco;
-            this.color = color;
+            //this.color = color;
             this.numLivello = numLivello;
-            recordutente.NomePlayer = nome;
+            //recordutente.NomePlayer = nome;
             tmr.Interval = timerInterval;
             tmr.Enabled = true;
-            player1 = new Player(1);
+            player1 = player;
+            recordutente.NomePlayer = player.Name;
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace Snake
             cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             AddMuri();
             StampaCampoGioco(ref pnlCampoGioco, ref pnlElementiDinamici);
-            StampaSerpente(ref serpente, ref pnlElementiDinamici, ref queueSerpente);
+            StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref queueSerpente);
             PrintTongue(ref serpente, ref pnlElementiDinamici, ref pnlLingua);
             NewCibo(ref cibo, ref serpente);
             PrintFood(ref cibo, ref pnlElementiDinamici, ref lstPanelCibo);
@@ -201,7 +202,7 @@ namespace Snake
         /// stampa il serpente in base alla propria posizione. da usare solo per la prima stampa
         /// </summary>
         /// <param name="serpente"></param>
-        protected void StampaSerpente(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
+        protected void StampaSerpente(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
         {
             DrawingControl.SuspendDrawing(pnlSnake);
             pnlSnake.Controls.Clear();
@@ -211,7 +212,7 @@ namespace Snake
                 panel.Location = new Point(s.GetX(i) * Config.sizeQuadrato, s.GetY(i) * Config.sizeQuadrato);
                 panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = color;
+                panel.BackColor = player.GetColor();
                 panel.Visible = true;
                 //lstPanelSerpente.Add(panel);
                 queueSnake.Enqueue(panel); //se funziona usare questo
@@ -225,7 +226,7 @@ namespace Snake
         /// </summary>
         /// <param name="s"></param>
         /// <param name="hasEaten"></param>
-        protected void UpdateSnake(ref Serpente s, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
+        protected void UpdateSnake(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
         {
             Panel temp;
             if (hasEaten)
@@ -234,7 +235,7 @@ namespace Snake
                 panel.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
                 panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = color;
+                panel.BackColor = player.GetColor();
                 panel.Visible = true;
                 queueSnake.Enqueue(panel);
 
@@ -417,12 +418,12 @@ namespace Snake
                 if (HasEaten(ref s, ref c))
                 {
                     IncSnake(ref s);
-                    UpdateSnake(ref s, ref pnlSnake, ref queueSnake, true);
+                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref queueSnake, true);
                     NewCibo(ref c, ref s);
                     UpdateFood(ref c, ref lstPnlCibo);
                 }
                 if (tasto != Tasto.fermo)
-                    UpdateSnake(ref s, ref pnlSnake, ref queueSnake, false);
+                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref queueSnake, false);
             }
             if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
                 s.IncCounterTongue();
@@ -442,20 +443,21 @@ namespace Snake
         /// <param name="e"></param>
         private void frmSnake_KeyDown(object sender, KeyEventArgs e)
         {
-            TastoScelto(ref serpente, ref e, ref tasto);
+            if (e.KeyCode == player1.up || e.KeyCode == player1.left || e.KeyCode == player1.down || e.KeyCode == player1.right || e.KeyCode == player1.tongue)
+                TastoScelto(ref serpente, ref e, player1, ref tasto);
         }
 
-        protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, ref Tasto tasto, int numPlayer = 0)
+        protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, Player player, ref Tasto tasto, int numPlayer = 0)
         {
-            if (e.KeyCode == Config.up)
+            if (e.KeyCode == player.up)
                 tasto = Tasto.su;
-            else if (e.KeyCode == Config.left)
+            else if (e.KeyCode == player.left)
                 tasto = Tasto.sinistra;
-            else if (e.KeyCode == Config.down)
+            else if (e.KeyCode == player.down)
                 tasto = Tasto.giu;
-            else if (e.KeyCode == Config.right)
+            else if (e.KeyCode == player.right)
                 tasto = Tasto.destra;
-            else if (e.KeyCode == Config.tongue)
+            else if (e.KeyCode == player.tongue)
                 s.useTongue = true;
         }
 

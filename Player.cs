@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Snake
 {
@@ -14,16 +15,39 @@ namespace Snake
         public Keys down;
         public Keys right;
         public Keys tongue;
-        int numPlayer;
 
-        public Player(int numPlayer = 1)
+        private int numPlayer;
+        private string name;
+        private Color color;
+
+        public int NumPlayer { get => numPlayer; set => numPlayer = value; }
+        public string Name { get => name; set => name = value; }
+
+        public Player(Color color, int numPlayer = 1, string name ="")
         {
-            this.numPlayer = numPlayer;
+            this.color = color;
+            this.NumPlayer = numPlayer;
+            this.Name = name;
+        }
+
+        public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void ChangeColor(Color color)
+        {
+            this.color = color;
+        }
+
+        public Color GetColor()
+        {
+            return color;
         }
 
         public void DefaultCommands()
         {
-            if (numPlayer == 1)
+            if (NumPlayer == 1)
             {
                 up = Keys.Up;
                 left = Keys.Left;
@@ -31,7 +55,7 @@ namespace Snake
                 right = Keys.Right;
                 tongue = Keys.Space;
             }
-            else if (numPlayer == 2)
+            else if (NumPlayer == 2)
             {
                 up = Keys.W;
                 left = Keys.A;
@@ -41,7 +65,7 @@ namespace Snake
             }
         }
 
-        public bool ComparisonCommands(Player otherPlayer)
+        public bool ComparisonCommands(ref Player otherPlayer)
         {
             if (up == otherPlayer.up)
             {

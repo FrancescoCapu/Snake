@@ -35,13 +35,8 @@ namespace Snake
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
         private Color color = Color.Orange;
-
-        enum Velocita
-        {
-            Lento,
-            Normale,
-            Veloce
-        }
+        private Player player1;
+        private Player player2;
 
         public frmMenu()
         {
@@ -51,11 +46,16 @@ namespace Snake
         private void frmMenu_Load(object sender, EventArgs e)
         {
             rootNomiFileMenu = new RootNomiFile();
+
             /*
             StreamReader reader = new StreamReader("Data/levels/indice_livelli.json");
             rootNomiFileMenu = JsonConvert.DeserializeObject<RootNomiFile>(reader.ReadToEnd());
             reader.Close();
             */
+
+            player1 = new Player(Color.White, 1, "");
+            player2 = new Player(Color.White, 2, "");
+
             frmSnake.GetNomiFile(ref rootNomiFileMenu);
             
             GetPictures();
@@ -73,18 +73,22 @@ namespace Snake
                 {
                     if (radioButtonSinglePlayer.Checked)
                     {
+                        player1.ChangeName(txtNamePlayer2.Text);
+                        player1.ChangeColor(color);
                         Settings.ReadPreviousConfig();
-                        string nome = txtNome.Text;
-                        frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, nome, color, numeroLivello);
+                        //string nome = txtNome.Text;
+                        frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, numeroLivello);
                         frmSnake.Show();
                         this.Hide();
                     }
                     else
                     {
+                        player1.ChangeName(txtNamePlayer2.Text);
+                        player2.ChangeName(txtNamePlayer2.Text);
                         string nomePlayer1 = txtNome.Text;
                         string nomePlayer2 = txtNamePlayer2.Text;
                         Color colorPlayer2 = Color.Red;
-                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, nomePlayer1, nomePlayer2, color, colorPlayer2, numeroLivello);
+                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, nomePlayer2, colorPlayer2, numeroLivello);
                     }
                 }
                 else
@@ -137,7 +141,7 @@ namespace Snake
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            Settings settings= new Settings();
+            Settings settings = new Settings(ref player1, ref player2);
             settings.ShowDialog();
         }
 
