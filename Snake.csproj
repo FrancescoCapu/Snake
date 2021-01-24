@@ -67,6 +67,7 @@
     <Compile Include="frmMultiplayer.Designer.cs">
       <DependentUpon>frmMultiplayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModQueue.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Ranking.cs" />
     <Compile Include="Config.cs" />

@@ -42,7 +42,8 @@ namespace Snake
         protected Tasto tasto = Tasto.fermo;
         protected Tasto tastoPrec = Tasto.destra;
         protected Point posLastPrec;
-        protected Queue<Panel> queueSerpente = new Queue<Panel>();
+        //protected Queue<Panel> queueSerpente = new Queue<Panel>();
+        protected ModQueue modQueueSerpente = new ModQueue();
         protected List<Panel> lstPanelCibo = new List<Panel>();
         protected Panel pnlLingua;
         protected Ranking classifica;
@@ -89,7 +90,8 @@ namespace Snake
             cibo = new Cibo(widthCampoGioco, heightCampoGioco);
             AddMuri();
             StampaCampoGioco(ref pnlCampoGioco, ref pnlElementiDinamici);
-            StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref queueSerpente);
+            //StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref queueSerpente);
+            StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref modQueueSerpente);
             PrintTongue(ref serpente, ref pnlElementiDinamici, ref pnlLingua);
             NewCibo(ref cibo, ref serpente);
             PrintFood(ref cibo, ref pnlElementiDinamici, ref lstPanelCibo);
@@ -202,7 +204,8 @@ namespace Snake
         /// stampa il serpente in base alla propria posizione. da usare solo per la prima stampa
         /// </summary>
         /// <param name="serpente"></param>
-        protected void StampaSerpente(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
+        //protected void StampaSerpente(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake)
+        protected void StampaSerpente(ref Serpente s, ref Player player, ref Panel pnlSnake, ref ModQueue modQueue)
         {
             DrawingControl.SuspendDrawing(pnlSnake);
             pnlSnake.Controls.Clear();
@@ -214,8 +217,8 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = player.GetColor();
                 panel.Visible = true;
-                //lstPanelSerpente.Add(panel);
-                queueSnake.Enqueue(panel); //se funziona usare questo
+                //queueSnake.Enqueue(panel); //se funziona usare questo
+                modQueue.Enqueue(panel);
                 pnlSnake.Controls.Add(panel);
             }
             DrawingControl.ResumeDrawing(pnlSnake);
@@ -226,7 +229,8 @@ namespace Snake
         /// </summary>
         /// <param name="s"></param>
         /// <param name="hasEaten"></param>
-        protected void UpdateSnake(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
+        //protected void UpdateSnake(ref Serpente s, ref Player player, ref Panel pnlSnake, ref Queue<Panel> queueSnake, bool hasEaten = false)
+        protected void UpdateSnake(ref Serpente s, ref Player player, ref Panel pnlSnake, ref ModQueue modQueueSnake, bool hasEaten = false)
         {
             Panel temp;
             if (hasEaten)
@@ -237,23 +241,25 @@ namespace Snake
                 panel.BorderStyle = BorderStyle.FixedSingle;
                 panel.BackColor = player.GetColor();
                 panel.Visible = true;
-                queueSnake.Enqueue(panel);
+                //queueSnake.Enqueue(panel);
+                modQueueSerpente.InserisciInTesta(panel);
 
                 //Se si può evitare il for è meglio...
-                
+                /*
                 for (int i = 0; i < s.GetLength() - 1; i++)
                 {
                     temp = queueSnake.Dequeue();
                     queueSnake.Enqueue(temp);
                 }
+                */
 
                 pnlSnake.Controls.Add(panel);
             }
             else
             {
-                temp = queueSnake.Dequeue();
+                temp = modQueueSnake.Dequeue();
                 temp.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
-                queueSnake.Enqueue(temp);
+                modQueueSnake.Enqueue(temp);
             }
         }
 
@@ -350,10 +356,13 @@ namespace Snake
         /// <param name="e"></param>
         private void tmr_Tick(object sender, EventArgs e)
         {
-            LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
+            //LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
+            LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
+
         }
 
-        protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
+        //protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
+        protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref ModQueue modQueueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
         {
             switch (tasto)
             {
@@ -418,12 +427,12 @@ namespace Snake
                 if (HasEaten(ref s, ref c))
                 {
                     IncSnake(ref s);
-                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref queueSnake, true);
+                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref modQueueSnake, true);
                     NewCibo(ref c, ref s);
                     UpdateFood(ref c, ref lstPnlCibo);
                 }
                 if (tasto != Tasto.fermo)
-                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref queueSnake, false);
+                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref modQueueSerpente, false);
             }
             if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
                 s.IncCounterTongue();
