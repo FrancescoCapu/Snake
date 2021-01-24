@@ -89,7 +89,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordUtente.cs" />
     <Compile Include="RootNomiFile.cs" />
-    <Compile Include="SaveConfig.cs" />
+    <Compile Include="SaveConfigPlayer.cs" />
+    <Compile Include="SaveViewConfig.cs" />
     <Compile Include="Serpente.cs" />
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>

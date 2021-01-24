@@ -46,9 +46,16 @@ namespace Snake
             AddKeysCmbRight(cmbKeyRightPlayer2);
             AddKeysCmbTongue(cmbKeyTonguePlayer2);
 
-            if (!ReadPreviousConfig())
+            if (!ReadPreviousConfig(player1))
+            {
                 Config.DefaultSettings();
-            UpdateCommands();
+                DefaultSettings(player1);
+                DefaultSettings(player2);
+            }
+
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateTrackbarQuadratini();
 
             cmbNumPlayers.SelectedItem = 1;
         }
@@ -112,22 +119,35 @@ namespace Snake
             Size = new Size(400, heightForm);
         }
 
-        private void UpdateCommands()
+        private void UpdateCommands(Player player, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            cmbKeyUp.SelectedItem = player1.up;
-            if (player1.up == Keys.None)
-                cmbKeyUp.SelectedItem = null;
-            cmbKeyLeft.SelectedItem = player1.left;
-            cmbKeyDown.SelectedItem = player1.down;
-            cmbKeyRight.SelectedItem = player1.right;
-            cmbKeyTongue.SelectedItem = player1.tongue;
+            cmbUp.SelectedItem = player.up;
+            if (player.up == Keys.None)
+                cmbUp.SelectedItem = null;
+            cmbLeft.SelectedItem = player.left;
+            if (player.left == Keys.None)
+                cmbLeft.SelectedItem = null;
+            cmbDown.SelectedItem = player.down;
+            if (player.down == Keys.None)
+                cmbDown.SelectedItem = null;
+            cmbRight.SelectedItem = player.right;
+            if (player.right == Keys.None)
+                cmbRight.SelectedItem = null;
+            cmbTongue.SelectedItem = player.tongue;
+            if (player.tongue == Keys.None)
+                cmbTongue.SelectedItem = null;
 
+            /*
             cmbKeyUpPlayer2.SelectedItem = player2.up;
             cmbKeyLeftPlayer2.SelectedItem = player2.left;
             cmbKeyDownPlayer2.SelectedItem = player2.down;
             cmbKeyRightPlayer2.SelectedItem = player2.right;
             cmbKeyTonguePlayer2.SelectedItem = player2.tongue;
+            */
+        }
 
+        private void UpdateTrackbarQuadratini()
+        {
             trackBarSizeQuadrati.Value = Config.sizeQuadrato;
         }
 
@@ -190,9 +210,35 @@ namespace Snake
         private void btnDefaultSettings_Click(object sender, EventArgs e)
         {
             Config.DefaultSettings();
-            trackBarSizeQuadrati.Value = Config.sizeQuadrato;
-            UpdateCommands();
+            DefaultSettings(player1);
+            DefaultSettings(player2);
+            //trackBarSizeQuadrati.Value = Config.sizeQuadrato;
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateTrackbarQuadratini();
         }
+
+        private void DefaultSettings(Player player)
+        {
+            if (player.NumPlayer == 1)
+            {
+                player.up = Keys.Up;
+                player.left = Keys.Left;
+                player.down = Keys.Down;
+                player.right = Keys.Right;
+                player.tongue = Keys.Space;
+            }
+            else if (player.NumPlayer == 2)
+            {
+                player.up = Keys.W;
+                player.left = Keys.A;
+                player.down = Keys.S;
+                player.right = Keys.D;
+                player.tongue = Keys.E;
+            }
+        }
+
+        #region AddKeysCmb
 
         private void AddKeysCmbUp(ComboBox cmbKeyUp)
         {
@@ -361,6 +407,8 @@ namespace Snake
             cmbKeyTongue.Items.Add(Keys.Space);
         }
 
+        #endregion
+
         private void cmbKeyUp_SelectedIndexChanged(object sender, EventArgs e)
         {
             /*
@@ -384,20 +432,20 @@ namespace Snake
             */
 
             ChangeKeyUp(player1, player2, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
-            UpdateCommands();
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
         }
 
         private void cmbKeyUpPlayer2_SelectedIndexChanged(object sender, EventArgs e)
         {
             ChangeKeyUp(player2, player1, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
-            UpdateCommands();
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
         }
 
         private void ChangeKeyUp(Player player, Player otherplayer, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            Keys temp = player.up;
             if (cmbUp.SelectedItem != null)
             {
+                Keys temp = player.up;
                 try
                 {
                     player.up = (Keys)cmbUp.SelectedItem;
@@ -414,8 +462,13 @@ namespace Snake
                 {
 
                 }
+                finally
+                {
+                    player.ComparisonCommands(ref otherplayer, temp);
+                }
             }
-            player.ComparisonCommands(ref otherplayer);
+            //Bisogna sistemare le altre funzioni ChangeKey e anche la parte relativa ad UpdateCommands affinché il programma funzioni correttamente.
+            // Volendo ComparisonCommands può essere modificato ed impostato come void al posto di bool ma lascerei bool che non si sa mai serva così
         }
 
         private void cmbKeyLeft_SelectedIndexChanged(object sender, EventArgs e)
@@ -440,32 +493,41 @@ namespace Snake
             }
             */
 
-            ChangeKeyLeft(player1);
+            ChangeKeyLeft(player1, player2, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
         }
 
         private void cmbKeyLeftPlayer2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeKeyLeft(player2);
+            ChangeKeyLeft(player2, player1, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
         }
 
-        private void ChangeKeyLeft(Player player)
+        private void ChangeKeyLeft(Player player, Player otherPlayer, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            Keys temp = player.left;
-            try
+            if (cmbLeft.SelectedItem != null)
             {
-                player.left = (Keys)cmbKeyLeft.SelectedItem;
-                if (player.left == player.up)
-                    cmbKeyUp.SelectedItem = temp;
-                else if (player.left == player.down)
-                    cmbKeyDown.SelectedItem = temp;
-                else if (player.left == player.right)
-                    cmbKeyRight.SelectedItem = temp;
-                else if (player.left == player.tongue)
-                    cmbKeyTongue.SelectedItem = temp;
-            }
-            catch (System.NullReferenceException)
-            {
+                Keys temp = player.left;
+                try
+                {
+                    player.left = (Keys)cmbLeft.SelectedItem;
+                    if (player.left == player.up)
+                        cmbUp.SelectedItem = temp;
+                    else if (player.left == player.down)
+                        cmbDown.SelectedItem = temp;
+                    else if (player.left == player.right)
+                        cmbRight.SelectedItem = temp;
+                    else if (player.left == player.tongue)
+                        cmbTongue.SelectedItem = temp;
+                }
+                catch (System.NullReferenceException)
+                {
 
+                }
+                finally
+                {
+                    player.ComparisonCommands(ref otherPlayer, temp);
+                }
             }
         }
 
@@ -491,32 +553,41 @@ namespace Snake
             }
             */
 
-            ChangeKeyDown(player1);
+            ChangeKeyDown(player1, player2, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
         }
 
         private void cmbKeyDownPlayer2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeKeyDown(player2);
+            ChangeKeyDown(player2, player1, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
         }
 
-        private void ChangeKeyDown(Player player)
+        private void ChangeKeyDown(Player player, Player otherPlayer, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            Keys temp = player.down;
-            try
+            if (cmbDown.SelectedItem != null)
             {
-                player.down = (Keys)cmbKeyDown.SelectedItem;
-                if (player.down == player.up)
-                    cmbKeyUp.SelectedItem = temp;
-                else if (player.down == player.left)
-                    cmbKeyLeft.SelectedItem = temp;
-                else if (player.down == player.right)
-                    cmbKeyRight.SelectedItem = temp;
-                else if (player.down == player.tongue)
-                    cmbKeyTongue.SelectedItem = temp;
-            }
-            catch (System.NullReferenceException)
-            {
+                Keys temp = player.down;
+                try
+                {
+                    player.down = (Keys)cmbDown.SelectedItem;
+                    if (player.down == player.up)
+                        cmbUp.SelectedItem = temp;
+                    else if (player.down == player.left)
+                        cmbLeft.SelectedItem = temp;
+                    else if (player.down == player.right)
+                        cmbRight.SelectedItem = temp;
+                    else if (player.down == player.tongue)
+                        cmbTongue.SelectedItem = temp;
+                }
+                catch (System.NullReferenceException)
+                {
 
+                }
+                finally
+                {
+                    player.ComparisonCommands(ref otherPlayer, temp);
+                }
             }
         }
 
@@ -542,32 +613,41 @@ namespace Snake
             }
             */
 
-            ChangeKeyRight(player1);
+            ChangeKeyRight(player1, player2, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
         }
 
         private void cmbKeyRightPlayer2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeKeyRight(player2);
+            ChangeKeyRight(player2, player1, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
         }
 
-        private void ChangeKeyRight(Player player)
+        private void ChangeKeyRight(Player player, Player otherPlayer, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            Keys temp = player.right;
-            try
+            if (cmbRight.SelectedItem != null)
             {
-                player.right = (Keys)cmbKeyRight.SelectedItem;
-                if (player.right == player.up)
-                    cmbKeyUp.SelectedItem = temp;
-                else if (player.right == player.left)
-                    cmbKeyLeft.SelectedItem = temp;
-                else if (player.right == player.down)
-                    cmbKeyDown.SelectedItem = temp;
-                else if (player.right == player.tongue)
-                    cmbKeyTongue.SelectedItem = temp;
-            }
-            catch (System.NullReferenceException)
-            {
+                Keys temp = player.right;
+                try
+                {
+                    player.right = (Keys)cmbRight.SelectedItem;
+                    if (player.right == player.up)
+                        cmbUp.SelectedItem = temp;
+                    else if (player.right == player.left)
+                        cmbLeft.SelectedItem = temp;
+                    else if (player.right == player.down)
+                        cmbDown.SelectedItem = temp;
+                    else if (player.right == player.tongue)
+                        cmbTongue.SelectedItem = temp;
+                }
+                catch (System.NullReferenceException)
+                {
 
+                }
+                finally
+                {
+                    player.ComparisonCommands(ref otherPlayer, temp);
+                }
             }
         }
 
@@ -593,32 +673,41 @@ namespace Snake
             }
             */
 
-            ChangeKeyTongue(player1);
+            ChangeKeyTongue(player1, player2, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
+            UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
         }
 
         private void cmbKeyTonguePlayer2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeKeyTongue(player2);
+            ChangeKeyTongue(player2, player1, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
+            UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
         }
 
-        private void ChangeKeyTongue(Player player)
+        private void ChangeKeyTongue(Player player, Player otherPlayer, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
         {
-            Keys temp = player.tongue;
-            try
+            if (cmbTongue.SelectedItem != null)
             {
-                player.tongue = (Keys)cmbKeyTongue.SelectedItem;
-                if (player.tongue == player.up)
-                    cmbKeyUp.SelectedItem = temp;
-                else if (player.tongue == player.left)
-                    cmbKeyLeft.SelectedItem = temp;
-                else if (player.tongue == player.down)
-                    cmbKeyDown.SelectedItem = temp;
-                else if (player.tongue == player.right)
-                    cmbKeyRight.SelectedItem = temp;
-            }
-            catch (System.NullReferenceException)
-            {
+                Keys temp = player.tongue;
+                try
+                {
+                    player.tongue = (Keys)cmbTongue.SelectedItem;
+                    if (player.tongue == player.up)
+                        cmbUp.SelectedItem = temp;
+                    else if (player.tongue == player.left)
+                        cmbLeft.SelectedItem = temp;
+                    else if (player.tongue == player.down)
+                        cmbDown.SelectedItem = temp;
+                    else if (player.tongue == player.right)
+                        cmbRight.SelectedItem = temp;
+                }
+                catch (System.NullReferenceException)
+                {
 
+                }
+                finally
+                {
+                    player.ComparisonCommands(ref otherPlayer, temp);
+                }
             }
         }
 
@@ -629,63 +718,175 @@ namespace Snake
 
         private void btnSalva_Click(object sender, EventArgs e)
         {
-            SaveCurrentConfig();
+            if ((int)cmbNumPlayers.SelectedItem == 1)
+                SaveCurrentConfig(player1);
+            else
+                SaveCurrentConfig(player1, false, player2);
+
             Close();
         }
 
-        private void SaveCurrentConfig()
+        private void SaveCurrentConfig(Player player, bool singlePlayer = true, Player player2 = null)
         {
-            try
+            if (singlePlayer)
             {
-                if (!System.IO.Directory.Exists("Data/Settings"))
+                try
                 {
-                    System.IO.Directory.CreateDirectory("Data/Settings");
+                    if (!System.IO.Directory.Exists("Data/Settings"))
+                        System.IO.Directory.CreateDirectory("Data/Settings");
+                    if (!System.IO.Directory.Exists("Data/Settings/Singleplayer"))
+                        System.IO.Directory.CreateDirectory("Data/Settings/Singleplayer");
+                    string path = "Data/Settings/Singleplayer/playerSettings.json";
+                    SavePlayerSettingsInFile(player1, path);
+
+                    string pathViewConfig = "Data/Settings/Singleplayer/viewSettings.json";
+                    SaveViewConfigInFile(pathViewConfig);
+
+                    /*
+                    SaveConfigPlayer saveConfig = new SaveConfigPlayer(player1);
+                    string configSerialized = JsonConvert.SerializeObject(saveConfig);
+                    File.WriteAllText(@path, configSerialized);
+                    */
                 }
-                SaveConfig saveConfig = new SaveConfig(Config.up, Config.left, Config.down, Config.right, Config.tongue, Config.sizeQuadrato);
-                string Configserialized = JsonConvert.SerializeObject(saveConfig);
-                string path = "Data/Settings/userSettingsConfig.json";
-                File.WriteAllText(@path, Configserialized);
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString(), "");
+                }
             }
-            catch (Exception fe)
+            else
             {
-                MessageBox.Show(fe.ToString(), "");
-            }
-        }
-        public static bool ReadPreviousConfig()
-        {
-            try
-            {
-                StreamReader reader = new StreamReader("Data/Settings/userSettingsConfig.json");
-                SaveConfig saveConfig = JsonConvert.DeserializeObject<SaveConfig>(reader.ReadToEnd());
-                reader.Close();
-                Config.up = saveConfig.up;
-                Config.left = saveConfig.left;
-                Config.down = saveConfig.down;
-                Config.right = saveConfig.right;
-                Config.tongue = saveConfig.tongue;
-                Config.sizeQuadrato = saveConfig.sizeQuadrato;
-                return true;
-            }
-            catch (FileNotFoundException)
-            {
-                Config.DefaultSettings();
-                return false;
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Config.DefaultSettings();
-                return false;
-            }
-            catch (NullReferenceException)
-            {
-                Config.DefaultSettings();
-                return false;
+                try
+                {
+                    if (!System.IO.Directory.Exists("Data/Settings"))
+                        System.IO.Directory.CreateDirectory("Data/Settings");
+                    if (!System.IO.Directory.Exists("Data/Settings/Multiplayer"))
+                        System.IO.Directory.CreateDirectory("Sata/Settings/Multiplayer");
+                    string pathPlayer1 = "Data/Settings/Multiplayer/player1Settings.json";
+                    SavePlayerSettingsInFile(player1, pathPlayer1);
+                    string pathPlayer2 = "Data/Settings/Multiplayer/player2Settings.json";
+                    SavePlayerSettingsInFile(player2, pathPlayer2);
+
+                    string pathViewConfig = "Data/Settings/Multiplayer/viewSettings.json";
+                    SaveViewConfigInFile(pathViewConfig);
+
+                    /*
+                    SaveConfigPlayer saveConfigPlayer1 = new SaveConfigPlayer(player1);
+                    string configPlayer1Serialized = JsonConvert.SerializeObject(saveConfigPlayer1);
+                    string path = "Data/Settings/Multiplayer/player1Settings.json";
+                    File.WriteAllText(@path, configPlayer1Serialized);
+                    */
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString(), "");
+                }
             }
         }
 
+        private void SavePlayerSettingsInFile(Player player, string path)
+        {
+            SaveConfigPlayer saveConfigPlayer = new SaveConfigPlayer(player);
+            string configPlayerSerialized = JsonConvert.SerializeObject(saveConfigPlayer);
+            File.WriteAllText(@path, configPlayerSerialized);
+        }
+
+        private void SaveViewConfigInFile(string path)
+        {
+            SaveViewConfig toBeSerialized = new SaveViewConfig(Config.sizeQuadrato);
+            string classSerialized = JsonConvert.SerializeObject(toBeSerialized);
+            File.WriteAllText(@path, classSerialized);
+        }
+
+        public static bool ReadPreviousConfig(Player player1, bool singlePlayer = true, Player player2 = null)
+        {
+            if (singlePlayer)
+            {
+                try
+                {
+                    StreamReader reader = new StreamReader("Data/Settings/Singleplayer/playerSettings.json");
+                    SaveConfigPlayer saveConfig = JsonConvert.DeserializeObject<SaveConfigPlayer>(reader.ReadToEnd());
+                    reader.Close();
+                    player1.up = saveConfig.up;
+                    player1.left = saveConfig.left;
+                    player1.down = saveConfig.down;
+                    player1.right = saveConfig.right;
+                    player1.tongue = saveConfig.tongue;
+                    //Config.sizeQuadrato = saveConfig.sizeQuadrato;
+                    return true;
+                }
+                catch (FileNotFoundException)
+                {
+                    player1.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    player1.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+                catch (NullReferenceException)
+                {
+                    player1.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+            }
+            else
+            {
+                try
+                {
+                    StreamReader readerPlayer1 = new StreamReader("Data/Settings/Multiplayer/player1Settings.json");
+                    SaveConfigPlayer player1Settings = JsonConvert.DeserializeObject<SaveConfigPlayer>(readerPlayer1.ReadToEnd());
+                    readerPlayer1.Close();
+                    StreamReader readerPlayer2 = new StreamReader("Data/Settings/Multiplayer/player2Settings.json");
+                    SaveConfigPlayer player2Settings = JsonConvert.DeserializeObject<SaveConfigPlayer>(readerPlayer2.ReadToEnd());
+                    readerPlayer2.Close();
+                    CopyCommands(player1, player1Settings);
+                    CopyCommands(player2, player2Settings);
+                    return true;
+                }
+                catch (FileNotFoundException)
+                {
+                    player1.DefaultCommands();
+                    player2.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    player1.DefaultCommands();
+                    player2.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+                catch (NullReferenceException)
+                {
+                    player1.DefaultCommands();
+                    player2.DefaultCommands();
+                    Config.DefaultSettings();
+                    return false;
+                }
+            }
+        }
+
+        private static void CopyCommands(Player player, SaveConfigPlayer source)
+        {
+            player.up = source.up;
+            player.left = source.left;
+            player.down = source.down;
+            player.right = source.right;
+            player.tongue = source.tongue;
+        }
+
+
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveCurrentConfig();
+            if ((int)cmbNumPlayers.SelectedItem == 1)
+                SaveCurrentConfig(player1);
+            else
+                SaveCurrentConfig(player1, false, player2);
         }
     }
 }

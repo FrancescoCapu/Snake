@@ -30,6 +30,9 @@ namespace Snake
         private void InitializeComponent()
         {
             this.pnlSfondo = new System.Windows.Forms.Panel();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.btnSalva = new System.Windows.Forms.Button();
+            this.btnDefaultSettings = new System.Windows.Forms.Button();
             this.pnlSettingsQuadratini = new System.Windows.Forms.Panel();
             this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.trackBarSizeQuadrati = new System.Windows.Forms.TrackBar();
@@ -62,17 +65,14 @@ namespace Snake
             this.lblTitolo = new System.Windows.Forms.Label();
             this.cmbNumPlayers = new System.Windows.Forms.ComboBox();
             this.lblNumPlayers = new System.Windows.Forms.Label();
-            this.pnlButtons = new System.Windows.Forms.Panel();
-            this.btnDefaultSettings = new System.Windows.Forms.Button();
-            this.btnSalva = new System.Windows.Forms.Button();
             this.pnlSfondo.SuspendLayout();
+            this.pnlButtons.SuspendLayout();
             this.pnlSettingsQuadratini.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
             this.pnlSettingsPlayers.SuspendLayout();
             this.pnlSettingsPlayer2.SuspendLayout();
             this.pnlSettingsPlayer1.SuspendLayout();
             this.pnlTop.SuspendLayout();
-            this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlSfondo
@@ -87,6 +87,41 @@ namespace Snake
             this.pnlSfondo.Name = "pnlSfondo";
             this.pnlSfondo.Size = new System.Drawing.Size(490, 711);
             this.pnlSfondo.TabIndex = 0;
+            // 
+            // pnlButtons
+            // 
+            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
+            this.pnlButtons.Controls.Add(this.btnSalva);
+            this.pnlButtons.Controls.Add(this.btnDefaultSettings);
+            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlButtons.Location = new System.Drawing.Point(0, 459);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(490, 100);
+            this.pnlButtons.TabIndex = 33;
+            // 
+            // btnSalva
+            // 
+            this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalva.Location = new System.Drawing.Point(324, 0);
+            this.btnSalva.Name = "btnSalva";
+            this.btnSalva.Size = new System.Drawing.Size(166, 100);
+            this.btnSalva.TabIndex = 22;
+            this.btnSalva.Text = "Salva impostazioni";
+            this.btnSalva.UseVisualStyleBackColor = true;
+            this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
+            // 
+            // btnDefaultSettings
+            // 
+            this.btnDefaultSettings.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDefaultSettings.Location = new System.Drawing.Point(0, 0);
+            this.btnDefaultSettings.Name = "btnDefaultSettings";
+            this.btnDefaultSettings.Size = new System.Drawing.Size(169, 100);
+            this.btnDefaultSettings.TabIndex = 16;
+            this.btnDefaultSettings.Text = "Ripristina impostazioni di default";
+            this.btnDefaultSettings.UseVisualStyleBackColor = true;
+            this.btnDefaultSettings.Click += new System.EventHandler(this.btnDefaultSettings_Click);
             // 
             // pnlSettingsQuadratini
             // 
@@ -421,39 +456,6 @@ namespace Snake
             this.lblNumPlayers.TabIndex = 25;
             this.lblNumPlayers.Text = "Numero giocatori";
             // 
-            // pnlButtons
-            // 
-            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
-            this.pnlButtons.Controls.Add(this.btnSalva);
-            this.pnlButtons.Controls.Add(this.btnDefaultSettings);
-            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 459);
-            this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(490, 100);
-            this.pnlButtons.TabIndex = 33;
-            // 
-            // btnDefaultSettings
-            // 
-            this.btnDefaultSettings.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnDefaultSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDefaultSettings.Location = new System.Drawing.Point(0, 0);
-            this.btnDefaultSettings.Name = "btnDefaultSettings";
-            this.btnDefaultSettings.Size = new System.Drawing.Size(169, 100);
-            this.btnDefaultSettings.TabIndex = 16;
-            this.btnDefaultSettings.Text = "Ripristina impostazioni di default";
-            this.btnDefaultSettings.UseVisualStyleBackColor = true;
-            // 
-            // btnSalva
-            // 
-            this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalva.Location = new System.Drawing.Point(324, 0);
-            this.btnSalva.Name = "btnSalva";
-            this.btnSalva.Size = new System.Drawing.Size(166, 100);
-            this.btnSalva.TabIndex = 22;
-            this.btnSalva.Text = "Salva impostazioni";
-            this.btnSalva.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -470,6 +472,7 @@ namespace Snake
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Load += new System.EventHandler(this.Settings_Load);
             this.pnlSfondo.ResumeLayout(false);
+            this.pnlButtons.ResumeLayout(false);
             this.pnlSettingsQuadratini.ResumeLayout(false);
             this.pnlSettingsQuadratini.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).EndInit();
@@ -480,7 +483,6 @@ namespace Snake
             this.pnlSettingsPlayer1.PerformLayout();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
-            this.pnlButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

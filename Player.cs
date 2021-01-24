@@ -16,16 +16,17 @@ namespace Snake
         public Keys right;
         public Keys tongue;
 
-        private int numPlayer;
-        private string name;
-        private Color color;
+        private int _numPlayer;
+        private string _name;
+        private Color _color;
 
-        public int NumPlayer { get => numPlayer; set => numPlayer = value; }
-        public string Name { get => name; set => name = value; }
+        public int NumPlayer { get => _numPlayer; set => _numPlayer = value; }
+        public string Name { get => _name; set => _name = value; }
+        public Color Color { get => _color; set => _color = value; }
 
         public Player(Color color, int numPlayer = 1, string name ="")
         {
-            this.color = color;
+            this.Color = color;
             this.NumPlayer = numPlayer;
             this.Name = name;
         }
@@ -37,12 +38,12 @@ namespace Snake
 
         public void ChangeColor(Color color)
         {
-            this.color = color;
+            this.Color = color;
         }
 
         public Color GetColor()
         {
-            return color;
+            return Color;
         }
 
         public void DefaultCommands()
@@ -65,31 +66,31 @@ namespace Snake
             }
         }
 
-        public bool ComparisonCommands(ref Player otherPlayer)
+        public bool ComparisonCommands(ref Player otherPlayer, Keys temp)
         {
             if (up == otherPlayer.up)
             {
-                otherPlayer.up = Keys.None;
+                otherPlayer.up = temp;
                 return true;
             }
             else if (left == otherPlayer.left)
             {
-                otherPlayer.left = Keys.None;
+                otherPlayer.left = temp;
                 return true;
             }
             else if (down == otherPlayer.down)
             {
-                otherPlayer.down = Keys.None;
+                otherPlayer.down = temp;
                 return true;
             }
             else if (right == otherPlayer.right)
             {
-                otherPlayer.right = Keys.None;
+                otherPlayer.right = temp;
                 return true;
             }
             else if (tongue == otherPlayer.tongue)
             {
-                otherPlayer.tongue = Keys.None;
+                otherPlayer.tongue = temp;
                 return true;
             }
             else
