@@ -35,6 +35,7 @@ namespace Snake
             this.lblVelocita = new System.Windows.Forms.Label();
             this.lblDimensioneCampo = new System.Windows.Forms.Label();
             this.pnlLivelli = new System.Windows.Forms.Panel();
+            this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlNumeroGiocatori = new System.Windows.Forms.Panel();
             this.lblNumeroGiocatori = new System.Windows.Forms.Label();
             this.radioButtonMultiplayer = new System.Windows.Forms.RadioButton();
@@ -50,18 +51,18 @@ namespace Snake
             this.picLeft1 = new System.Windows.Forms.PictureBox();
             this.picCenter = new System.Windows.Forms.PictureBox();
             this.pnlNickname = new System.Windows.Forms.Panel();
+            this.pnlNicknamePlayer2 = new System.Windows.Forms.Panel();
+            this.txtNamePlayer2 = new System.Windows.Forms.TextBox();
+            this.lblNamePlayer2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.lblNome = new System.Windows.Forms.Label();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.btnClassifica = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.pnlNicknamePlayer2 = new System.Windows.Forms.Panel();
-            this.lblNamePlayer2 = new System.Windows.Forms.Label();
-            this.txtNamePlayer2 = new System.Windows.Forms.TextBox();
-            this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlVelocita.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).BeginInit();
             this.pnlLivelli.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.pnlNumeroGiocatori.SuspendLayout();
             this.pnlDimensioneCampo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDimensioneCampo)).BeginInit();
@@ -69,9 +70,8 @@ namespace Snake
             ((System.ComponentModel.ISupportInitialize)(this.picLeft1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).BeginInit();
             this.pnlNickname.SuspendLayout();
-            this.pnlSettings.SuspendLayout();
             this.pnlNicknamePlayer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            this.pnlSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
@@ -152,6 +152,15 @@ namespace Snake
             this.pnlLivelli.Name = "pnlLivelli";
             this.pnlLivelli.Size = new System.Drawing.Size(873, 987);
             this.pnlLivelli.TabIndex = 2;
+            // 
+            // picLogo
+            // 
+            this.picLogo.BackColor = System.Drawing.Color.Transparent;
+            this.picLogo.Location = new System.Drawing.Point(723, 105);
+            this.picLogo.Name = "picLogo";
+            this.picLogo.Size = new System.Drawing.Size(100, 50);
+            this.picLogo.TabIndex = 7;
+            this.picLogo.TabStop = false;
             // 
             // pnlNumeroGiocatori
             // 
@@ -318,6 +327,36 @@ namespace Snake
             this.pnlNickname.Size = new System.Drawing.Size(873, 100);
             this.pnlNickname.TabIndex = 12;
             // 
+            // pnlNicknamePlayer2
+            // 
+            this.pnlNicknamePlayer2.BackColor = System.Drawing.Color.Transparent;
+            this.pnlNicknamePlayer2.Controls.Add(this.txtNamePlayer2);
+            this.pnlNicknamePlayer2.Controls.Add(this.lblNamePlayer2);
+            this.pnlNicknamePlayer2.Location = new System.Drawing.Point(444, 5);
+            this.pnlNicknamePlayer2.Name = "pnlNicknamePlayer2";
+            this.pnlNicknamePlayer2.Size = new System.Drawing.Size(379, 70);
+            this.pnlNicknamePlayer2.TabIndex = 19;
+            // 
+            // txtNamePlayer2
+            // 
+            this.txtNamePlayer2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtNamePlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNamePlayer2.Location = new System.Drawing.Point(167, 21);
+            this.txtNamePlayer2.Name = "txtNamePlayer2";
+            this.txtNamePlayer2.Size = new System.Drawing.Size(100, 30);
+            this.txtNamePlayer2.TabIndex = 1;
+            this.txtNamePlayer2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblNamePlayer2
+            // 
+            this.lblNamePlayer2.AutoSize = true;
+            this.lblNamePlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNamePlayer2.Location = new System.Drawing.Point(12, 21);
+            this.lblNamePlayer2.Name = "lblNamePlayer2";
+            this.lblNamePlayer2.Size = new System.Drawing.Size(64, 25);
+            this.lblNamePlayer2.TabIndex = 0;
+            this.lblNamePlayer2.Text = "label1";
+            // 
             // txtNome
             // 
             this.txtNome.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -374,44 +413,7 @@ namespace Snake
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // pnlNicknamePlayer2
-            // 
-            this.pnlNicknamePlayer2.BackColor = System.Drawing.Color.Transparent;
-            this.pnlNicknamePlayer2.Controls.Add(this.txtNamePlayer2);
-            this.pnlNicknamePlayer2.Controls.Add(this.lblNamePlayer2);
-            this.pnlNicknamePlayer2.Location = new System.Drawing.Point(444, 5);
-            this.pnlNicknamePlayer2.Name = "pnlNicknamePlayer2";
-            this.pnlNicknamePlayer2.Size = new System.Drawing.Size(379, 70);
-            this.pnlNicknamePlayer2.TabIndex = 19;
-            // 
-            // lblNamePlayer2
-            // 
-            this.lblNamePlayer2.AutoSize = true;
-            this.lblNamePlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNamePlayer2.Location = new System.Drawing.Point(12, 21);
-            this.lblNamePlayer2.Name = "lblNamePlayer2";
-            this.lblNamePlayer2.Size = new System.Drawing.Size(64, 25);
-            this.lblNamePlayer2.TabIndex = 0;
-            this.lblNamePlayer2.Text = "label1";
-            // 
-            // txtNamePlayer2
-            // 
-            this.txtNamePlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNamePlayer2.Location = new System.Drawing.Point(167, 21);
-            this.txtNamePlayer2.Name = "txtNamePlayer2";
-            this.txtNamePlayer2.Size = new System.Drawing.Size(100, 30);
-            this.txtNamePlayer2.TabIndex = 1;
-            // 
-            // picLogo
-            // 
-            this.picLogo.BackColor = System.Drawing.Color.Transparent;
-            this.picLogo.Location = new System.Drawing.Point(723, 105);
-            this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(100, 50);
-            this.picLogo.TabIndex = 7;
-            this.picLogo.TabStop = false;
-            // 
-            // Menu
+            // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -425,7 +427,7 @@ namespace Snake
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Menu";
+            this.Name = "frmMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmMenu";
             this.Load += new System.EventHandler(this.frmMenu_Load);
@@ -434,6 +436,7 @@ namespace Snake
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVelocita)).EndInit();
             this.pnlLivelli.ResumeLayout(false);
             this.pnlLivelli.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.pnlNumeroGiocatori.ResumeLayout(false);
             this.pnlNumeroGiocatori.PerformLayout();
             this.pnlDimensioneCampo.ResumeLayout(false);
@@ -444,10 +447,9 @@ namespace Snake
             ((System.ComponentModel.ISupportInitialize)(this.picCenter)).EndInit();
             this.pnlNickname.ResumeLayout(false);
             this.pnlNickname.PerformLayout();
-            this.pnlSettings.ResumeLayout(false);
             this.pnlNicknamePlayer2.ResumeLayout(false);
             this.pnlNicknamePlayer2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            this.pnlSettings.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

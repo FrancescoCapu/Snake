@@ -358,7 +358,6 @@ namespace Snake
         {
             //LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
             LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
-
         }
 
         //protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
@@ -456,7 +455,7 @@ namespace Snake
                 TastoScelto(ref serpente, ref e, player1, ref tasto);
         }
 
-        protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, Player player, ref Tasto tasto, int numPlayer = 0)
+        protected void TastoScelto(ref Serpente s, ref KeyEventArgs e, Player player, ref Tasto tasto)
         {
             if (e.KeyCode == player.up)
                 tasto = Tasto.su;

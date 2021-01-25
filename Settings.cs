@@ -855,10 +855,11 @@ namespace Snake
                     Config.DefaultSettings();
                     return false;
                 }
-                catch
+                catch (Exception e)
                 {
                     player1.DefaultCommands();
                     Config.DefaultSettings();
+                    MessageBox.Show(e.ToString());
                     return false;
                 }
             }
@@ -900,7 +901,7 @@ namespace Snake
             }
         }
 
-        private static bool ReadPreviousViewConfig(bool singleplayer = true)
+        public static bool ReadPreviousViewConfig(bool singleplayer = true)
         {
             if (singleplayer)
             {
@@ -915,18 +916,22 @@ namespace Snake
                 }
                 catch (FileNotFoundException)
                 {
+                    Config.DefaultSettings();
                     return false;
                 }
                 catch (DirectoryNotFoundException)
                 {
+                    Config.DefaultSettings();
                     return false;
                 }
                 catch (NullReferenceException)
                 {
+                    Config.DefaultSettings();
                     return false;
                 }
                 catch (Exception e)
                 {
+                    Config.DefaultSettings();
                     MessageBox.Show(e.ToString());
                     return false;
                 }

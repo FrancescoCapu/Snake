@@ -76,6 +76,7 @@ namespace Snake
                         player1.ChangeName(txtNamePlayer2.Text);
                         player1.ChangeColor(color);
                         Settings.ReadPreviousPlayerSettings(player1);
+                        Settings.ReadPreviousViewConfig();
                         //string nome = txtNome.Text;
                         frmSnake frmSnake = new frmSnake(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, numeroLivello);
                         frmSnake.Show();
@@ -89,6 +90,8 @@ namespace Snake
                         //string nomePlayer2 = txtNamePlayer2.Text;
                         //Color colorPlayer2 = Color.Red;
                         frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, player2, numeroLivello);
+                        frmMultiplayer.Show();
+                        this.Hide();
                     }
                 }
                 else
