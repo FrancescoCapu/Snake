@@ -76,7 +76,7 @@ namespace Snake
             this.Name = "frmSnake";
             this.Text = "Snake";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSnake_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.frmSnake_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmSnake_KeyDown);
             this.pnlCampoGioco.ResumeLayout(false);
             this.ResumeLayout(false);

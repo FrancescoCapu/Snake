@@ -79,7 +79,7 @@ namespace Snake
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
+        public void frmSnake_Load(object sender, EventArgs e)
         {
             livello = new Livello();
             rootNomiFile = new RootNomiFile();

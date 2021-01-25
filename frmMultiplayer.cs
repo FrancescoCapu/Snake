@@ -16,7 +16,8 @@ namespace Snake
 {
     public partial class frmMultiplayer : frmSnake
     {
-        public frmMultiplayer(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, Player player1, Player player2, int numLivello = 0) : base(frmChiamante, heightCampoGioco, widthCampoGioco, timerInterval, player1, numLivello)
+        public frmMultiplayer(frmMenu frmChiamante, int heightCampoGioco, int widthCampoGioco, int timerInterval, Player player1, Player player2, int numLivello = 0)
+            : base(frmChiamante, heightCampoGioco, widthCampoGioco, timerInterval, player1, numLivello)
         {
             InitializeComponent();
         }
