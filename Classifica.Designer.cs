@@ -81,7 +81,6 @@ namespace Snake
             // dataGridViewClassifica
             // 
             this.dataGridViewClassifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClassifica.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewClassifica.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewClassifica.Name = "dataGridViewClassifica";
             this.dataGridViewClassifica.RowHeadersWidth = 51;

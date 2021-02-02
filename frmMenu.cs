@@ -89,6 +89,8 @@ namespace Snake
                         //string nomePlayer1 = txtNome.Text;
                         //string nomePlayer2 = txtNamePlayer2.Text;
                         //Color colorPlayer2 = Color.Red;
+                        Settings.ReadPreviousPlayerSettings(player1, false, player2);
+                        Settings.ReadPreviousViewConfig();
                         frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, player2, numeroLivello);
                         frmMultiplayer.Show();
                         this.Hide();

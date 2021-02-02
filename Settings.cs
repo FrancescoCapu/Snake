@@ -63,41 +63,62 @@ namespace Snake
 
         private void SetPositions()
         {
-            this.Size = new Size(400, 630);
+            this.Size = new Size(400, 1200);
 
-            lblTitolo.Location = new Point(this.Width / 2 - lblTitolo.Size.Width / 2, 20);
+            pnlTop.Location = new Point(0, 0);
 
-            lblNumPlayers.Location = new Point(this.Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
-            cmbNumPlayers.Location = new Point(this.Width / 2 + 20, lblNumPlayers.Location.Y);
+            lblTitolo.Location = new Point(Width / 2 - lblTitolo.Size.Width / 2, 20);
 
-            pnlTop.Size = new Size(pnlTop.Width, cmbNumPlayers.Location.Y + cmbNumPlayers.Height + 15);
+            lblNumPlayers.Location = new Point(Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
+            cmbNumPlayers.Location = new Point(Width / 2 + 20, lblNumPlayers.Location.Y);
+            
+            pnlTop.Size = new Size(Width, cmbNumPlayers.Location.Y + cmbNumPlayers.Height + 15);
+
+            //pnlSettingsPlayers.Size = new Size(Width, 500);
 
             SetPositionForPlayerSettings(lblPlayer1SettingsPrint, lblUp, cmbKeyUp, lblLeft, cmbKeyLeft, lblDown, cmbKeyDown, lblRight, cmbKeyRight, lblUseTongue, cmbKeyTongue, pnlSettingsPlayer1);
             SetPositionForPlayerSettings(lblPlayer2SettingsPrint, lblUpPlayer2, cmbKeyUpPlayer2, lblLeftPlayer2, cmbKeyLeftPlayer2, lblDownPlayer2, cmbKeyDownPlayer2, lblRightPlayer2, cmbKeyRightPlayer2, lblUseTonguePlayer2, cmbKeyTonguePlayer2, pnlSettingsPlayer2);
 
-            pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height);
+            pnlSettingsPlayer1.Location = new Point(0, pnlTop.Location.Y + pnlTop.Height);
+            pnlSettingsPlayer2.Size = new Size(Width, 0);
+            pnlSettingsPlayer2.Location = new Point(0, pnlSettingsPlayer1.Location.Y + pnlSettingsPlayer1.Height);
 
-            lblSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 8, 0);
+            //pnlSettingsPlayers.Location = new Point(0, pnlTop.Height);
+            //pnlSettingsPlayers.Size = new Size(Width, pnlSettingsPlayer1.Height + 3);
+
+            //pnlSettingsPlayer1.Location = new Point(0, 0);
+
+            //pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayers.Location.Y + pnlSettingsPlayers.Height);
+            pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayer2.Location.Y + pnlSettingsPlayer2.Height);
+            pnlSettingsQuadratini.Size = new Size(Width, 110);
+
             lblSizeQuadrati.Text = "Grandezza\nquadratini";
+            lblSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 8, pnlSettingsQuadratini.Height / 2 - lblSizeQuadrati.Height / 2);
             trackBarSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 3, lblSizeQuadrati.Location.Y);
             trackBarSizeQuadrati.Size = new Size(pnlSettingsQuadratini.Width - trackBarSizeQuadrati.Location.X - 30, 72);
 
-            pnlButtons.Size = new Size(this.Width - 30 * 2, 85);
-            pnlButtons.Location = new Point(30, lblSizeQuadrati.Location.Y + lblSizeQuadrati.Size.Height + 35);
+            //pnlButtons.Size = new Size(this.Width - 30 * 2, 85);
+            //pnlButtons.Location = new Point(30, lblSizeQuadrati.Location.Y + lblSizeQuadrati.Size.Height + 35);
+            pnlButtons.Size = new Size(Width, 85);
+            pnlButtons.Location = new Point(0, pnlSettingsQuadratini.Location.Y + pnlSettingsQuadratini.Height);
             pnlButtons.Controls.Add(btnDefaultSettings);
             pnlButtons.Controls.Add(btnSalva);
+
+            //pnlTop.Width = pnlButtons.Width;
 
             btnDefaultSettings.Size = new Size(pnlButtons.Size.Width / 2 - 15, 85);
 
             btnSalva.Size = btnDefaultSettings.Size;
+
+            this.Size = new Size(400, pnlTop.Height + pnlSettingsPlayer1.Height + pnlSettingsPlayer2.Height + pnlSettingsQuadratini.Height + pnlButtons.Height);
         }
 
-        private void SetPositionForPlayerSettings(Label lblPlayerNumber, Label lblUp, ComboBox cmbKeyUp, Label lblLeft, ComboBox cmbKeyLeft, Label lblDown, ComboBox cmbKeyDown, Label lblRight, ComboBox cmbKeyRight, Label lblUseTongue, ComboBox cmbKeyTongue, Panel pnlPadre)
+        private void SetPositionForPlayerSettings(Label lblPlayerNumber, Label lblUp, ComboBox cmbKeyUp, Label lblLeft, ComboBox cmbKeyLeft, Label lblDown, ComboBox cmbKeyDown, Label lblRight, ComboBox cmbKeyRight, Label lblUseTongue, ComboBox cmbKeyTongue, Panel pnlPlayer)
         {
-            lblPlayerNumber.Location = new Point(pnlSettingsPlayer1.Width / 2 - lblPlayer2SettingsPrint.Width / 2, 0);
+            lblPlayerNumber.Location = new Point(pnlPlayer.Width / 2 - lblPlayerNumber.Width / 2, 0);
 
-            lblUp.Location = new Point(pnlSettingsPlayer1.Width / 2 - pnlSettingsPlayer1.Width / 4, lblPlayerNumber.Location.Y + lblPlayerNumber.Height + 20);
-            cmbKeyUp.Location = new Point(pnlSettingsPlayer1.Width / 2, lblUp.Location.Y);
+            lblUp.Location = new Point(pnlPlayer.Width / 2 - pnlPlayer.Width / 4, lblPlayerNumber.Location.Y + lblPlayerNumber.Height + 20);
+            cmbKeyUp.Location = new Point(pnlPlayer.Width / 2, lblUp.Location.Y);
 
             lblLeft.Location = new Point(lblUp.Location.X, lblUp.Location.Y + lblUp.Size.Height + 15);
             cmbKeyLeft.Location = new Point(cmbKeyUp.Location.X, lblLeft.Location.Y);
@@ -110,14 +131,16 @@ namespace Snake
 
             lblUseTongue.Location = new Point(lblRight.Location.X, lblRight.Location.Y + lblRight.Size.Height + 15);
             cmbKeyTongue.Location = new Point(cmbKeyRight.Location.X, lblUseTongue.Location.Y);
-
+            
             int heightPnlSettings = cmbKeyTongue.Location.Y + cmbKeyTongue.Height - lblPlayerNumber.Location.Y;
 
-            pnlPadre.Size = new Size(pnlPadre.Width, heightPnlSettings + 20);
+            pnlPlayer.Size = new Size(Width, heightPnlSettings + 20);
 
+            /*
             int heightForm = pnlTop.Height + pnlSettingsPlayers.Height + pnlSettingsQuadratini.Height + pnlButtons.Height;
 
             Size = new Size(400, heightForm);
+            */
         }
 
         private void UpdateCommands(Player player, ComboBox cmbUp, ComboBox cmbLeft, ComboBox cmbDown, ComboBox cmbRight, ComboBox cmbTongue)
@@ -166,10 +189,20 @@ namespace Snake
                 lblPlayer1SettingsPrint.Enabled = false;
                 lblPlayer1SettingsPrint.Visible = false;
 
+                /*
                 pnlSettingsPlayer2.Enabled = false;
                 pnlSettingsPlayer2.Visible = false;
+                */
 
-                pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height);
+                //pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height);
+
+                Height -= pnlSettingsPlayer2.Height;
+
+                pnlSettingsPlayer2.Location = new Point(0, pnlSettingsPlayer1.Location.Y + pnlSettingsPlayer1.Height);
+                pnlSettingsPlayer2.Size = new Size(0,0);
+
+                pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayer2.Location.Y + pnlSettingsPlayer2.Height);
+                pnlButtons.Location = new Point(0, pnlSettingsQuadratini.Location.Y + pnlSettingsQuadratini.Height);
 
                 NoneCommands(player2);
                 ResetCmbs(cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
@@ -185,12 +218,18 @@ namespace Snake
                 lblPlayer1SettingsPrint.Enabled = true;
                 lblPlayer1SettingsPrint.Visible = true;
 
+                /*
                 pnlSettingsPlayer2.Enabled = true;
                 pnlSettingsPlayer2.Visible = true;
+                */
 
-                pnlSettingsPlayers.Size = new Size(pnlSettingsPlayers.Width, pnlSettingsPlayer1.Height + pnlSettingsPlayer2.Height);
+                pnlSettingsPlayer2.Location = new Point(0, pnlSettingsPlayer1.Location.Y + pnlSettingsPlayer1.Height);
+                pnlSettingsPlayer2.Size = pnlSettingsPlayer1.Size;
 
-                if(!ReadPreviousPlayerSettings(player1, false, player2))
+                pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayer2.Location.Y + pnlSettingsPlayer2.Height);
+                pnlButtons.Location = new Point(0, pnlSettingsQuadratini.Location.Y + pnlSettingsQuadratini.Height);
+
+                if (!ReadPreviousPlayerSettings(player1, false, player2))
                 {
                     player1.DefaultCommands();
                     player2.DefaultCommands();
@@ -201,6 +240,8 @@ namespace Snake
                 UpdateCommands(player1, cmbKeyUp, cmbKeyLeft, cmbKeyDown, cmbKeyRight, cmbKeyTongue);
                 UpdateCommands(player2, cmbKeyUpPlayer2, cmbKeyLeftPlayer2, cmbKeyDownPlayer2, cmbKeyRightPlayer2, cmbKeyTonguePlayer2);
                 UpdateTrackbarQuadratini();
+
+                Height += pnlSettingsPlayer2.Height;
             }
         }
 

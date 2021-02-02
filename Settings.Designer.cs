@@ -29,14 +29,12 @@ namespace Snake
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlSfondo = new System.Windows.Forms.Panel();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.btnSalva = new System.Windows.Forms.Button();
             this.btnDefaultSettings = new System.Windows.Forms.Button();
             this.pnlSettingsQuadratini = new System.Windows.Forms.Panel();
             this.lblSizeQuadrati = new System.Windows.Forms.Label();
             this.trackBarSizeQuadrati = new System.Windows.Forms.TrackBar();
-            this.pnlSettingsPlayers = new System.Windows.Forms.Panel();
             this.pnlSettingsPlayer2 = new System.Windows.Forms.Panel();
             this.lblPlayer2SettingsPrint = new System.Windows.Forms.Label();
             this.cmbKeyLeftPlayer2 = new System.Windows.Forms.ComboBox();
@@ -65,45 +63,29 @@ namespace Snake
             this.lblTitolo = new System.Windows.Forms.Label();
             this.cmbNumPlayers = new System.Windows.Forms.ComboBox();
             this.lblNumPlayers = new System.Windows.Forms.Label();
-            this.pnlSfondo.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.pnlSettingsQuadratini.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).BeginInit();
-            this.pnlSettingsPlayers.SuspendLayout();
             this.pnlSettingsPlayer2.SuspendLayout();
             this.pnlSettingsPlayer1.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pnlSfondo
-            // 
-            this.pnlSfondo.Controls.Add(this.pnlButtons);
-            this.pnlSfondo.Controls.Add(this.pnlSettingsQuadratini);
-            this.pnlSfondo.Controls.Add(this.pnlSettingsPlayers);
-            this.pnlSfondo.Controls.Add(this.pnlTop);
-            this.pnlSfondo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSfondo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlSfondo.Location = new System.Drawing.Point(0, 0);
-            this.pnlSfondo.Name = "pnlSfondo";
-            this.pnlSfondo.Size = new System.Drawing.Size(490, 711);
-            this.pnlSfondo.TabIndex = 0;
-            // 
             // pnlButtons
             // 
-            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
+            this.pnlButtons.BackColor = System.Drawing.Color.Yellow;
             this.pnlButtons.Controls.Add(this.btnSalva);
             this.pnlButtons.Controls.Add(this.btnDefaultSettings);
-            this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 459);
+            this.pnlButtons.Location = new System.Drawing.Point(0, 670);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(490, 100);
+            this.pnlButtons.Size = new System.Drawing.Size(555, 100);
             this.pnlButtons.TabIndex = 33;
             // 
             // btnSalva
             // 
             this.btnSalva.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnSalva.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalva.Location = new System.Drawing.Point(324, 0);
+            this.btnSalva.Location = new System.Drawing.Point(389, 0);
             this.btnSalva.Name = "btnSalva";
             this.btnSalva.Size = new System.Drawing.Size(166, 100);
             this.btnSalva.TabIndex = 22;
@@ -125,12 +107,12 @@ namespace Snake
             // 
             // pnlSettingsQuadratini
             // 
+            this.pnlSettingsQuadratini.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.pnlSettingsQuadratini.Controls.Add(this.lblSizeQuadrati);
             this.pnlSettingsQuadratini.Controls.Add(this.trackBarSizeQuadrati);
-            this.pnlSettingsQuadratini.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSettingsQuadratini.Location = new System.Drawing.Point(0, 351);
+            this.pnlSettingsQuadratini.Location = new System.Drawing.Point(0, 556);
             this.pnlSettingsQuadratini.Name = "pnlSettingsQuadratini";
-            this.pnlSettingsQuadratini.Size = new System.Drawing.Size(490, 108);
+            this.pnlSettingsQuadratini.Size = new System.Drawing.Size(555, 108);
             this.pnlSettingsQuadratini.TabIndex = 32;
             // 
             // lblSizeQuadrati
@@ -155,20 +137,9 @@ namespace Snake
             this.trackBarSizeQuadrati.Value = 8;
             this.trackBarSizeQuadrati.Scroll += new System.EventHandler(this.trackBarSizeQuadrati_Scroll);
             // 
-            // pnlSettingsPlayers
-            // 
-            this.pnlSettingsPlayers.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlSettingsPlayers.BackColor = System.Drawing.Color.Transparent;
-            this.pnlSettingsPlayers.Controls.Add(this.pnlSettingsPlayer2);
-            this.pnlSettingsPlayers.Controls.Add(this.pnlSettingsPlayer1);
-            this.pnlSettingsPlayers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSettingsPlayers.Location = new System.Drawing.Point(0, 98);
-            this.pnlSettingsPlayers.Name = "pnlSettingsPlayers";
-            this.pnlSettingsPlayers.Size = new System.Drawing.Size(490, 253);
-            this.pnlSettingsPlayers.TabIndex = 31;
-            // 
             // pnlSettingsPlayer2
             // 
+            this.pnlSettingsPlayer2.BackColor = System.Drawing.Color.Wheat;
             this.pnlSettingsPlayer2.Controls.Add(this.lblPlayer2SettingsPrint);
             this.pnlSettingsPlayer2.Controls.Add(this.cmbKeyLeftPlayer2);
             this.pnlSettingsPlayer2.Controls.Add(this.lblUpPlayer2);
@@ -180,10 +151,9 @@ namespace Snake
             this.pnlSettingsPlayer2.Controls.Add(this.lblRightPlayer2);
             this.pnlSettingsPlayer2.Controls.Add(this.cmbKeyUpPlayer2);
             this.pnlSettingsPlayer2.Controls.Add(this.lblUseTonguePlayer2);
-            this.pnlSettingsPlayer2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlSettingsPlayer2.Location = new System.Drawing.Point(0, 118);
+            this.pnlSettingsPlayer2.Location = new System.Drawing.Point(0, 210);
             this.pnlSettingsPlayer2.Name = "pnlSettingsPlayer2";
-            this.pnlSettingsPlayer2.Size = new System.Drawing.Size(490, 135);
+            this.pnlSettingsPlayer2.Size = new System.Drawing.Size(555, 135);
             this.pnlSettingsPlayer2.TabIndex = 33;
             // 
             // lblPlayer2SettingsPrint
@@ -201,7 +171,7 @@ namespace Snake
             this.cmbKeyLeftPlayer2.FormattingEnabled = true;
             this.cmbKeyLeftPlayer2.Location = new System.Drawing.Point(243, 44);
             this.cmbKeyLeftPlayer2.Name = "cmbKeyLeftPlayer2";
-            this.cmbKeyLeftPlayer2.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyLeftPlayer2.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyLeftPlayer2.TabIndex = 17;
             this.cmbKeyLeftPlayer2.SelectedIndexChanged += new System.EventHandler(this.cmbKeyLeftPlayer2_SelectedIndexChanged);
             // 
@@ -220,7 +190,7 @@ namespace Snake
             this.cmbKeyTonguePlayer2.FormattingEnabled = true;
             this.cmbKeyTonguePlayer2.Location = new System.Drawing.Point(261, 78);
             this.cmbKeyTonguePlayer2.Name = "cmbKeyTonguePlayer2";
-            this.cmbKeyTonguePlayer2.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyTonguePlayer2.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyTonguePlayer2.TabIndex = 20;
             this.cmbKeyTonguePlayer2.SelectedIndexChanged += new System.EventHandler(this.cmbKeyTonguePlayer2_SelectedIndexChanged);
             // 
@@ -239,7 +209,7 @@ namespace Snake
             this.cmbKeyRightPlayer2.FormattingEnabled = true;
             this.cmbKeyRightPlayer2.Location = new System.Drawing.Point(134, 78);
             this.cmbKeyRightPlayer2.Name = "cmbKeyRightPlayer2";
-            this.cmbKeyRightPlayer2.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyRightPlayer2.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyRightPlayer2.TabIndex = 19;
             this.cmbKeyRightPlayer2.SelectedIndexChanged += new System.EventHandler(this.cmbKeyRightPlayer2_SelectedIndexChanged);
             // 
@@ -258,7 +228,7 @@ namespace Snake
             this.cmbKeyDownPlayer2.FormattingEnabled = true;
             this.cmbKeyDownPlayer2.Location = new System.Drawing.Point(7, 78);
             this.cmbKeyDownPlayer2.Name = "cmbKeyDownPlayer2";
-            this.cmbKeyDownPlayer2.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyDownPlayer2.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyDownPlayer2.TabIndex = 18;
             this.cmbKeyDownPlayer2.SelectedIndexChanged += new System.EventHandler(this.cmbKeyDownPlayer2_SelectedIndexChanged);
             // 
@@ -277,7 +247,7 @@ namespace Snake
             this.cmbKeyUpPlayer2.FormattingEnabled = true;
             this.cmbKeyUpPlayer2.Location = new System.Drawing.Point(116, 44);
             this.cmbKeyUpPlayer2.Name = "cmbKeyUpPlayer2";
-            this.cmbKeyUpPlayer2.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyUpPlayer2.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyUpPlayer2.TabIndex = 16;
             this.cmbKeyUpPlayer2.SelectedIndexChanged += new System.EventHandler(this.cmbKeyUpPlayer2_SelectedIndexChanged);
             // 
@@ -293,6 +263,7 @@ namespace Snake
             // 
             // pnlSettingsPlayer1
             // 
+            this.pnlSettingsPlayer1.BackColor = System.Drawing.Color.Turquoise;
             this.pnlSettingsPlayer1.Controls.Add(this.lblPlayer1SettingsPrint);
             this.pnlSettingsPlayer1.Controls.Add(this.lblUp);
             this.pnlSettingsPlayer1.Controls.Add(this.cmbKeyTongue);
@@ -304,10 +275,9 @@ namespace Snake
             this.pnlSettingsPlayer1.Controls.Add(this.cmbKeyLeft);
             this.pnlSettingsPlayer1.Controls.Add(this.lblUseTongue);
             this.pnlSettingsPlayer1.Controls.Add(this.cmbKeyUp);
-            this.pnlSettingsPlayer1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSettingsPlayer1.Location = new System.Drawing.Point(0, 0);
+            this.pnlSettingsPlayer1.Location = new System.Drawing.Point(0, 104);
             this.pnlSettingsPlayer1.Name = "pnlSettingsPlayer1";
-            this.pnlSettingsPlayer1.Size = new System.Drawing.Size(490, 100);
+            this.pnlSettingsPlayer1.Size = new System.Drawing.Size(555, 100);
             this.pnlSettingsPlayer1.TabIndex = 32;
             // 
             // lblPlayer1SettingsPrint
@@ -335,7 +305,7 @@ namespace Snake
             this.cmbKeyTongue.FormattingEnabled = true;
             this.cmbKeyTongue.Location = new System.Drawing.Point(261, 70);
             this.cmbKeyTongue.Name = "cmbKeyTongue";
-            this.cmbKeyTongue.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyTongue.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyTongue.TabIndex = 20;
             this.cmbKeyTongue.SelectedIndexChanged += new System.EventHandler(this.cmbKeyTongue_SelectedIndexChanged);
             // 
@@ -354,7 +324,7 @@ namespace Snake
             this.cmbKeyRight.FormattingEnabled = true;
             this.cmbKeyRight.Location = new System.Drawing.Point(134, 70);
             this.cmbKeyRight.Name = "cmbKeyRight";
-            this.cmbKeyRight.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyRight.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyRight.TabIndex = 19;
             this.cmbKeyRight.SelectedIndexChanged += new System.EventHandler(this.cmbKeyRight_SelectedIndexChanged);
             // 
@@ -373,7 +343,7 @@ namespace Snake
             this.cmbKeyDown.FormattingEnabled = true;
             this.cmbKeyDown.Location = new System.Drawing.Point(7, 70);
             this.cmbKeyDown.Name = "cmbKeyDown";
-            this.cmbKeyDown.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyDown.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyDown.TabIndex = 18;
             this.cmbKeyDown.SelectedIndexChanged += new System.EventHandler(this.cmbKeyDown_SelectedIndexChanged);
             // 
@@ -392,7 +362,7 @@ namespace Snake
             this.cmbKeyLeft.FormattingEnabled = true;
             this.cmbKeyLeft.Location = new System.Drawing.Point(243, 36);
             this.cmbKeyLeft.Name = "cmbKeyLeft";
-            this.cmbKeyLeft.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyLeft.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyLeft.TabIndex = 17;
             this.cmbKeyLeft.SelectedIndexChanged += new System.EventHandler(this.cmbKeyLeft_SelectedIndexChanged);
             // 
@@ -411,20 +381,19 @@ namespace Snake
             this.cmbKeyUp.FormattingEnabled = true;
             this.cmbKeyUp.Location = new System.Drawing.Point(116, 36);
             this.cmbKeyUp.Name = "cmbKeyUp";
-            this.cmbKeyUp.Size = new System.Drawing.Size(121, 28);
+            this.cmbKeyUp.Size = new System.Drawing.Size(121, 24);
             this.cmbKeyUp.TabIndex = 16;
             this.cmbKeyUp.SelectedIndexChanged += new System.EventHandler(this.cmbKeyUp_SelectedIndexChanged);
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.Color.Transparent;
+            this.pnlTop.BackColor = System.Drawing.Color.Violet;
             this.pnlTop.Controls.Add(this.lblTitolo);
             this.pnlTop.Controls.Add(this.cmbNumPlayers);
             this.pnlTop.Controls.Add(this.lblNumPlayers);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(490, 98);
+            this.pnlTop.Size = new System.Drawing.Size(555, 98);
             this.pnlTop.TabIndex = 29;
             // 
             // lblTitolo
@@ -442,7 +411,7 @@ namespace Snake
             this.cmbNumPlayers.FormattingEnabled = true;
             this.cmbNumPlayers.Location = new System.Drawing.Point(264, 54);
             this.cmbNumPlayers.Name = "cmbNumPlayers";
-            this.cmbNumPlayers.Size = new System.Drawing.Size(121, 28);
+            this.cmbNumPlayers.Size = new System.Drawing.Size(121, 24);
             this.cmbNumPlayers.TabIndex = 26;
             this.cmbNumPlayers.SelectedIndexChanged += new System.EventHandler(this.cmbNumPlayers_SelectedIndexChanged);
             // 
@@ -460,10 +429,13 @@ namespace Snake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(490, 711);
-            this.Controls.Add(this.pnlSfondo);
+            this.ClientSize = new System.Drawing.Size(632, 843);
+            this.Controls.Add(this.pnlSettingsPlayer2);
+            this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.pnlSettingsPlayer1);
+            this.Controls.Add(this.pnlButtons);
+            this.Controls.Add(this.pnlSettingsQuadratini);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";
@@ -471,12 +443,10 @@ namespace Snake
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Settings_FormClosing);
             this.Load += new System.EventHandler(this.Settings_Load);
-            this.pnlSfondo.ResumeLayout(false);
             this.pnlButtons.ResumeLayout(false);
             this.pnlSettingsQuadratini.ResumeLayout(false);
             this.pnlSettingsQuadratini.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSizeQuadrati)).EndInit();
-            this.pnlSettingsPlayers.ResumeLayout(false);
             this.pnlSettingsPlayer2.ResumeLayout(false);
             this.pnlSettingsPlayer2.PerformLayout();
             this.pnlSettingsPlayer1.ResumeLayout(false);
@@ -488,14 +458,11 @@ namespace Snake
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlSfondo;
         private System.Windows.Forms.Label lblTitolo;
         private System.Windows.Forms.Label lblSizeQuadrati;
         private System.Windows.Forms.TrackBar trackBarSizeQuadrati;
         private System.Windows.Forms.ComboBox cmbNumPlayers;
         private System.Windows.Forms.Label lblNumPlayers;
-        private System.Windows.Forms.Panel pnlSettingsPlayers;
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlSettingsPlayer1;
         private System.Windows.Forms.Label lblPlayer2SettingsPrint;
