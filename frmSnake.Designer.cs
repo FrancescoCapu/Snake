@@ -32,9 +32,9 @@ namespace Snake
             this.components = new System.ComponentModel.Container();
             this.pnlCampoGioco = new System.Windows.Forms.Panel();
             this.pnlScore = new System.Windows.Forms.Panel();
+            this.lblScore = new System.Windows.Forms.Label();
             this.pnlElementiDinamici = new System.Windows.Forms.Panel();
             this.tmr = new System.Windows.Forms.Timer(this.components);
-            this.lblScore = new System.Windows.Forms.Label();
             this.pnlCampoGioco.SuspendLayout();
             this.pnlScore.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,17 @@ namespace Snake
             this.pnlScore.Size = new System.Drawing.Size(200, 100);
             this.pnlScore.TabIndex = 1;
             // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScore.ForeColor = System.Drawing.Color.Black;
+            this.lblScore.Location = new System.Drawing.Point(59, 33);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(60, 24);
+            this.lblScore.TabIndex = 0;
+            this.lblScore.Text = "label1";
+            // 
             // pnlElementiDinamici
             // 
             this.pnlElementiDinamici.BackColor = System.Drawing.Color.Transparent;
@@ -78,17 +89,6 @@ namespace Snake
             this.tmr.Interval = 300;
             this.tmr.Tick += new System.EventHandler(this.tmr_Tick);
             // 
-            // lblScore
-            // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblScore.ForeColor = System.Drawing.Color.Black;
-            this.lblScore.Location = new System.Drawing.Point(59, 33);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(60, 24);
-            this.lblScore.TabIndex = 0;
-            this.lblScore.Text = "label1";
-            // 
             // frmSnake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -97,6 +97,7 @@ namespace Snake
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1054, 478);
             this.Controls.Add(this.pnlCampoGioco);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmSnake";
             this.Text = "Snake";

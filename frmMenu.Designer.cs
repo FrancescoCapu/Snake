@@ -35,6 +35,8 @@ namespace Snake
             this.lblVelocita = new System.Windows.Forms.Label();
             this.lblDimensioneCampo = new System.Windows.Forms.Label();
             this.pnlLivelli = new System.Windows.Forms.Panel();
+            this.lblColorSnakePlayer2 = new System.Windows.Forms.Label();
+            this.pnlColorsPlayer2 = new System.Windows.Forms.Panel();
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlNumeroGiocatori = new System.Windows.Forms.Panel();
             this.lblNumeroGiocatori = new System.Windows.Forms.Label();
@@ -78,7 +80,7 @@ namespace Snake
             // 
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(0, 1087);
+            this.btnStart.Location = new System.Drawing.Point(0, 1346);
             this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(873, 66);
@@ -93,7 +95,7 @@ namespace Snake
             this.pnlVelocita.Controls.Add(this.trackBarVelocita);
             this.pnlVelocita.Controls.Add(this.lblVelocita);
             this.pnlVelocita.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlVelocita.Location = new System.Drawing.Point(0, 887);
+            this.pnlVelocita.Location = new System.Drawing.Point(0, 1146);
             this.pnlVelocita.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlVelocita.Name = "pnlVelocita";
             this.pnlVelocita.Size = new System.Drawing.Size(873, 100);
@@ -134,6 +136,8 @@ namespace Snake
             // pnlLivelli
             // 
             this.pnlLivelli.BackColor = System.Drawing.Color.Transparent;
+            this.pnlLivelli.Controls.Add(this.lblColorSnakePlayer2);
+            this.pnlLivelli.Controls.Add(this.pnlColorsPlayer2);
             this.pnlLivelli.Controls.Add(this.picLogo);
             this.pnlLivelli.Controls.Add(this.pnlNumeroGiocatori);
             this.pnlLivelli.Controls.Add(this.pnlDimensioneCampo);
@@ -150,8 +154,26 @@ namespace Snake
             this.pnlLivelli.Location = new System.Drawing.Point(0, 0);
             this.pnlLivelli.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlLivelli.Name = "pnlLivelli";
-            this.pnlLivelli.Size = new System.Drawing.Size(873, 987);
+            this.pnlLivelli.Size = new System.Drawing.Size(873, 1246);
             this.pnlLivelli.TabIndex = 2;
+            // 
+            // lblColorSnakePlayer2
+            // 
+            this.lblColorSnakePlayer2.AutoSize = true;
+            this.lblColorSnakePlayer2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColorSnakePlayer2.Location = new System.Drawing.Point(295, 481);
+            this.lblColorSnakePlayer2.Name = "lblColorSnakePlayer2";
+            this.lblColorSnakePlayer2.Size = new System.Drawing.Size(414, 25);
+            this.lblColorSnakePlayer2.TabIndex = 19;
+            this.lblColorSnakePlayer2.Text = "Seleziona il colore del serpente del giocatore 2";
+            // 
+            // pnlColorsPlayer2
+            // 
+            this.pnlColorsPlayer2.Location = new System.Drawing.Point(224, 289);
+            this.pnlColorsPlayer2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pnlColorsPlayer2.Name = "pnlColorsPlayer2";
+            this.pnlColorsPlayer2.Size = new System.Drawing.Size(224, 240);
+            this.pnlColorsPlayer2.TabIndex = 14;
             // 
             // picLogo
             // 
@@ -169,7 +191,7 @@ namespace Snake
             this.pnlNumeroGiocatori.Controls.Add(this.radioButtonMultiplayer);
             this.pnlNumeroGiocatori.Controls.Add(this.radioButtonSinglePlayer);
             this.pnlNumeroGiocatori.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 687);
+            this.pnlNumeroGiocatori.Location = new System.Drawing.Point(0, 946);
             this.pnlNumeroGiocatori.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlNumeroGiocatori.Name = "pnlNumeroGiocatori";
             this.pnlNumeroGiocatori.Size = new System.Drawing.Size(873, 100);
@@ -219,7 +241,7 @@ namespace Snake
             this.pnlDimensioneCampo.Controls.Add(this.trackBarDimensioneCampo);
             this.pnlDimensioneCampo.Controls.Add(this.lblDimensioneCampo);
             this.pnlDimensioneCampo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 787);
+            this.pnlDimensioneCampo.Location = new System.Drawing.Point(0, 1046);
             this.pnlDimensioneCampo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDimensioneCampo.Name = "pnlDimensioneCampo";
             this.pnlDimensioneCampo.Size = new System.Drawing.Size(873, 100);
@@ -321,7 +343,7 @@ namespace Snake
             this.pnlNickname.Controls.Add(this.txtNome);
             this.pnlNickname.Controls.Add(this.lblNome);
             this.pnlNickname.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlNickname.Location = new System.Drawing.Point(0, 987);
+            this.pnlNickname.Location = new System.Drawing.Point(0, 1246);
             this.pnlNickname.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlNickname.Name = "pnlNickname";
             this.pnlNickname.Size = new System.Drawing.Size(873, 100);
@@ -417,7 +439,7 @@ namespace Snake
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 1153);
+            this.ClientSize = new System.Drawing.Size(873, 1412);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.pnlLivelli);
             this.Controls.Add(this.pnlNickname);
@@ -486,5 +508,7 @@ namespace Snake
         private System.Windows.Forms.TextBox txtNamePlayer2;
         private System.Windows.Forms.Label lblNamePlayer2;
         private System.Windows.Forms.PictureBox picLogo;
+        private System.Windows.Forms.Panel pnlColorsPlayer2;
+        private System.Windows.Forms.Label lblColorSnakePlayer2;
     }
 }

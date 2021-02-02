@@ -30,7 +30,7 @@ namespace Snake
             tongue = Keys.Space;
             */
 
-            sizeQuadrato = 16;
+            sizeQuadrato = 24;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace Snake
             // 
             // pnlButtons
             // 
-            this.pnlButtons.BackColor = System.Drawing.Color.Yellow;
+            this.pnlButtons.BackColor = System.Drawing.Color.Transparent;
             this.pnlButtons.Controls.Add(this.btnSalva);
             this.pnlButtons.Controls.Add(this.btnDefaultSettings);
             this.pnlButtons.Location = new System.Drawing.Point(0, 670);
@@ -107,7 +107,7 @@ namespace Snake
             // 
             // pnlSettingsQuadratini
             // 
-            this.pnlSettingsQuadratini.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.pnlSettingsQuadratini.BackColor = System.Drawing.Color.Transparent;
             this.pnlSettingsQuadratini.Controls.Add(this.lblSizeQuadrati);
             this.pnlSettingsQuadratini.Controls.Add(this.trackBarSizeQuadrati);
             this.pnlSettingsQuadratini.Location = new System.Drawing.Point(0, 556);
@@ -128,7 +128,7 @@ namespace Snake
             // trackBarSizeQuadrati
             // 
             this.trackBarSizeQuadrati.Location = new System.Drawing.Point(227, 22);
-            this.trackBarSizeQuadrati.Maximum = 32;
+            this.trackBarSizeQuadrati.Maximum = 64;
             this.trackBarSizeQuadrati.Minimum = 8;
             this.trackBarSizeQuadrati.Name = "trackBarSizeQuadrati";
             this.trackBarSizeQuadrati.Size = new System.Drawing.Size(104, 56);
@@ -139,7 +139,7 @@ namespace Snake
             // 
             // pnlSettingsPlayer2
             // 
-            this.pnlSettingsPlayer2.BackColor = System.Drawing.Color.Wheat;
+            this.pnlSettingsPlayer2.BackColor = System.Drawing.Color.Transparent;
             this.pnlSettingsPlayer2.Controls.Add(this.lblPlayer2SettingsPrint);
             this.pnlSettingsPlayer2.Controls.Add(this.cmbKeyLeftPlayer2);
             this.pnlSettingsPlayer2.Controls.Add(this.lblUpPlayer2);
@@ -263,7 +263,7 @@ namespace Snake
             // 
             // pnlSettingsPlayer1
             // 
-            this.pnlSettingsPlayer1.BackColor = System.Drawing.Color.Turquoise;
+            this.pnlSettingsPlayer1.BackColor = System.Drawing.Color.Transparent;
             this.pnlSettingsPlayer1.Controls.Add(this.lblPlayer1SettingsPrint);
             this.pnlSettingsPlayer1.Controls.Add(this.lblUp);
             this.pnlSettingsPlayer1.Controls.Add(this.cmbKeyTongue);
@@ -387,7 +387,7 @@ namespace Snake
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.Color.Violet;
+            this.pnlTop.BackColor = System.Drawing.Color.Transparent;
             this.pnlTop.Controls.Add(this.lblTitolo);
             this.pnlTop.Controls.Add(this.cmbNumPlayers);
             this.pnlTop.Controls.Add(this.lblNumPlayers);
@@ -430,12 +430,14 @@ namespace Snake
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(632, 843);
             this.Controls.Add(this.pnlSettingsPlayer2);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.pnlSettingsPlayer1);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlSettingsQuadratini);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Settings";

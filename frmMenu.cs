@@ -34,7 +34,9 @@ namespace Snake
         public Classifica classifica;
         private List<Image> lstPreviewLevels = new List<Image>();
         private List<Color> lstColor = new List<Color>();
+        private List<Color> lstColorPlayer2 = new List<Color>();
         private Color color = Color.Orange;
+        private Color colorPlayer2 = Color.Cyan;
         private Player player1;
         private Player player2;
 
@@ -57,10 +59,29 @@ namespace Snake
             player2 = new Player(Color.White, 2, "");
 
             frmSnake.GetNomiFile(ref rootNomiFileMenu);
-            
+
+            try
+            {
+                BackgroundImage = Image.FromFile("Data/imgs/background.jpg");
+                BackgroundImageLayout = ImageLayout.Stretch;
+            }
+            catch (FileNotFoundException)
+            {
+                BackgroundImage = null;
+            }
+            catch (OutOfMemoryException)
+            {
+                BackgroundImage = null;
+            }
+            catch (ArgumentException)
+            {
+                BackgroundImage = null;
+            }
+
             GetPictures();
             InizializzaPic();
             CreatePicColors();
+            CreatePicColorsPlayer2();
             InizializzaButtons();
             InizializzaGraficaMenu();
         }
@@ -86,6 +107,8 @@ namespace Snake
                     {
                         player1.ChangeName(txtNamePlayer2.Text);
                         player2.ChangeName(txtNamePlayer2.Text);
+                        player1.ChangeColor(color);
+                        player2.ChangeColor(colorPlayer2);
                         //string nomePlayer1 = txtNome.Text;
                         //string nomePlayer2 = txtNamePlayer2.Text;
                         //Color colorPlayer2 = Color.Red;
@@ -206,6 +229,7 @@ namespace Snake
                 pictureBox.Visible = true;
                 pictureBox.Enabled = true;
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox.BackColor = Color.Transparent;
                 pictureBox.Size = new Size(30, 41);
                 pictureBox.Location = new Point(85, 50);
                 pnlColors.Controls.Add(pictureBox);
@@ -241,12 +265,68 @@ namespace Snake
                 {
                     pictureBox.Location = new Point(pic.Location.X + 5, pic.Location.Y + pic.Height + 5);
                     color = pic.BackColor;
-                    Console.WriteLine(color);
                 };
                 pnlColors.Controls.Add(pic);
             }
             pnlColors.Size = new Size(this.Size.Width, 103);
             pnlColors.Location = new Point((this.Size.Width - 400) / 2, lblColorSnake.Location.Y  + lblColorSnake.Height + 15);
+        }
+
+        private void CreatePicColorsPlayer2()
+        {   
+            lblColorSnakePlayer2.Location = new Point(this.Width / 2 - lblColorSnakePlayer2.Width / 2, pnlColors.Location.Y + pnlColors.Height + 15);
+            
+            PictureBox pictureBox = new PictureBox();
+            try
+            {
+                pictureBox.Image = Image.FromFile("Data/imgs/selectionArrow.png");
+                pictureBox.Visible = true;
+                pictureBox.Enabled = true;
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pictureBox.BackColor = Color.Transparent;
+                pictureBox.Size = new Size(30, 41);
+                pictureBox.Location = new Point(85, 50);
+                pnlColorsPlayer2.Controls.Add(pictureBox);
+            }
+            catch (FileNotFoundException)
+            {
+                pictureBox.Visible = false;
+                pictureBox.Enabled = false;
+            }
+
+
+            lstColorPlayer2.Add(Color.Pink);
+            lstColorPlayer2.Add(Color.Red);
+            lstColorPlayer2.Add(Color.Orange);
+            lstColorPlayer2.Add(Color.Yellow);
+            lstColorPlayer2.Add(Color.LightGreen);
+            lstColorPlayer2.Add(Color.DarkGreen);
+            lstColorPlayer2.Add(Color.Cyan);
+            lstColorPlayer2.Add(Color.Blue);
+            lstColorPlayer2.Add(Color.Purple);
+            lstColorPlayer2.Add(Color.White);
+
+            for (int i = 0; i < lstColorPlayer2.Count; i++)
+            {
+                PictureBox pic = new PictureBox();
+                pic.Enabled = true;
+                pic.Visible = true;
+                pic.BackColor = lstColor[i];
+                pic.BorderStyle = BorderStyle.FixedSingle;
+                pic.Size = new Size(40, 40);
+                pic.Location = new Point(i * 40, 5);
+                pic.Click += delegate
+                {
+                    pictureBox.Location = new Point(pic.Location.X + 5, pic.Location.Y + pic.Height + 5);
+                    colorPlayer2 = pic.BackColor;
+                };
+                pnlColorsPlayer2.Controls.Add(pic);
+            }
+            pnlColorsPlayer2.Size = new Size(this.Size.Width, 103);
+            pnlColorsPlayer2.Location = new Point((this.Size.Width - 400) / 2, lblColorSnakePlayer2.Location.Y + lblColorSnakePlayer2.Height + 15);
+
+            pnlColorsPlayer2.Enabled = false;
+            pnlColorsPlayer2.Visible = false;
         }
 
         private void GetPictures()
@@ -342,6 +422,12 @@ namespace Snake
 
         private void radioButtonMultiplayer_CheckedChanged(object sender, EventArgs e)
         {
+            lblColorSnakePlayer2.Enabled = true;
+            lblColorSnakePlayer2.Visible = true;
+
+            pnlColorsPlayer2.Enabled = true;
+            pnlColorsPlayer2.Visible = true;
+
             pnlNickname.Size = new Size(pnlNickname.Width, 200);
 
             lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 4 - lblNome.Height / 2);
@@ -353,10 +439,19 @@ namespace Snake
             pnlNicknamePlayer2.Visible = true;
             txtNamePlayer2.Location = new Point(lblNamePlayer2.Location.X + lblNamePlayer2.Width + 25, pnlNicknamePlayer2.Height / 2 - txtNamePlayer2.Height / 2);
 
+            //if (resize)
+               // this.Size = new Size(this.Width, this.Height + 738);
+            //Height += 123;
         }
 
         private void radioButtonSinglePlayer_CheckedChanged(object sender, EventArgs e)
         {
+            lblColorSnakePlayer2.Enabled = false;
+            lblColorSnakePlayer2.Visible = false;
+
+            pnlColorsPlayer2.Enabled = false;
+            pnlColorsPlayer2.Visible = false;
+
             pnlNickname.Size = new Size(pnlNickname.Width, 100);
 
             lblNome.Location = new Point(lblVelocita.Location.X, pnlNickname.Height / 2 - lblNome.Height / 2);
@@ -366,6 +461,10 @@ namespace Snake
 
             pnlNicknamePlayer2.Enabled = false;
             pnlNicknamePlayer2.Visible = false;
+
+            //if (resize)
+                //this.Size = new Size(this.Width, this.Height - 738);
+            //Height -= 123;
         }
 
         private void UpdatePics(int index)

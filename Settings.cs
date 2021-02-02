@@ -63,14 +63,14 @@ namespace Snake
 
         private void SetPositions()
         {
-            this.Size = new Size(400, 1200);
+            this.Size = new Size(400, 630);
 
             pnlTop.Location = new Point(0, 0);
 
-            lblTitolo.Location = new Point(Width / 2 - lblTitolo.Size.Width / 2, 20);
+            lblTitolo.Location = new Point(this.Width / 2 - lblTitolo.Size.Width / 2, 20);
 
-            lblNumPlayers.Location = new Point(Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
-            cmbNumPlayers.Location = new Point(Width / 2 + 20, lblNumPlayers.Location.Y);
+            lblNumPlayers.Location = new Point(this.Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
+            cmbNumPlayers.Location = new Point(this.Width / 2 + 20, lblNumPlayers.Location.Y);
             
             pnlTop.Size = new Size(Width, cmbNumPlayers.Location.Y + cmbNumPlayers.Height + 15);
 
@@ -80,7 +80,7 @@ namespace Snake
             SetPositionForPlayerSettings(lblPlayer2SettingsPrint, lblUpPlayer2, cmbKeyUpPlayer2, lblLeftPlayer2, cmbKeyLeftPlayer2, lblDownPlayer2, cmbKeyDownPlayer2, lblRightPlayer2, cmbKeyRightPlayer2, lblUseTonguePlayer2, cmbKeyTonguePlayer2, pnlSettingsPlayer2);
 
             pnlSettingsPlayer1.Location = new Point(0, pnlTop.Location.Y + pnlTop.Height);
-            pnlSettingsPlayer2.Size = new Size(Width, 0);
+            pnlSettingsPlayer2.Size = new Size(this.Width, 0);
             pnlSettingsPlayer2.Location = new Point(0, pnlSettingsPlayer1.Location.Y + pnlSettingsPlayer1.Height);
 
             //pnlSettingsPlayers.Location = new Point(0, pnlTop.Height);
@@ -90,7 +90,7 @@ namespace Snake
 
             //pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayers.Location.Y + pnlSettingsPlayers.Height);
             pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayer2.Location.Y + pnlSettingsPlayer2.Height);
-            pnlSettingsQuadratini.Size = new Size(Width, 110);
+            pnlSettingsQuadratini.Size = new Size(this.Width, 110);
 
             lblSizeQuadrati.Text = "Grandezza\nquadratini";
             lblSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 8, pnlSettingsQuadratini.Height / 2 - lblSizeQuadrati.Height / 2);
@@ -99,10 +99,17 @@ namespace Snake
 
             //pnlButtons.Size = new Size(this.Width - 30 * 2, 85);
             //pnlButtons.Location = new Point(30, lblSizeQuadrati.Location.Y + lblSizeQuadrati.Size.Height + 35);
-            pnlButtons.Size = new Size(Width, 85);
+            pnlButtons.Size = new Size(this.Width, 85);
             pnlButtons.Location = new Point(0, pnlSettingsQuadratini.Location.Y + pnlSettingsQuadratini.Height);
             pnlButtons.Controls.Add(btnDefaultSettings);
             pnlButtons.Controls.Add(btnSalva);
+
+            pnlTop.Width = pnlButtons.Width;
+            pnlSettingsPlayer1.Width = pnlButtons.Width;
+            pnlSettingsPlayer2.Width = pnlButtons.Width;
+            pnlSettingsQuadratini.Width = pnlButtons.Width;
+
+            MetodoAggiustaTuttoComeBob();
 
             //pnlTop.Width = pnlButtons.Width;
 
@@ -110,7 +117,42 @@ namespace Snake
 
             btnSalva.Size = btnDefaultSettings.Size;
 
-            this.Size = new Size(400, pnlTop.Height + pnlSettingsPlayer1.Height + pnlSettingsPlayer2.Height + pnlSettingsQuadratini.Height + pnlButtons.Height);
+            this.Size = new Size(400, pnlTop.Height + pnlSettingsPlayer1.Height + pnlSettingsQuadratini.Height + pnlButtons.Height);
+        }
+
+        private void MetodoAggiustaTuttoComeBob()
+        {
+            //pnlTop.Location = new Point(0, 0);
+
+            lblTitolo.Location = new Point(this.Width / 2 - lblTitolo.Size.Width / 2, 20);
+
+            lblNumPlayers.Location = new Point(this.Width / 2 - lblNumPlayers.Width - 20, lblTitolo.Location.Y + lblTitolo.Height + 20);
+            cmbNumPlayers.Location = new Point(this.Width / 2 + 20, lblNumPlayers.Location.Y);
+
+            //pnlTop.Size = new Size(Width, cmbNumPlayers.Location.Y + cmbNumPlayers.Height + 15);
+
+            //pnlSettingsPlayers.Size = new Size(Width, 500);
+
+            SetPositionForPlayerSettings(lblPlayer1SettingsPrint, lblUp, cmbKeyUp, lblLeft, cmbKeyLeft, lblDown, cmbKeyDown, lblRight, cmbKeyRight, lblUseTongue, cmbKeyTongue, pnlSettingsPlayer1);
+            SetPositionForPlayerSettings(lblPlayer2SettingsPrint, lblUpPlayer2, cmbKeyUpPlayer2, lblLeftPlayer2, cmbKeyLeftPlayer2, lblDownPlayer2, cmbKeyDownPlayer2, lblRightPlayer2, cmbKeyRightPlayer2, lblUseTonguePlayer2, cmbKeyTonguePlayer2, pnlSettingsPlayer2);
+
+            pnlSettingsPlayer1.Location = new Point(0, pnlTop.Location.Y + pnlTop.Height);
+            //pnlSettingsPlayer2.Size = new Size(this.Width, 0);
+            pnlSettingsPlayer2.Location = new Point(0, pnlSettingsPlayer1.Location.Y + pnlSettingsPlayer1.Height);
+
+            //pnlSettingsPlayers.Location = new Point(0, pnlTop.Height);
+            //pnlSettingsPlayers.Size = new Size(Width, pnlSettingsPlayer1.Height + 3);
+
+            //pnlSettingsPlayer1.Location = new Point(0, 0);
+
+            //pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayers.Location.Y + pnlSettingsPlayers.Height);
+            pnlSettingsQuadratini.Location = new Point(0, pnlSettingsPlayer2.Location.Y + pnlSettingsPlayer2.Height);
+            //pnlSettingsQuadratini.Size = new Size(this.Width, 110);
+
+            lblSizeQuadrati.Text = "Grandezza\nquadratini";
+            lblSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 8, pnlSettingsQuadratini.Height / 2 - lblSizeQuadrati.Height / 2);
+            trackBarSizeQuadrati.Location = new Point(pnlSettingsQuadratini.Width / 3, lblSizeQuadrati.Location.Y);
+            trackBarSizeQuadrati.Size = new Size(pnlSettingsQuadratini.Width - trackBarSizeQuadrati.Location.X - 30, 72);
         }
 
         private void SetPositionForPlayerSettings(Label lblPlayerNumber, Label lblUp, ComboBox cmbKeyUp, Label lblLeft, ComboBox cmbKeyLeft, Label lblDown, ComboBox cmbKeyDown, Label lblRight, ComboBox cmbKeyRight, Label lblUseTongue, ComboBox cmbKeyTongue, Panel pnlPlayer)
@@ -134,7 +176,9 @@ namespace Snake
             
             int heightPnlSettings = cmbKeyTongue.Location.Y + cmbKeyTongue.Height - lblPlayerNumber.Location.Y;
 
-            pnlPlayer.Size = new Size(Width, heightPnlSettings + 20);
+            pnlPlayer.Height = heightPnlSettings + 20;
+
+            //pnlPlayer.Size = new Size(this.Width, heightPnlSettings + 20);
 
             /*
             int heightForm = pnlTop.Height + pnlSettingsPlayers.Height + pnlSettingsQuadratini.Height + pnlButtons.Height;
