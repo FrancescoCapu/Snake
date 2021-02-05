@@ -31,7 +31,7 @@ namespace Snake
             muro = 1
         }
 
-        protected static Elementi[,] campoGioco;
+        protected Elementi[,] campoGioco;
         protected frmMenu nomeChiamante;
         protected int heightCampoGioco, widthCampoGioco;
         protected Serpente serpente;
@@ -91,7 +91,7 @@ namespace Snake
                 livello = new Livello();
                 rootNomiFile = new RootNomiFile();
                 CaricamentoLivello();
-                Inizializza(heightCampoGioco, widthCampoGioco, ref pnlCampoGioco, ref pnlElementiDinamici); //, ref pnlScore);
+                Inizializza(heightCampoGioco, widthCampoGioco, ref pnlCampoGioco, ref pnlElementiDinamici, ref pnlScore, ref lblScore, ref lblTotalScore); //, ref pnlScore);
                 serpente = new Serpente(livello.head.X, livello.head.Y);
                 posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
                 cibo = new Cibo(widthCampoGioco, heightCampoGioco);
@@ -115,7 +115,7 @@ namespace Snake
         /// <param name="Width"></param>
         /// <param name="pnlCampo">pnlCampoGioco</param>
         /// <param name="pnlSnake">pnlElementiDinamici</param>
-        private void Inizializza(int height, int width, ref Panel pnlCampo, ref Panel pnlSnake) //, ref Panel pnlScore)
+        private void Inizializza(int height, int width, ref Panel pnlCampo, ref Panel pnlSnake, ref Panel pnlScore, ref Label lblScore, ref Label lblTotalScore) //, ref Panel pnlScore)
         {
             campoGioco = new Elementi[width, height];
             for (int i = 0; i < GetWidth(); i++)
@@ -132,9 +132,13 @@ namespace Snake
             pnlSnake.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato);
             pnlSnake.Location = new Point(0, 0);
             pnlSnake.BorderStyle = BorderStyle.None;
+            pnlScore.Location = new Point(0, pnlCampo.Height);
+            pnlScore.Size = new Size(GetWidth() * Config.sizeQuadrato + 4, 100);
+            lblScore.Location = new Point(25, pnlScore.Height / 2 - lblScore.Height / 2);
+            lblTotalScore.Location = new Point(lblScore.Location.X + lblScore.Width + 15, lblScore.Location.Y);
             //pnlScore.Location = new Point(0, GetHeigth() * Config.sizeQuadrato);
             //pnlCampo.Controls.Add(pnlScore);
-            this.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato); // + pnlScore.Height);
+            this.Size = new Size(GetWidth() * Config.sizeQuadrato, GetHeigth() * Config.sizeQuadrato + pnlScore.Height); // + pnlScore.Height);
         }
 
         /// <summary>
@@ -371,7 +375,7 @@ namespace Snake
         /// ritorna l'altezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        public static int GetWidth()
+        public int GetWidth()
         {
             return campoGioco.GetLength(0);
         }
@@ -380,7 +384,7 @@ namespace Snake
         /// ritorna la larghezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        public static int GetHeigth()
+        public int GetHeigth()
         {
             return campoGioco.GetLength(1);
         }
@@ -394,6 +398,8 @@ namespace Snake
         {
             //LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
             LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec, ref tmr);
+            if (((Timer)sender) == tmr)
+                UpdateTotalScore(ref lblTotalScore, serpente);
         }
 
         //protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
@@ -501,6 +507,16 @@ namespace Snake
                 tasto = Tasto.destra;
             else if (e.KeyCode == player.tongue)
                 s.useTongue = true;
+        }
+
+        protected virtual void UpdateTotalScore(ref Label lblTotalScore, Serpente s1, Serpente s2 = null)
+        {
+            int total;
+            if (s2 == null)
+                total = s1.GetLength();
+            else
+                total = s1.GetLength() + s2.GetLength();
+            lblTotalScore.Text = total.ToString();
         }
 
         /// <summary>

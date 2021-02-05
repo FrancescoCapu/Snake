@@ -25,6 +25,8 @@ namespace Snake
 
         private void Classifica_Load(object sender, EventArgs e)
         {
+            lblSelezioneLivello.Location = new Point(Width / 2 - lblSelezioneLivello.Width - 15, lblSelezioneLivello.Location.Y);
+            cmbLevelSelected.Location = new Point(Width / 2 + 15, lblSelezioneLivello.Location.Y);
             frmSnake.GetNomiFile(ref rootNomiFile);
             for (int i = 0; i < rootNomiFile.nomeFileDaLeggere.Count; i++)
             {

@@ -43,7 +43,7 @@ namespace Snake
             // 
             this.cmbLevelSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbLevelSelected.FormattingEnabled = true;
-            this.cmbLevelSelected.Location = new System.Drawing.Point(579, 35);
+            this.cmbLevelSelected.Location = new System.Drawing.Point(174, 38);
             this.cmbLevelSelected.Name = "cmbLevelSelected";
             this.cmbLevelSelected.Size = new System.Drawing.Size(121, 33);
             this.cmbLevelSelected.TabIndex = 0;
@@ -56,7 +56,7 @@ namespace Snake
             this.pnlSelezioneLivello.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSelezioneLivello.Location = new System.Drawing.Point(0, 0);
             this.pnlSelezioneLivello.Name = "pnlSelezioneLivello";
-            this.pnlSelezioneLivello.Size = new System.Drawing.Size(924, 100);
+            this.pnlSelezioneLivello.Size = new System.Drawing.Size(635, 100);
             this.pnlSelezioneLivello.TabIndex = 1;
             // 
             // lblSelezioneLivello
@@ -75,24 +75,26 @@ namespace Snake
             this.pnlPirntClassifica.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPirntClassifica.Location = new System.Drawing.Point(0, 100);
             this.pnlPirntClassifica.Name = "pnlPirntClassifica";
-            this.pnlPirntClassifica.Size = new System.Drawing.Size(924, 418);
+            this.pnlPirntClassifica.Size = new System.Drawing.Size(635, 418);
             this.pnlPirntClassifica.TabIndex = 2;
             // 
             // dataGridViewClassifica
             // 
+            this.dataGridViewClassifica.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewClassifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewClassifica.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewClassifica.Name = "dataGridViewClassifica";
+            this.dataGridViewClassifica.ReadOnly = true;
             this.dataGridViewClassifica.RowHeadersWidth = 51;
             this.dataGridViewClassifica.RowTemplate.Height = 24;
-            this.dataGridViewClassifica.Size = new System.Drawing.Size(924, 418);
+            this.dataGridViewClassifica.Size = new System.Drawing.Size(635, 415);
             this.dataGridViewClassifica.TabIndex = 0;
             // 
             // Classifica
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 632);
+            this.ClientSize = new System.Drawing.Size(635, 516);
             this.Controls.Add(this.pnlPirntClassifica);
             this.Controls.Add(this.pnlSelezioneLivello);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

@@ -32,13 +32,23 @@ namespace Snake
 
         private void frmMultiplayer_Load(object sender, EventArgs e)
         {
-            serpente2 = new Serpente(GetWidth() - livello.head.X, GetHeigth() - livello.head.Y, true, false);
+            //serpente2 = new Serpente(GetWidth() - livello.head.X, GetHeigth() - livello.head.Y, true, false);
+            serpente2 = new Serpente(livello.head.X, GetHeigth() - livello.head.Y, true);
             StampaSerpente(ref serpente2, ref player2, ref pnlElementiDinamici, ref modQueueSerpente2, true);
             PrintTongue(ref serpente2, ref pnlElementiDinamici, ref pnlLingua2);
+            SetPositionForLblsScore();
             recordutente.NomePlayer = recordutente.NomePlayer + ", " + player2.Name;
             tmr.Enabled = false;
             tmrMulti.Interval = tmr.Interval;
             tmrMulti.Enabled = true;
+        }
+
+        protected void SetPositionForLblsScore()
+        {
+            LblScorePlayer1.Location = new Point(lblTotalScore.Location.X + lblTotalScore.Width + 60, lblScore.Location.Y);
+            LblPartialScorePlayer1.Location = new Point(LblScorePlayer1.Location.X + LblScorePlayer1.Width + 15, LblScorePlayer1.Location.Y);
+            LblScorePlayer2.Location = new Point(LblPartialScorePlayer1.Location.X + LblPartialScorePlayer1.Width + 30, LblPartialScorePlayer1.Location.Y);
+            LblPartialScorePlayer2.Location = new Point(LblScorePlayer2.Location.X + LblScorePlayer2.Width + 15, LblScorePlayer2.Location.Y);
         }
 
         protected override void frmSnake_KeyDown(object sender, KeyEventArgs e)
@@ -46,6 +56,14 @@ namespace Snake
             base.frmSnake_KeyDown(sender, e);
             if (e.KeyCode == player2.up || e.KeyCode == player2.left || e.KeyCode == player2.down || e.KeyCode == player2.right || e.KeyCode == player2.tongue)
                 TastoScelto(ref serpente2, ref e, player2, ref tasto2);
+        }
+
+        protected void UpdateTotalScore(ref Label lblTotalScore, ref Label lblPartialScorePlayer1, ref Label lblPartialScorePlayer2, Serpente s1, Serpente s2)
+        {
+            int total = s1.GetLength() + s2.GetLength();
+            lblTotalScore.Text = total.ToString();
+            lblPartialScorePlayer1.Text = s1.GetLength().ToString();
+            lblPartialScorePlayer2.Text = s2.GetLength().ToString();
         }
 
         protected override void tmr_Tick(object sender, EventArgs e)
@@ -62,6 +80,7 @@ namespace Snake
                 Tasto tastoTemp = Tasto.destra;
                 LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tastoTemp, ref tastoPrec, ref posLastPrec, ref tmr);
             }
+            UpdateTotalScore(ref lblTotalScore, ref LblPartialScorePlayer1, ref LblPartialScorePlayer2, serpente, serpente2);
         }
 
         private bool SerpToSerpCollision(Serpente s1, Serpente s2)

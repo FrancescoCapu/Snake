@@ -12,21 +12,13 @@ namespace Snake
         private List<Point> lstSerpente = new List<Point>(4);
         public bool useTongue;
 
-        public Serpente(int x, int y, bool leftToRight = true, bool player1 = true) : base(x, y)
+        public Serpente(int x, int y, bool leftToRight = true) : base(x, y)
         {
             if (leftToRight)
             {
-                if (player1)
-                    for (int i = 0; i < lstSerpente.Capacity; i++)
-                    {
-                        lstSerpente.Add(new Point(x - i, y));
-                    }
-                else
+                for (int i = 0; i < lstSerpente.Capacity; i++)
                 {
-                    for (int i = 0; i < lstSerpente.Capacity; i++)
-                    {
-                        lstSerpente.Add(new Point((x - i), frmSnake.GetHeigth() - y));
-                    }
+                    lstSerpente.Add(new Point(x - i, y));
                 }
             }
             else
