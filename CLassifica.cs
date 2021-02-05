@@ -35,16 +35,31 @@ namespace Snake
             cmbLevelSelected.SelectedIndex = 0;
 
             frmSnake.ReadClassifica(ref ranking, 0);
-            dataGridViewClassifica.ColumnCount = 2;
-
+            //dataGridViewClassifica.ColumnCount = 2;
             AddRows(ref dataGridViewClassifica, ref ranking);
         }
 
         private void cmbLevelSelected_SelectedIndexChanged(object sender, EventArgs e)
         {
-            frmSnake.ReadClassifica(ref ranking, cmbLevelSelected.SelectedIndex);
-            dataGridViewClassifica.ColumnCount = 2;
-            AddRows(ref dataGridViewClassifica, ref ranking);
+            try
+            {
+                dataGridViewClassifica.Rows.Clear();
+                if (!frmSnake.ReadClassifica(ref ranking, cmbLevelSelected.SelectedIndex))
+                    MessageBox.Show("Il livello selezionato non è ancora stato giocato. Provalo ora!",
+                    "Classifica non trovata",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                else
+                    AddRows(ref dataGridViewClassifica, ref ranking);
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            catch (IOException)
+            {
+
+            }
         }
 
         private void AddRows(ref DataGridView dgv, ref Ranking r)
@@ -52,7 +67,7 @@ namespace Snake
             dgv.Rows.Clear();
             for (int i = 0; i < r.ClassificaPunteggi.Count; i++)
             {
-                string temp = r.ClassificaPunteggi[i].NomePlayer + " | " + r.ClassificaPunteggi[i].PunteggioPlayer;
+                string temp = r.ClassificaPunteggi[i].NomePlayer + "|" + r.ClassificaPunteggi[i].PunteggioPlayer;
                 dgv.Rows.Add(temp.Split('|'));
             }
         }

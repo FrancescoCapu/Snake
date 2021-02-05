@@ -94,7 +94,7 @@ namespace Snake
                 {
                     if (radioButtonSinglePlayer.Checked)
                     {
-                        player1.ChangeName(txtNamePlayer2.Text);
+                        player1.ChangeName(txtNome.Text);
                         player1.ChangeColor(color);
                         Settings.ReadPreviousPlayerSettings(player1);
                         Settings.ReadPreviousViewConfig();
@@ -105,18 +105,28 @@ namespace Snake
                     }
                     else
                     {
-                        player1.ChangeName(txtNamePlayer2.Text);
-                        player2.ChangeName(txtNamePlayer2.Text);
-                        player1.ChangeColor(color);
-                        player2.ChangeColor(colorPlayer2);
-                        //string nomePlayer1 = txtNome.Text;
-                        //string nomePlayer2 = txtNamePlayer2.Text;
-                        //Color colorPlayer2 = Color.Red;
-                        Settings.ReadPreviousPlayerSettings(player1, false, player2);
-                        Settings.ReadPreviousViewConfig();
-                        frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, player2, numeroLivello);
-                        frmMultiplayer.Show();
-                        this.Hide();
+                        if (txtNamePlayer2.Text != "")
+                        {
+                            player1.ChangeName(txtNome.Text);
+                            player2.ChangeName(txtNamePlayer2.Text);
+                            player1.ChangeColor(color);
+                            player2.ChangeColor(colorPlayer2);
+                            //string nomePlayer1 = txtNome.Text;
+                            //string nomePlayer2 = txtNamePlayer2.Text;
+                            //Color colorPlayer2 = Color.Red;
+                            Settings.ReadPreviousPlayerSettings(player1, false, player2);
+                            Settings.ReadPreviousViewConfig();
+                            frmMultiplayer frmMultiplayer = new frmMultiplayer(this, heightCampoGioco, widthCampoGioco, timerInterval, player1, player2, numeroLivello);
+                            frmMultiplayer.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Inserisci un nickname per il giocatore 2 per poter iniziare la partita",
+                                "Attenzione",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation);
+                        }
                     }
                 }
                 else
@@ -126,7 +136,10 @@ namespace Snake
             }
             else
             {
-                MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (radioButtonSinglePlayer.Checked)
+                    MessageBox.Show("Inserisci un nickname per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    MessageBox.Show("Inserisci un nickname per il giocatore 1 per poter iniziare la partita", "Attenzione", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

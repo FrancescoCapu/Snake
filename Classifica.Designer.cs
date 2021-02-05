@@ -29,11 +29,14 @@ namespace Snake
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbLevelSelected = new System.Windows.Forms.ComboBox();
             this.pnlSelezioneLivello = new System.Windows.Forms.Panel();
             this.lblSelezioneLivello = new System.Windows.Forms.Label();
             this.pnlPirntClassifica = new System.Windows.Forms.Panel();
             this.dataGridViewClassifica = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlSelezioneLivello.SuspendLayout();
             this.pnlPirntClassifica.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClassifica)).BeginInit();
@@ -80,8 +83,12 @@ namespace Snake
             // 
             // dataGridViewClassifica
             // 
+            this.dataGridViewClassifica.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridViewClassifica.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewClassifica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewClassifica.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
             this.dataGridViewClassifica.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewClassifica.Name = "dataGridViewClassifica";
             this.dataGridViewClassifica.ReadOnly = true;
@@ -89,6 +96,25 @@ namespace Snake
             this.dataGridViewClassifica.RowTemplate.Height = 24;
             this.dataGridViewClassifica.Size = new System.Drawing.Size(635, 415);
             this.dataGridViewClassifica.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Column1.HeaderText = "Nickname";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 99;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Punteggio";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 125;
             // 
             // Classifica
             // 
@@ -117,5 +143,7 @@ namespace Snake
         private System.Windows.Forms.Label lblSelezioneLivello;
         private System.Windows.Forms.Panel pnlPirntClassifica;
         private System.Windows.Forms.DataGridView dataGridViewClassifica;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }

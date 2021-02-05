@@ -37,7 +37,7 @@ namespace Snake
             StampaSerpente(ref serpente2, ref player2, ref pnlElementiDinamici, ref modQueueSerpente2, true);
             PrintTongue(ref serpente2, ref pnlElementiDinamici, ref pnlLingua2);
             SetPositionForLblsScore();
-            recordutente.NomePlayer = recordutente.NomePlayer + ", " + player2.Name;
+            recordutente.NomePlayer +=  ",\n" + player2.Name;
             tmr.Enabled = false;
             tmrMulti.Interval = tmr.Interval;
             tmrMulti.Enabled = true;

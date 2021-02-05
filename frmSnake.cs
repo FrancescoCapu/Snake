@@ -640,7 +640,7 @@ namespace Snake
                 System.IO.Directory.CreateDirectory("Data/Classifica");
             string json = JsonConvert.SerializeObject(classifica);
             string nome = "Data/Classifica/classifica" + index + ".json";
-            System.IO.File.WriteAllText(@nome, json);
+            System.IO.File.WriteAllText(@nome, @json);
         }
 
         /// <summary>
@@ -648,25 +648,31 @@ namespace Snake
         /// </summary>
         /// <param name="c"></param>
         /// <param name="index"></param>
-        public static void ReadClassifica(ref Ranking c, int index)
+        public static bool ReadClassifica(ref Ranking c, int index)
         {
             try
             {
                 StreamReader reader = new StreamReader("Data/Classifica/classifica" + index + ".json");
                 c = JsonConvert.DeserializeObject<Ranking>(reader.ReadToEnd());
                 reader.Close();
+                return true;
             }
             catch (FileNotFoundException)
             {
-
+                return false;
             }
             catch (DirectoryNotFoundException)
             {
-
+                return false;
+            }
+            catch (IOException)
+            {
+                return false;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Errore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
         /// <summary>
@@ -678,7 +684,6 @@ namespace Snake
         {
             ReadClassifica(ref classifica, numLivello);
             recordutente.PunteggioPlayer = serpente.GetLength();
-            nomeChiamante.Show();
             classifica.ClassificaPunteggi.Add(recordutente);
             classifica.ClassificaPunteggi.Sort((s1, s2) => s2.PunteggioPlayer.CompareTo(s1.PunteggioPlayer));
             if (classifica.ClassificaPunteggi.Count > 10)
@@ -689,6 +694,7 @@ namespace Snake
                 }
             }
             SaveClassifica(ref classifica, numLivello);
+            nomeChiamante.Show();
         }
 
         /// <summary>
