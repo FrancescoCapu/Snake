@@ -49,6 +49,17 @@ namespace Snake
             LblPartialScorePlayer1.Location = new Point(LblScorePlayer1.Location.X + LblScorePlayer1.Width + 15, LblScorePlayer1.Location.Y);
             LblScorePlayer2.Location = new Point(LblPartialScorePlayer1.Location.X + LblPartialScorePlayer1.Width + 30, LblPartialScorePlayer1.Location.Y);
             LblPartialScorePlayer2.Location = new Point(LblScorePlayer2.Location.X + LblScorePlayer2.Width + 15, LblScorePlayer2.Location.Y);
+            if (LblPartialScorePlayer2.Location.X + LblPartialScorePlayer2.Width > Width)
+            {
+                LblScorePlayer1.Visible = false;
+                LblPartialScorePlayer1.Visible = false;
+                LblScorePlayer2.Visible = false;
+                LblPartialScorePlayer2.Visible = false;
+                LblScorePlayer1.Enabled = false;
+                LblPartialScorePlayer1.Enabled = false;
+                LblScorePlayer2.Enabled = false;
+                LblPartialScorePlayer2.Enabled = false;
+            }
         }
 
         protected override void frmSnake_KeyDown(object sender, KeyEventArgs e)
@@ -68,19 +79,23 @@ namespace Snake
 
         protected override void tmr_Tick(object sender, EventArgs e)
         {
-            base.tmr_Tick(sender, e);
-            LogicaGioco(ref serpente2, ref player2, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente2, ref pnlLingua2, ref lstPanelCibo, ref tasto2, ref tastoPrec2, ref posLastPrec2, ref tmrMulti, serpente2, SerpToSerpCollision(serpente, serpente2));
-            if (base.tasto != Tasto.fermo && tasto2 == Tasto.fermo)
+            //base.tmr_Tick(sender, e);
+            if (!gameOver)
             {
-                Tasto tastoTemp = Tasto.destra;
-                LogicaGioco(ref serpente2, ref player2, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente2, ref pnlLingua2, ref lstPanelCibo, ref tastoTemp, ref tastoPrec2, ref posLastPrec2, ref tmrMulti, serpente2, SerpToSerpCollision(serpente, serpente2));
+                LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec, ref tmr, serpente2);
+                LogicaGioco(ref serpente2, ref player2, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente2, ref pnlLingua2, ref lstPanelCibo, ref tasto2, ref tastoPrec2, ref posLastPrec2, ref tmrMulti, serpente, SerpToSerpCollision(serpente, serpente2), true);
+                if (base.tasto != Tasto.fermo && tasto2 == Tasto.fermo)
+                {
+                    Tasto tastoTemp = Tasto.destra;
+                    LogicaGioco(ref serpente2, ref player2, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente2, ref pnlLingua2, ref lstPanelCibo, ref tastoTemp, ref tastoPrec2, ref posLastPrec2, ref tmrMulti, serpente2, SerpToSerpCollision(serpente, serpente2));
+                }
+                else if (base.tasto == Tasto.fermo && tasto2 != Tasto.fermo)
+                {
+                    Tasto tastoTemp = Tasto.destra;
+                    LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tastoTemp, ref tastoPrec, ref posLastPrec, ref tmr);
+                }
+                UpdateTotalScore(ref lblTotalScore, ref LblPartialScorePlayer1, ref LblPartialScorePlayer2, serpente, serpente2);
             }
-            else if (base.tasto == Tasto.fermo && tasto2 != Tasto.fermo)
-            {
-                Tasto tastoTemp = Tasto.destra;
-                LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tastoTemp, ref tastoPrec, ref posLastPrec, ref tmr);
-            }
-            UpdateTotalScore(ref lblTotalScore, ref LblPartialScorePlayer1, ref LblPartialScorePlayer2, serpente, serpente2);
         }
 
         private bool SerpToSerpCollision(Serpente s1, Serpente s2)

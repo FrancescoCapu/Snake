@@ -51,6 +51,7 @@ namespace Snake
         //protected readonly Color color;
         protected const int TICK_TO_RESET_TONGUE = 3;
         protected Player player1;
+        protected bool gameOver = false;
 
         /// <summary>
         /// costruttore del form. bisogna passargli il nome della form chiamante, altezza e larghezza del campo gioco e intervallo del timer
@@ -403,7 +404,7 @@ namespace Snake
         }
 
         //protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
-        protected void LogicaGioco(ref Serpente s, ref Player player, ref Cibo c, ref Panel pnlSnake, ref ModQueue modQueueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente, ref Timer timer, Serpente s2 = null, bool multiplayerCollision = false)
+        protected void LogicaGioco(ref Serpente s, ref Player player, ref Cibo c, ref Panel pnlSnake, ref ModQueue modQueueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente, ref Timer timer, Serpente s2 = null, bool multiplayerCollision = false, bool invert = false)
         {
             switch (tasto)
             {
@@ -462,7 +463,12 @@ namespace Snake
             posLastPrecedente = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
             UpdateTongue(s.GetTongueX(), s.GetTongueY(), ref pnlTongue, ref tasto);
             if ((s.GetX(0) < 0 || s.GetX(0) > GetWidth() - 1 || s.GetY(0) < 0 || s.GetY(0) > GetHeigth() - 1) || Collisioni(ref s) || multiplayerCollision)
-                GameOver(timer, s, s2);
+            {
+                if (invert)
+                    GameOver(ref timer, s2, s);
+                else
+                    GameOver(ref timer, s, s2);
+            }
             else
             {
                 if (HasEaten(ref s, ref c))
@@ -474,13 +480,13 @@ namespace Snake
                 }
                 if (tasto != Tasto.fermo)
                     UpdateSnake(ref s, ref player, ref pnlSnake, ref modQueueSnake, false);
-            }
-            if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
-                s.IncCounterTongue();
-            else
-            {
-                ResetTongue(ref s, ref pnlTongue);
-                s.CountToStop = 0;
+                if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
+                    s.IncCounterTongue();
+                else
+                {
+                    ResetTongue(ref s, ref pnlTongue);
+                    s.CountToStop = 0;
+                }
             }
         }
 
@@ -616,8 +622,9 @@ namespace Snake
         /// <summary>
         /// chiude il gioco
         /// </summary>
-        protected virtual void GameOver(Timer timer, Serpente s1, Serpente s2 = null)
+        protected virtual void GameOver(ref Timer timer, Serpente s1, Serpente s2 = null)
         {
+            gameOver = true;
             timer.Enabled = false;
             if (s2 == null)
                 MessageBox.Show("GAME OVER\nPunteggio: " + s1.GetLength(), "GAME OVER");
