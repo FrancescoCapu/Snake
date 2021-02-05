@@ -31,7 +31,7 @@ namespace Snake
             muro = 1
         }
 
-        protected Elementi[,] campoGioco;
+        protected static Elementi[,] campoGioco;
         protected frmMenu nomeChiamante;
         protected int heightCampoGioco, widthCampoGioco;
         protected Serpente serpente;
@@ -86,7 +86,8 @@ namespace Snake
         /// <param name="e"></param>
         public void frmSnake_Load(object sender, EventArgs e)
         {
-            if (sender == this) {
+            
+            if ((sender) == this) {
                 livello = new Livello();
                 rootNomiFile = new RootNomiFile();
                 CaricamentoLivello();
@@ -94,7 +95,8 @@ namespace Snake
                 serpente = new Serpente(livello.head.X, livello.head.Y);
                 posLastPrec = new Point(serpente.GetX(serpente.GetLength() - 1), serpente.GetY(serpente.GetLength() - 1));
                 cibo = new Cibo(widthCampoGioco, heightCampoGioco);
-                AddMuri();
+                if (numLivello != 0)
+                    AddMuri();
                 StampaCampoGioco(ref pnlCampoGioco, ref pnlElementiDinamici);
                 //StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref queueSerpente);
                 StampaSerpente(ref serpente, ref player1, ref pnlElementiDinamici, ref modQueueSerpente);
@@ -103,6 +105,7 @@ namespace Snake
                 PrintFood(ref cibo, ref pnlElementiDinamici, ref lstPanelCibo);
                 classifica = new Ranking();
             }
+            
         }
 
         /// <summary>
@@ -230,7 +233,8 @@ namespace Snake
                     panel.Location = new Point(s.GetX(i) * Config.sizeQuadrato, s.GetY(i) * Config.sizeQuadrato);
                     panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                     panel.BorderStyle = BorderStyle.FixedSingle;
-                    panel.BackColor = player.GetColor();
+                    //panel.BackColor = player.GetColor();
+                    panel.BackColor = player.Color;
                     panel.Visible = true;
                     //queueSnake.Enqueue(panel); //se funziona usare questo
                     modQueue.Enqueue(panel);
@@ -245,7 +249,8 @@ namespace Snake
                     panel.Location = new Point(s.GetX(i) * Config.sizeQuadrato, s.GetY(i) * Config.sizeQuadrato);
                     panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                     panel.BorderStyle = BorderStyle.FixedSingle;
-                    panel.BackColor = player.GetColor();
+                    //panel.BackColor = player.GetColor();
+                    panel.BackColor = player.Color;
                     panel.Visible = true;
                     //queueSnake.Enqueue(panel); //se funziona usare questo
                     modQueue.Enqueue(panel);
@@ -270,10 +275,11 @@ namespace Snake
                 panel.Location = new Point(s.GetX(0) * Config.sizeQuadrato, s.GetY(0) * Config.sizeQuadrato);
                 panel.Size = new Size(Config.sizeQuadrato, Config.sizeQuadrato);
                 panel.BorderStyle = BorderStyle.FixedSingle;
-                panel.BackColor = player.GetColor();
+                //panel.BackColor = player.GetColor();
+                panel.BackColor = player.Color;
                 panel.Visible = true;
                 //queueSnake.Enqueue(panel);
-                modQueueSerpente.InserisciInTesta(panel);
+                modQueueSnake.InserisciInTesta(panel);
 
                 //Se si può evitare il for è meglio...
                 /*
@@ -283,7 +289,6 @@ namespace Snake
                     queueSnake.Enqueue(temp);
                 }
                 */
-
                 pnlSnake.Controls.Add(panel);
             }
             else
@@ -366,7 +371,7 @@ namespace Snake
         /// ritorna l'altezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        protected int GetWidth()
+        public static int GetWidth()
         {
             return campoGioco.GetLength(0);
         }
@@ -375,7 +380,7 @@ namespace Snake
         /// ritorna la larghezza del campo gioco
         /// </summary>
         /// <returns></returns>
-        protected int GetHeigth()
+        public static int GetHeigth()
         {
             return campoGioco.GetLength(1);
         }
@@ -388,11 +393,11 @@ namespace Snake
         protected virtual void tmr_Tick(object sender, EventArgs e)
         {
             //LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref queueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec);
-            LogicaGioco(ref serpente, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec, ref tmr);
+            LogicaGioco(ref serpente, ref player1, ref cibo, ref pnlElementiDinamici, ref modQueueSerpente, ref pnlLingua, ref lstPanelCibo, ref tasto, ref tastoPrec, ref posLastPrec, ref tmr);
         }
 
         //protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref Queue<Panel> queueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente)
-        protected void LogicaGioco(ref Serpente s, ref Cibo c, ref Panel pnlSnake, ref ModQueue modQueueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente, ref Timer timer, bool multiplayerCollision = false)
+        protected void LogicaGioco(ref Serpente s, ref Player player, ref Cibo c, ref Panel pnlSnake, ref ModQueue modQueueSnake, ref Panel pnlTongue, ref List<Panel> lstPnlCibo, ref Tasto tasto, ref Tasto tastoPrec, ref Point posLastPrecedente, ref Timer timer, Serpente s2 = null, bool multiplayerCollision = false)
         {
             switch (tasto)
             {
@@ -451,18 +456,18 @@ namespace Snake
             posLastPrecedente = new Point(s.GetX(s.GetLength() - 1), s.GetY(s.GetLength() - 1));
             UpdateTongue(s.GetTongueX(), s.GetTongueY(), ref pnlTongue, ref tasto);
             if ((s.GetX(0) < 0 || s.GetX(0) > GetWidth() - 1 || s.GetY(0) < 0 || s.GetY(0) > GetHeigth() - 1) || Collisioni(ref s) || multiplayerCollision)
-                GameOver(timer);
+                GameOver(timer, s, s2);
             else
             {
                 if (HasEaten(ref s, ref c))
                 {
                     IncSnake(ref s);
-                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref modQueueSnake, true);
+                    UpdateSnake(ref s, ref player, ref pnlSnake, ref modQueueSnake, true);
                     NewCibo(ref c, ref s);
                     UpdateFood(ref c, ref lstPnlCibo);
                 }
                 if (tasto != Tasto.fermo)
-                    UpdateSnake(ref s, ref player1, ref pnlSnake, ref modQueueSerpente, false);
+                    UpdateSnake(ref s, ref player, ref pnlSnake, ref modQueueSnake, false);
             }
             if (s.CountToStop != TICK_TO_RESET_TONGUE && s.useTongue)
                 s.IncCounterTongue();
@@ -509,7 +514,7 @@ namespace Snake
                 return true;
             else
             {
-                for (int i = 1; i < s.GetLength(); i++)
+                for (int i = 1; i < s.GetLength(); i++) // i potrebbe essere inizializzato direttamente come 5 anziché 1
                     if (s.GetX(0) == s.GetX(i) && s.GetY(0) == s.GetY(i))
                         return true;
                 return false;
@@ -595,10 +600,16 @@ namespace Snake
         /// <summary>
         /// chiude il gioco
         /// </summary>
-        protected virtual void GameOver(Timer timer)
+        protected virtual void GameOver(Timer timer, Serpente s1, Serpente s2 = null)
         {
             timer.Enabled = false;
-            MessageBox.Show("GAME OVER\nPunteggio: " + serpente.GetLength(), "GAME OVER ");
+            if (s2 == null)
+                MessageBox.Show("GAME OVER\nPunteggio: " + s1.GetLength(), "GAME OVER");
+            else
+            {
+                int tot = s1.GetLength() + s2.GetLength();
+                MessageBox.Show("GAME OVER\nPunteggio: " + tot + "\nGiocatore 1: " + s1.GetLength() + "\nGiocatore 2: " + s2.GetLength(), "GAME OVER");
+            }
             this.Close();
         }
 

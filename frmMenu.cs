@@ -231,15 +231,14 @@ namespace Snake
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.BackColor = Color.Transparent;
                 pictureBox.Size = new Size(30, 41);
-                pictureBox.Location = new Point(85, 50);
+                pictureBox.Location = new Point(2 * 40 + 5, 50);
                 pnlColors.Controls.Add(pictureBox);
             }
             catch (FileNotFoundException)
             {
                 pictureBox.Visible = false;
                 pictureBox.Enabled = false;
-            }
-                
+            }    
 
             lstColor.Add(Color.Pink);
             lstColor.Add(Color.Red);
@@ -285,7 +284,7 @@ namespace Snake
                 pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 pictureBox.BackColor = Color.Transparent;
                 pictureBox.Size = new Size(30, 41);
-                pictureBox.Location = new Point(85, 50);
+                pictureBox.Location = new Point(6 * 40 + 5, 50);
                 pnlColorsPlayer2.Controls.Add(pictureBox);
             }
             catch (FileNotFoundException)
