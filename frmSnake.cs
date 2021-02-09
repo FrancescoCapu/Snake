@@ -704,6 +704,39 @@ namespace Snake
             nomeChiamante.Show();
         }
 
+        protected virtual void btnPausa_Click(object sender, EventArgs e)
+        {
+            /*
+            tmr.Enabled = !tmr.Enabled;
+            if (tmr.Enabled)
+            {
+                try
+                {
+                    btnPausa.Image = Image.FromFile("Data/imgs/stop.png");
+                    btnPausa.Text = "";
+                }
+                catch
+                {
+                    btnPausa.Image = null;
+                    btnPausa.Text = "Pausa";
+                }
+            }
+            else 
+            {
+                try
+                {
+                    btnPausa.Image = Image.FromFile("Data/imgs/play.png");
+                    btnPausa.Text = "";
+                }
+                catch
+                {
+                    btnPausa.Image = null;
+                    btnPausa.Text = "Play";
+                }
+            }
+            */
+        }
+
         /// <summary>
         /// istanzia un nuovo cibo e controlla se la sua posizione è valida
         /// </summary>
